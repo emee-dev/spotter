@@ -1,0 +1,38 @@
+{
+  "name": "@spotter/web",
+  "description": "An open source lite weight solidstart observability framework.",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start",
+    "version": "vinxi version",
+    "ts:lint": "tsc --noEmit",
+    "xata:migrate": "xata pull main"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.1.0",
+    "@kobalte/core": "^0.13.7",
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.14.7",
+    "@solidjs/start": "^1.0.8",
+    "@xata.io/client": "0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
+    "autoprefixer": "^10.4.20",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-solid": "^0.454.0",
+    "postcss": "^8.4.47",
+    "rrweb": "2.0.0-alpha.4",
+    "solid-js": "^1.9.1",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss": "^3.4.14",
+    "tailwindcss-animate": "^1.0.7",
+    "vinxi": "^0.4.3",
+    "tsconfig": "workspace:*",
+    "@spotter/solidstart": "workspace:*"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">= 9.2.0"
+  }
+}

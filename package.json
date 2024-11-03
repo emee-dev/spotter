@@ -1,0 +1,27 @@
+{
+  "name": "spotter.dev",
+  "private": true,
+  "author": "Emmanuel Ajike",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "turbo run dev --filter=@spotter/web",
+    "build": "turbo run build --filter=@spotter/web",
+    "start": "turbo run start --filter=@spotter/web",
+    "build:sdk": "turbo run build --filter=@spotter/solidstart"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv-cli": "^7.3.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@xata.io/cli": "^0.16.11",
+    "cross-env": "^7.0.3",
+    "minimist": "^1.2.8",
+    "turbo": "^2.2.3"
+  },
+  "packageManager": "pnpm@9.2.0"
+}
