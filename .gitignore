@@ -13,7 +13,7 @@ app.config.timestamp_*.js
 .env*.local
 
 # dependencies
-/node_modules/
+node_modules/
 
 # IDEs and editors
 /.idea
