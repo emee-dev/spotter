@@ -8,35 +8,42 @@ const companies = [
     name: "shadcn/ui",
     author: "shadcn",
   },
-  {
-    img: "53986236",
-    link: "React Hook Forms",
-    name: "react-hook-form",
-    author: "react-hook-form",
-  },
-  {
-    img: "3084745",
-    link: "Zod",
-    name: "zod",
-    author: "colinhacks",
-  },
+  // {
+  //   img: "53986236",
+  //   link: "React Hook Forms",
+  //   name: "react-hook-form",
+  //   author: "react-hook-form",
+  // },
+  // {
+  //   img: "3084745",
+  //   link: "Zod",
+  //   name: "zod",
+  //   author: "colinhacks",
+  // },
   {
     img: "106016365",
     link: "Shadcn Extensions",
     name: "shadcn-extensions",
     author: "shadcn",
   },
+  // mine
   {
-    img: "19254700",
-    link: "shadcn-Phone-Input",
-    name: "shadcn-phone-input",
-    author: "shadcn",
+    img: "79226042",
+    link: "Solidstart",
+    name: "solidstart",
+    author: "solidstart",
   },
   {
-    img: "339286",
-    link: "Yup",
-    name: "yup",
-    author: "yup",
+    img: "14985020",
+    link: "Vercel Hosting",
+    name: "vercel.com",
+    author: "vercel",
+  },
+  {
+    img: "138932600",
+    link: "Unkey.dev",
+    name: "unkey.dev",
+    author: "kronark",
   },
 ];
 
@@ -45,12 +52,12 @@ export default function Logos() {
     <section id="logos">
       <div class="container mx-auto px-4 md:px-8 py-12">
         <h3 class="text-center text-sm font-semibold text-gray-500">
-          BUILD WITH USING
+          BUILT WITH
         </h3>
-        <div class="relative mt-6">
+        <div class="relative mt-6 select-none">
           <Marquee className="max-w-full [--duration:40s]">
             {companies.map((item) => (
-              <div class="h-10 w-40 dark:brightness-0 dark:invert grayscale opacity-30 flex items-center gap-1">
+              <div class="h-10 w-40 dark:brightness-0 dark:invert grayscale opacity-30 flex items-center gap-2">
                 <img
                   width={112}
                   height={40}

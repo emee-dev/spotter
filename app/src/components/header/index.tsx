@@ -1,5 +1,7 @@
-// import { Link } from "next-view-transitions";
 import { A } from "@solidjs/router";
+import { Github, Menu, Twitter } from "lucide-solid";
+import { For, Show } from "solid-js";
+import Logo from "~/assets/spotter.svg";
 import { Button } from "~/components/ui/button";
 import {
   Drawer,
@@ -8,14 +10,7 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "~/components/ui/drawer";
-
-// import { FaBrandsTwitter } from "solid-icons/fa";
-// import { IoLogoGithub, IoMenuSharp } from "solid-icons/io";
-
-import Logo from "~/assets/logo.svg";
-import { For, Show } from "solid-js";
 import { cn } from "~/lib/utils";
-import { Github, Menu, Twitter } from "lucide-solid";
 
 type Tabs = {
   name: string;
@@ -36,19 +31,18 @@ type Tabs = {
 };
 
 const tabs: Tabs[] = [
-  { name: "Readme", href: "/readme", variant: "link" },
   {
     name: "Roadmap",
     href: "https://shadcnform.featurebase.app/",
     variant: "arrow",
     isNewTab: true,
   },
-  { name: "Templates", href: "/templates", variant: "link" },
+  { name: "Pricing", href: "/pricing", variant: "link" },
   {
-    name: "Playground",
-    href: "/playground",
+    name: "Get started",
+    href: "/login",
     variant: "default",
-    class: "bg-primary text-white rounded-full px-2",
+    class: "bg-primary text-white rounded-full flex items-center px-4",
     isUpdated: false,
   },
 ];
@@ -56,7 +50,7 @@ const tabs: Tabs[] = [
 export default function Header() {
   return (
     <header class="max-w-5xl mx-auto flex justify-between items-center my-5 px-5 lg:px-0">
-      <A href="/" class="cursor-pointer">
+      <A href="/" class="cursor-pointer size-[48px] aspect-square">
         <Logo />
       </A>
 
@@ -81,21 +75,21 @@ export default function Header() {
           )}
         </For>
 
-        <A href="https://github.com/hasanharman/form-builder" target="_blank">
+        <A href="https://github.com/emee-dev/spotter" target="_blank">
           <Button variant="outline" class="rounded-full p-2">
-            <Github class="text-lg" />
+            <Github class="text-lg size-5" />
           </Button>
         </A>
-        <A href="https://x.com/strad3r" target="_blank">
+        <A href="https://x.com/___emee_" target="_blank">
           <Button variant="outline" class="rounded-full p-2">
-            {/* <FaXTwitter class="text-lg" /> */}
-            <Twitter class="text-lg" />
+            <Twitter class="text-lg size-5" />
           </Button>
         </A>
       </div>
 
       <div class="md:hidden">
         <Drawer>
+          {/* TODO this drawer is not working */}
           <DrawerTrigger>
             <Button variant="outline" class="rounded-full" size="icon">
               <Menu />
@@ -106,19 +100,15 @@ export default function Header() {
             <div class="mx-auto w-full max-w-sm flex flex-col gap-3">
               <DrawerFooter>
                 <div class="flex justify-end space-x-2">
-                  <A
-                    href="https://github.com/hasanharman/form-builder"
-                    target="_blank"
-                  >
+                  <A href="https://github.com/emee-dev/spotter" target="_blank">
                     <Button variant="outline" class="rounded-full p-2">
-                      {/* <LuGithub class="text-lg" /> */}
-                      <Github class="text-lg" />
+                      <Github class="text-lg size-4" />
                     </Button>
                   </A>
 
-                  <A href="https://x.com/strad3r" target="_blank">
+                  <A href="https://x.com/___emee_" target="_blank">
                     <Button variant="outline" class="rounded-full p-2">
-                      <Twitter class="text-lg" />
+                      <Twitter class="text-lg size-4" />
                     </Button>
                   </A>
                 </div>

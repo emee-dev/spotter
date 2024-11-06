@@ -1,14 +1,12 @@
-// import { createEffect, createSignal, For, onCleanup } from "solid-js";
+import { createEffect, createSignal, For, onCleanup } from "solid-js";
+import { Dynamic } from "solid-js/web";
+import Safari from "./safari";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import Safari from "./safari";
-import { cn } from "~/lib/utils";
-import { createEffect, createSignal, For, onCleanup } from "solid-js";
-import { Dynamic } from "solid-js/web";
 
 export type FeaturesDataProps = {
   id: number;
@@ -16,7 +14,7 @@ export type FeaturesDataProps = {
   content: string;
   image?: string;
   video?: string;
-  icon?: any; // Replace with JSX.Element for stricter typing if needed
+  icon?: any;
 };
 
 export type FeaturesProps = {
@@ -36,7 +34,6 @@ export default function Features({
   let carouselRef!: HTMLUListElement;
   let ref!: HTMLDivElement;
 
-  // Track visibility with an observer instead of React's `useInView`
   let isInView = false;
 
   createEffect(() => {
@@ -94,7 +91,7 @@ export default function Features({
                 <For each={data}>
                   {(item, index) => (
                     <AccordionItem
-                      class="relative mb-8 last:mb-0"
+                      class="relative mb-8  last:mb-0"
                       value={`item-${index()}`}
                     >
                       {linePosition === "left" || linePosition === "right" ? (
@@ -125,8 +122,8 @@ export default function Features({
                             class="w-6 h-6 text-primary"
                           />
                         </div>
-                        <div>
-                          <AccordionTrigger class="text-xl font-bold">
+                        <div class="">
+                          <AccordionTrigger class="text-xl  font-bold">
                             {item.title}
                           </AccordionTrigger>
                           <AccordionContent class="justify-start text-left leading-4 font-sans text-[16px]">

@@ -13,7 +13,6 @@ export default function FAQ() {
     <Section title="FAQ" subtitle="Frequently asked questions">
       <div class="mx-auto my-12 md:max-w-[800px]">
         <Accordion
-          //   type="single"
           collapsible
           multiple={false}
           class="flex w-full flex-col items-center justify-center space-y-2"

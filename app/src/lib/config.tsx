@@ -17,14 +17,19 @@ export const siteConfig = {
       question: "What is this tool for?",
       answer: (
         <span>
-          This tool simplifies the form-building process for developers,
-          particularly those using Next.js and related technologies.
+          This tool simplifies the fullstack web development experience,
+          offering incredible overview of all that happens in your product.
         </span>
       ),
     },
     {
       question: "Is this tool free?",
-      answer: <span>Yes, this tool is completely free and open-source.</span>,
+      answer: (
+        <span>
+          Yes, this tool is completely free and open-source. You may want to
+          support us by getting a paid plan.
+        </span>
+      ),
     },
     {
       question: "How often is it updated?",

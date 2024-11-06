@@ -53,7 +53,7 @@ const AccordionTrigger = <T extends ValidComponent = "button">(
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="size-4 shrink-0 transition-transform duration-200"
+          class="size-4 shrink-0 hidden bg-green-400 transition-transform duration-200"
         >
           <path d="M6 9l6 6l6 -6" />
         </svg>

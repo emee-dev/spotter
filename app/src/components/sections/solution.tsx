@@ -1,5 +1,4 @@
-// import { motion } from "framer-motion";
-
+import { For } from "solid-js";
 import FlickeringGrid from "~/components/magicui/flickering-grid";
 import Ripple from "~/components/magicui/ripple";
 import Safari from "~/components/safari";
@@ -7,11 +6,12 @@ import Section from "~/components/section";
 import { cn } from "~/lib/utils";
 
 export default function Component() {
+  // TODO add the images
   const features = [
     {
       title: "Code Snippets Ready for Use",
       description:
-        "Instantly integrate copy/paste-ready code into your projects, accelerating development without sacrificing quality.",
+        "Saves time on simplifing complex processes by automatically grouping all related API endpoints.",
       className: "hover:bg-red-500/10 transition-all duration-500 ease-out",
       content: (
         <Safari
@@ -22,9 +22,9 @@ export default function Component() {
       ),
     },
     {
-      title: "Simplified Validation Setup",
+      title: "Adhere to industry best practises.",
       description:
-        "Easily implement powerful form validations with support for both Zod and Yup, ensuring data accuracy with minimal effort.",
+        "Embrace API-specific best practices such as the use of authorization, SSL, encrypted HTTPS.",
       className:
         "order-3 xl:order-none hover:bg-blue-500/10 transition-all duration-500 ease-out",
       content: (
@@ -36,9 +36,9 @@ export default function Component() {
       ),
     },
     {
-      title: "Comprehensive Component Library",
+      title: "Efficient maintainance & Support",
       description:
-        "Access a complete set of pre-built components tailored for dynamic forms, saving you time and effort.",
+        "Simplifies maintenance and support by reducing complexities and ensuring seamless operations..",
       className:
         "md:row-span-2 hover:bg-orange-500/10 transition-all duration-500 ease-out",
       content: (
@@ -63,9 +63,9 @@ export default function Component() {
       ),
     },
     {
-      title: "Flexible Customization Options",
+      title: "Save developer time.",
       description:
-        "Customize form behavior effortlessly with support for Yup, server-side rendering, and other powerful tools.",
+        "Avoid writing time-consuming manual queries to understand API behaviours and usage in the production environment.",
       className:
         "flex-row order-4 md:col-span-2 md:flex-row xl:order-none hover:bg-green-500/10 transition-all duration-500 ease-out",
       content: (
@@ -84,27 +84,29 @@ export default function Component() {
 
   return (
     <Section
-      title="FORM-ULA"
-      subtitle="Form Building, But Make It Easy"
-      description="Effortless, customizable, and ready-to-copy form solutions that make developers feel like they’re cheating at the game of form creation!"
+      title="SPOTTER-ULA"
+      subtitle="Eliminate Manual Integration"
+      description="Let your developers focus on delivering better end-user experiences."
       className="bg-neutral-100 dark:bg-neutral-900"
     >
       <div class="mx-auto mt-16 grid max-w-sm grid-cols-1 gap-6 text-gray-500 md:max-w-3xl md:grid-cols-2 xl:grid-rows-2 md:grid-rows-3 xl:max-w-6xl xl:auto-rows-fr xl:grid-cols-3">
-        {features.map((feature, index) => (
-          <div
-            class={cn(
-              "group relative items-start overflow-hidden bg-neutral-50 dark:bg-neutral-800 p-6 rounded-2xl",
-              feature.className
-            )}
-          >
-            <div>
-              <h3 class="font-semibold mb-2 text-primary">{feature.title}</h3>
-              <p class="text-foreground">{feature.description}</p>
+        <For each={features}>
+          {(feature, index) => (
+            <div
+              class={cn(
+                "group relative items-start overflow-hidden bg-neutral-50 dark:bg-neutral-800 p-6 rounded-2xl",
+                feature.className
+              )}
+            >
+              <div>
+                <h3 class="font-semibold mb-2 text-primary">{feature.title}</h3>
+                <p class="text-foreground">{feature.description}</p>
+              </div>
+              {feature.content}
+              <div class="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-neutral-50 dark:from-neutral-900 pointer-events-none"></div>
             </div>
-            {feature.content}
-            <div class="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-neutral-50 dark:from-neutral-900 pointer-events-none"></div>
-          </div>
-        ))}
+          )}
+        </For>
       </div>
     </Section>
   );
