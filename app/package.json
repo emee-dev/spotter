@@ -14,6 +14,7 @@
     "@corvu/drawer": "^0.2.2",
     "@fontsource/inter": "^5.1.0",
     "@kobalte/core": "^0.13.7",
+    "@solid-primitives/intersection-observer": "^2.1.6",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.14.7",
     "@solidjs/start": "^1.0.8",

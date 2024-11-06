@@ -48,6 +48,9 @@ importers:
       '@kobalte/core':
         specifier: ^0.13.7
         version: 0.13.7(solid-js@1.9.3)
+      '@solid-primitives/intersection-observer':
+        specifier: ^2.1.6
+        version: 2.1.6(solid-js@1.9.3)
       '@solidjs/meta':
         specifier: ^0.29.4
         version: 0.29.4(solid-js@1.9.3)
@@ -1550,6 +1553,11 @@ packages:
 
   '@solid-primitives/event-listener@2.3.3':
     resolution: {integrity: sha512-DAJbl+F0wrFW2xmcV8dKMBhk9QLVLuBSW+TR4JmIfTaObxd13PuL7nqaXnaYKDWOYa6otB00qcCUIGbuIhSUgQ==}
+    peerDependencies:
+      solid-js: ^1.6.12
+
+  '@solid-primitives/intersection-observer@2.1.6':
+    resolution: {integrity: sha512-SeiCmN/R46Z+o9+5HhIQzSor0DqVPyo4ROLQMvCI8AsGZl/5nHlWzHTTbWPeukVUXTgb04wfC3DUo9IzF/XloA==}
     peerDependencies:
       solid-js: ^1.6.12
 
@@ -6774,6 +6782,11 @@ snapshots:
       '@sinonjs/commons': 3.0.1
 
   '@solid-primitives/event-listener@2.3.3(solid-js@1.9.3)':
+    dependencies:
+      '@solid-primitives/utils': 6.2.3(solid-js@1.9.3)
+      solid-js: 1.9.3
+
+  '@solid-primitives/intersection-observer@2.1.6(solid-js@1.9.3)':
     dependencies:
       '@solid-primitives/utils': 6.2.3(solid-js@1.9.3)
       solid-js: 1.9.3

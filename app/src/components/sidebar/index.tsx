@@ -1,7 +1,10 @@
 import {
   AlertCircle,
   BarChart2,
+  BellDot,
   ChevronDown,
+  Construction,
+  Home,
   Layout,
   Menu,
   MoreHorizontal,
@@ -9,10 +12,30 @@ import {
   Sparkles,
   X,
 } from "lucide-solid";
+import { For } from "solid-js";
+import { Dynamic } from "solid-js/web";
 
 // Sidebar Structure
 // Home
 // Projects -> tabs (requests, endpoints, actions, settings)
+
+const navItems = [
+  {
+    label: "Home",
+    icon: Home,
+    path: "/",
+  },
+  {
+    label: "Projects",
+    icon: Construction,
+    path: "/projects",
+  },
+  {
+    label: "Other",
+    icon: BellDot,
+    path: "/other",
+  },
+];
 
 const Sidebar = (props: {
   sidebarOpen: () => boolean;
@@ -44,27 +67,21 @@ const Sidebar = (props: {
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4">
-          <a
-            href="#"
-            class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
-          >
-            <Layout class="h-5 w-5" />
-            <span>Projects</span>
-          </a>
-          <a
-            href="#"
-            class="flex items-center gap-3 px-4 py-2 text-white bg-white/10"
-          >
-            <AlertCircle class="h-5 w-5" />
-            <span>Issues</span>
-          </a>
-          <a
-            href="#"
-            class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
-          >
-            <BarChart2 class="h-5 w-5" />
-            <span>Events</span>
-          </a>
+          {
+            <For each={navItems}>
+              {(item) => (
+                <a
+                  href={item.path}
+                  class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
+                  // active class
+                  // class="flex items-center gap-3 px-4 py-2 text-white bg-white/10"
+                >
+                  <Dynamic component={item.icon} class="h-5 w-5" />
+                  <span>{item.label}</span>
+                </a>
+              )}
+            </For>
+          }
         </nav>
       </div>
     </div>

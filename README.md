@@ -30,13 +30,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="../../app/public/spotter.svg" alt="Logo" width="80" height="80">
+    <img src="app/public/spotter.svg" alt="Logo" width="120px" height="120px">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Spotter</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    A fullstack observability framework, with first class solidstart support.
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -81,17 +81,17 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+When is comes to fullstack web development or even rest api development, there is a lot that could go wrong without proper planning. Some of the potential problems that could arise in this space includes not ahering to security best practises, inconsistent team collaboration, inadequate team communication etc
 
-Here's why:
+Here's why you need this:
 
-- Your time should be focused on creating something amazing. A project that solves a problem and helps others
-- You shouldn't be doing the same tasks over and over like creating a README from scratch
-- You should implement DRY principles to the rest of your life :smile:
+- Your time should be focused on solving a problem and providing amazing solutions.
+- The team should'nt have to worry about the number of api endpoints and what parameters they accept.
+- Get your api endpoints and actions evaluated for security best practises.
+- View the parameters, arguments and schemas for your endpoints and actions.
+- Get an overview of your product infrastructure, be it micro-service etc.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+The best part of all this is, you have nothing to lose, it is open source and cost efficient. We intend to provide you with the best service available. So
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,8 +107,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To set up the project locally, go ahead and do the following.
 
 ### Prerequisites
 
@@ -116,7 +115,7 @@ This is an example of how to list things you need to use the software and how to
 
 - npm
   ```sh
-  npm install npm@latest -g
+  npm install pnpm -g
   ```
 
 ### Installation
@@ -126,33 +125,39 @@ _Below is an example of how you can instruct your audience on installing and set
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/emee-dev/spotter.git
    ```
-3. Install NPM packages
+3. cd project folder
+   ```sh
+   cd spotter
+   ```
+4. Install dependencies
+
    ```sh
    npm install
+
+   or
+
+   pnpm install
    ```
-4. Enter your API in `config.js`
+
+5. Copy content from `.env.example` to `.env.local`
    ```js
    const API_KEY = "ENTER YOUR API";
    ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
+6. Launch project, by going to `http://localhost:3000` in your default browser.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+<!-- ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ROADMAP -->
 
@@ -236,6 +241,6 @@ Special shoutout to the following technologies or tools for their incredible con
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: app/public/product.png
 [SolidStart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
 [Solidstart-url]: https://start.solidjs.com/
