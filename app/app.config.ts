@@ -1,7 +1,8 @@
 import { defineConfig } from "@solidjs/start/config";
 import { dirname, resolve } from "node:path";
+import solidSvg from "vite-plugin-solid-svg";
 import { fileURLToPath } from "node:url";
-// import { Spotter } from "@spotter/solidstart";
+import { Spotter, withSpotter } from "@spotter/solidstart";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,14 +19,10 @@ const __dirname = dirname(__filename);
 // console.log(configInstance.isConfigDefined());
 
 export default defineConfig({
-  // vite: {
-  //   resolve: {
-  //     alias: {
-  //       "@": resolve(__dirname, "./src"),
-  //     },
-  //   },
-  // },
   server: {
     preset: "vercel",
+  },
+  vite: {
+    plugins: [solidSvg()],
   },
 });

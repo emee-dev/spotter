@@ -11,11 +11,13 @@
     "xata:migrate": "xata pull main"
   },
   "dependencies": {
+    "@corvu/drawer": "^0.2.2",
     "@fontsource/inter": "^5.1.0",
     "@kobalte/core": "^0.13.7",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.14.7",
     "@solidjs/start": "^1.0.8",
+    "@spotter/solidstart": "workspace:*",
     "@xata.io/client": "0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
@@ -23,13 +25,15 @@
     "lucide-solid": "^0.454.0",
     "postcss": "^8.4.47",
     "rrweb": "2.0.0-alpha.4",
+    "solid-icons": "^1.1.0",
     "solid-js": "^1.9.1",
+    "std-env": "^3.7.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7",
-    "vinxi": "^0.4.3",
     "tsconfig": "workspace:*",
-    "@spotter/solidstart": "workspace:*"
+    "vinxi": "^0.4.3",
+    "vite-plugin-solid-svg": "^0.8.1"
   },
   "engines": {
     "node": ">=18",

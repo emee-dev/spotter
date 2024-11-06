@@ -6,7 +6,8 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~/public*": ["./public/*"]
     }
   }
 }

@@ -1,136 +1,100 @@
-import {
-  AlertCircle,
-  BarChart2,
-  ChevronDown,
-  Layout,
-  Menu,
-  MoreHorizontal,
-  Search,
-  Sparkles,
-  X,
-} from "lucide-solid";
+import { RouteSectionProps } from "@solidjs/router";
+import { ChevronDown, Menu, Plus, Search, X } from "lucide-solid";
 import { createSignal } from "solid-js";
+import { LargeRequestCard, Payload } from "~/components/request-cards";
+import Sidebar from "~/components/sidebar";
 
 // Mock data with sparkline data points
-const issues = [
+const issues: Payload[] = [
   {
-    id: 1,
-    type: "TypeError",
-    message: "Failed to fetch",
-    project: "PLANT1000-ABC",
-    location: "apply(utils/src/instrumentation)",
-    timestamp: "3 min ago",
-    sparkline: [2, 5, 8, 12, 7, 9, 15, 20, 18, 16, 14, 12],
-    count: 798,
-    userCount: 826,
+    id: "1",
+    error: {
+      name: "TypeError",
+      message: "Failed to fetch resource",
+      location: "apply(utils/src/instrumentation)",
+    },
+    request: {
+      method: "GET",
+      url: "/projects/direct/backend/releases/v7210",
+      params: { projectId: "404" },
+      query: { search: "true" },
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+        "Accept-Language": "en-US,en;q=0.9",
+        Authorization: "Bearer some_token_here",
+      },
+    },
+    response: {
+      status: 404,
+      params: { errorCode: "404" },
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
+      },
+    },
+    platform: "mac",
+    timestamp: "2024-11-04T08:30:00Z",
   },
   {
-    id: 2,
-    type: "ForbiddenError",
-    message: "GET /projects/direct/backend/releases/v7210/404",
-    project: "PLANT1000-DEF",
-    location: "fetchData(app/components/HoverCard)",
-    timestamp: "5 hrs 25 min ago",
-    sparkline: [1, 3, 7, 5, 9, 11, 8, 6, 4, 7, 9, 12],
-    count: 130,
-    userCount: 196,
+    id: "2",
+    error: {
+      name: "ForbiddenError",
+      message: "User does not have permission to access this resource",
+      location: "fetchData(app/components/HoverCard)",
+    },
+    request: {
+      method: "POST",
+      url: "/api/user/update",
+      params: null,
+      query: null,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "Content-Type": "application/json",
+        Authorization: "Bearer another_token",
+      },
+    },
+    response: null,
+    platform: "win-32",
+    timestamp: "2024-11-04T03:05:00Z",
   },
   {
-    id: 3,
-    type: "NotAllowedError",
-    message: "GET /projects/direct/backend/releases/v7210/404",
-    project: "PLANT1000-ABC",
-    location: "fetchData(app/components/HoverCard)",
-    timestamp: "8 hrs 3 min ago",
-    sparkline: [5, 8, 12, 15, 10, 7, 9, 11, 13, 16, 14, 12],
-    count: 883,
-    userCount: 540,
+    id: "3",
+    error: {
+      name: "ZodSchemaError",
+      message: "Input validation failed for user input",
+      location: "validateData(app/forms/UserForm)",
+    },
+    request: {
+      method: "PUT",
+      url: "/api/user/12345",
+      params: { userId: "12345" },
+      query: { validate: "true" },
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10)",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+    response: {
+      status: 422,
+      params: { statusCode: "422" },
+      headers: {
+        "Content-Type": "application/json",
+        "Retry-After": "120",
+      },
+    },
+    platform: "android",
+    timestamp: "2024-11-03T18:45:00Z",
   },
 ];
 
-function Sparkline({ data }: { data: number[] }) {
-  const max = Math.max(...data);
-  const min = Math.min(...data);
-  const range = max - min;
-  const points = data
-    .map((value, index) => {
-      const x = (index / (data.length - 1)) * 100;
-      const y = 100 - ((value - min) / range) * 100;
-      return `${x},${y}`;
-    })
-    .join(" ");
-
-  return (
-    <svg class="h-8 w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <polyline
-        points={points}
-        fill="none"
-        stroke="currentColor"
-        stroke-width={2}
-        class="text-indigo-400"
-      />
-    </svg>
-  );
-}
-
 export default function ProjectsDashboard() {
-  const [searchQuery, setSearchQuery] = createSignal(
-    "is:unresolved is:for_review assigned_or_suggested:me,none"
-  );
+  const [searchQuery, setSearchQuery] = createSignal("");
   const [sidebarOpen, setSidebarOpen] = createSignal(false);
 
   return (
     <div class="flex h-screen bg-[#1a1625] text-white">
-      {/* Sidebar */}
-      <div
-        class={`fixed inset-y-0 left-0 z-50 w-64 bg-[#231f2e] transform ${
-          sidebarOpen() ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0`}
-      >
-        <div class="flex flex-col h-full">
-          <div class="flex items-center justify-between p-4">
-            <div class="flex items-center gap-3">
-              <div class="h-8 w-8 rounded bg-emerald-500 flex items-center justify-center">
-                <Sparkles class="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <div class="font-semibold">Empower Plant</div>
-                <div class="text-sm text-gray-400">Jane Schmidt</div>
-              </div>
-            </div>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              class="lg:hidden text-gray-400 hover:text-white"
-            >
-              <X class="h-6 w-6" />
-            </button>
-          </div>
-
-          <nav class="flex-1 overflow-y-auto py-4">
-            <a
-              href="#"
-              class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
-            >
-              <Layout class="h-5 w-5" />
-              <span>Projects</span>
-            </a>
-            <a
-              href="#"
-              class="flex items-center gap-3 px-4 py-2 text-white bg-white/10"
-            >
-              <AlertCircle class="h-5 w-5" />
-              <span>Issues</span>
-            </a>
-            <a
-              href="#"
-              class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
-            >
-              <BarChart2 class="h-5 w-5" />
-              <span>Events</span>
-            </a>
-          </nav>
-        </div>
-      </div>
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Main content */}
       <div class="flex-1 flex flex-col overflow-hidden">
@@ -142,7 +106,12 @@ export default function ProjectsDashboard() {
             <Menu class="h-6 w-6" />
           </button>
           <h1 class="text-xl font-semibold">Issues</h1>
-          <div class="w-6" /> {/* Spacer for alignment */}
+          <div class="">
+            <button class="flex text-sm items-center text-gray-400 hover:text-white">
+              <Plus class="size-4 mr-2" />
+              <span>Add API</span>
+            </button>
+          </div>{" "}
         </header>
 
         <div class="flex-1 overflow-auto p-4 space-y-4">
@@ -174,63 +143,29 @@ export default function ProjectsDashboard() {
 
           <div class="flex overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
             <button class="px-4 py-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full text-sm whitespace-nowrap">
-              All Unresolved <span class="text-gray-600 ml-1">241</span>
+              All requests <span class="text-gray-600 ml-1">241</span>
             </button>
             <button class="px-4 py-1.5 bg-white/10 text-white rounded-full text-sm whitespace-nowrap">
-              For Review <span class="text-gray-400 ml-1">7</span>
-            </button>
-            <button class="px-4 py-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full text-sm whitespace-nowrap">
-              Ignored <span class="text-gray-600 ml-1">81</span>
-            </button>
-            <button class="px-4 py-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full text-sm whitespace-nowrap">
-              Saved Searches
+              By Error <span class="text-gray-400 ml-1">7</span>
             </button>
           </div>
 
           <div class="space-y-2">
             {issues.map((issue) => (
-              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 bg-[#231f2e] rounded-lg hover:bg-[#2a2535] group">
-                <input
-                  type="checkbox"
-                  class="h-4 w-4 rounded border-gray-700 mt-1 sm:mt-0"
-                />
-                <div class="flex-1 min-w-0 space-y-1 sm:space-y-0">
-                  <div class="flex items-start sm:items-center gap-2 flex-wrap">
-                    <span class="font-medium">{issue.type}</span>
-                    <span class="text-gray-500 text-sm hidden sm:inline">
-                      {issue.location}
-                    </span>
-                  </div>
-                  <div class="text-sm text-gray-400 truncate">
-                    {issue.message}
-                  </div>
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="px-2 py-1 bg-[#1a1625] text-xs text-gray-400 rounded">
-                      New Issue
-                    </span>
-                    <span class="font-medium text-xs text-gray-400">
-                      {issue.project}
-                    </span>
-                    <span class="text-gray-500">{issue.timestamp}</span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto">
-                  {/* 
-                  
-                  <div class="flex-1 sm:w-32">
-                    <Sparkline data={issue.sparkline} />
-                  </div>
-                    */}
-
-                  <div class="text-right">
-                    <div class="font-medium">{issue.count}</div>
-                    <div class="text-gray-500 text-sm">{issue.userCount}</div>
-                  </div>
-                  <button class="p-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded opacity-0 group-hover:opacity-100">
-                    <MoreHorizontal class="h-5 w-5" />
-                  </button>
-                </div>
-              </div>
+              <LargeRequestCard
+                id={issue.id}
+                error={issue.error}
+                request={issue.request}
+                platform={issue.platform}
+                timestamp={issue.timestamp}
+                // response={issue.response}
+              />
+              // <SmallRequestCard
+              //   id={issue.id}
+              //   request={issue.request}
+              //   response={issue.response}
+              //   timestamp={issue.timestamp}
+              // />
             ))}
           </div>
         </div>

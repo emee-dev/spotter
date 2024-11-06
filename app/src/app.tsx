@@ -15,6 +15,7 @@ export default function App() {
         </MetaProvider>
       )}
     >
+      {/* <main class="min-h-[70vh]">{children}</main> */}
       <FileRoutes />
     </Router>
   );
