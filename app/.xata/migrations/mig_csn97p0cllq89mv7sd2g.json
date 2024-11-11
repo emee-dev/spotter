@@ -1,0 +1,27 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn97p0cllq89mv7sd2g",
+    "operations": [
+      {
+        "add_column": {
+          "up": "''",
+          "table": "projects",
+          "column": {
+            "pk": false,
+            "name": "baseUrl",
+            "type": "text",
+            "unique": false,
+            "comment": "",
+            "nullable": false
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn97p0cllq89mv7sd2g",
+  "parent": "mig_csn97eog9g9pf6lqvoe0",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:42:44.417276Z"
+}

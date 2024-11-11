@@ -1,60 +1,79 @@
 import { AlertTriangle, MoreHorizontal, XCircle } from "lucide-solid";
+import { Show } from "solid-js";
 
 export type Payload = {
   id: string;
   error: {
     name: string;
+    file: string;
+    line: number;
+    column: number;
     message: string;
-    location: string;
-  };
+    function: string;
+  } | null;
+  stack:
+    | {
+        file: string;
+        line: number;
+        column: number;
+        function: string;
+        method: string | null;
+      }[]
+    | null;
   request: {
     method: string;
     url: string;
-    params: {
-      [x: string]: string;
-    } | null;
-    query: {
-      [x: string]: string;
-    } | null;
-    headers: {
-      [x: string]: string;
-    } | null;
+    params: Record<string, string> | null;
+    query: Record<string, string> | null;
+    headers: Record<string, string> | null;
   };
   response: {
     status: number;
-    params: {
-      [x: string]: string;
-    } | null;
-    headers: {
-      [x: string]: string;
-    } | null;
+    params: Record<string, string> | null;
+    headers: Record<string, string> | null;
   } | null;
-  platform: string;
+  system: {
+    ip: string | null;
+    arch: string;
+    platform: string;
+  };
   timestamp: string;
 };
 
 export const LargeRequestCard = (props: {
   id: string;
   timestamp: string;
-  platform: string;
   error: Payload["error"];
+  system: Payload["system"];
   request: Payload["request"];
 }) => {
   return (
-    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 bg-[#231f2e] rounded-lg hover:bg-[#2a2535] group">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4  rounded-lg hover:bg-[#2a2535] group">
       <div class="pl-2 flex-1 min-w-0 space-y-1 sm:space-y-2">
-        <div class="flex items-start sm:items-center gap-2 flex-wrap">
-          <span class="font-medium text-sm">{props.error.name}</span>
-          <span class="text-gray-500 text-sm hidden sm:inline">
-            {props.error.location}
-          </span>
-        </div>
+        <Show
+          when={props.error}
+          fallback={
+            <div class="flex items-start sm:items-center gap-2 flex-wrap">
+              No error
+            </div>
+          }
+        >
+          {(error) => (
+            <div class="flex items-start sm:items-center gap-2 flex-wrap">
+              <span class="font-medium text-sm">{error().name}</span>
+              <span class="text-gray-500 text-sm hidden sm:inline">
+                {error().line}
+              </span>
+            </div>
+          )}
+        </Show>
+
         <div class="text-sm text-gray-400 space-x-3 truncate">
           <span>{props.request.method}</span> <span>{props.request.url}</span>
         </div>
         <div class="flex items-center gap-2 text-sm">
           <span class="font-medium text-xs text-gray-400">
-            {props.platform}
+            {props.system.platform}
           </span>
           <span class="text-gray-500">{props.timestamp}</span>
         </div>

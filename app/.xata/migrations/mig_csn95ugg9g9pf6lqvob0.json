@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn95ugg9g9pf6lqvob0",
+    "operations": [
+      {
+        "add_column": {
+          "table": "project_requests",
+          "column": {
+            "pk": false,
+            "name": "response",
+            "type": "json",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn95ugg9g9pf6lqvob0",
+  "parent": "mig_csn95p0g9g9pf6lqvoa0",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:38:51.065291Z"
+}

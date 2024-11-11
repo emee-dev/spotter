@@ -1,0 +1,20 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn98ch32vjpfm25jeb0",
+    "operations": [
+      {
+        "drop_column": {
+          "down": "''",
+          "table": "project_requests",
+          "column": "timestamp"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn98ch32vjpfm25jeb0",
+  "parent": "mig_csn984p32vjpfm25jea0",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:44:02.190375Z"
+}

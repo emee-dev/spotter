@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn94lgcllq89mv7scug",
+    "operations": [
+      {
+        "add_column": {
+          "table": "project_requests",
+          "column": {
+            "pk": false,
+            "name": "error",
+            "type": "json",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn94lgcllq89mv7scug",
+  "parent": "mig_csn949p32vjpfm25je90",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:36:07.4715Z"
+}

@@ -1,0 +1,27 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn949p32vjpfm25je90",
+    "operations": [
+      {
+        "add_column": {
+          "up": "''",
+          "table": "project_requests",
+          "column": {
+            "pk": false,
+            "name": "projectId",
+            "type": "text",
+            "unique": true,
+            "comment": "",
+            "nullable": false
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn949p32vjpfm25je90",
+  "parent": "mig_csn918132vjpfm25je80",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:35:19.718511Z"
+}

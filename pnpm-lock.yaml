@@ -22,7 +22,7 @@ importers:
         version: 2.2.3
     devDependencies:
       dotenv-cli:
-        specifier: ^7.3.0
+        specifier: ^7.4.2
         version: 7.4.2
       ts-node:
         specifier: ^10.9.2
@@ -42,12 +42,24 @@ importers:
       '@corvu/drawer':
         specifier: ^0.2.2
         version: 0.2.2(solid-js@1.9.3)
+      '@fontsource-variable/source-code-pro':
+        specifier: ^5.1.0
+        version: 5.1.0
+      '@fontsource/geist-sans':
+        specifier: ^5.1.0
+        version: 5.1.0
       '@fontsource/inter':
         specifier: ^5.1.0
         version: 5.1.0
       '@kobalte/core':
         specifier: ^0.13.7
         version: 0.13.7(solid-js@1.9.3)
+      '@prisma/client':
+        specifier: ^5.22.0
+        version: 5.22.0(prisma@5.22.0)
+      '@solid-primitives/clipboard':
+        specifier: ^1.5.10
+        version: 1.5.10(solid-js@1.9.3)
       '@solid-primitives/intersection-observer':
         specifier: ^2.1.6
         version: 2.1.6(solid-js@1.9.3)
@@ -55,38 +67,59 @@ importers:
         specifier: ^0.29.4
         version: 0.29.4(solid-js@1.9.3)
       '@solidjs/router':
-        specifier: ^0.14.7
-        version: 0.14.10(solid-js@1.9.3)
+        specifier: ^0.15.1
+        version: 0.15.1(solid-js@1.9.3)
       '@solidjs/start':
         specifier: ^1.0.8
-        version: 1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0))
+        version: 1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0))
       '@spotter/solidstart':
         specifier: workspace:*
         version: link:../packages/solidstart
+      '@spotter/types':
+        specifier: workspace:*
+        version: link:../packages/types
+      '@tailwindcss/typography':
+        specifier: ^0.5.15
+        version: 0.5.15(tailwindcss@3.4.14(ts-node@10.9.2(@types/node@22.8.7)(typescript@5.6.3)))
+      '@upstash/redis':
+        specifier: ^1.34.3
+        version: 1.34.3
       '@xata.io/client':
         specifier: 0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930
         version: 0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930(typescript@5.6.3)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
+      bcrypt:
+        specifier: ^5.1.1
+        version: 5.1.1
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      json-schema-to-zod:
+        specifier: ^2.4.1
+        version: 2.4.1
       lucide-solid:
         specifier: ^0.454.0
         version: 0.454.0(solid-js@1.9.3)
+      nanoid:
+        specifier: ^5.0.8
+        version: 5.0.8
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
+      prettier:
+        specifier: 2.6.2
+        version: 2.6.2
+      prisma:
+        specifier: ^5.22.0
+        version: 5.22.0
       rrweb:
         specifier: 2.0.0-alpha.4
         version: 2.0.0-alpha.4
-      solid-icons:
-        specifier: ^1.1.0
-        version: 1.1.0(solid-js@1.9.3)
       solid-js:
         specifier: ^1.9.1
         version: 1.9.3
@@ -107,10 +140,20 @@ importers:
         version: link:../packages/tsconfig
       vinxi:
         specifier: ^0.4.3
-        version: 0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+        version: 0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
       vite-plugin-solid-svg:
         specifier: ^0.8.1
         version: 0.8.1(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0))
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+      zod-to-json-schema:
+        specifier: ^3.23.5
+        version: 3.23.5(zod@3.23.8)
+    devDependencies:
+      '@types/bcrypt':
+        specifier: ^5.0.2
+        version: 5.0.2
 
   packages/solidstart:
     dependencies:
@@ -129,13 +172,28 @@ importers:
       node-os-utils:
         specifier: ^1.3.7
         version: 1.3.7
+      normalize-url:
+        specifier: ^8.0.1
+        version: 8.0.1
+      qs:
+        specifier: ^6.13.0
+        version: 6.13.0
+      request-ip:
+        specifier: ^3.3.0
+        version: 3.3.0
+      stack-trace:
+        specifier: 1.0.0-pre2
+        version: 1.0.0-pre2
       stacktracey:
         specifier: ^2.1.8
         version: 2.1.8
     devDependencies:
       '@solidjs/start':
         specifier: ^1.0.8
-        version: 1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@20.17.6)(terser@5.36.0))
+        version: 1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@20.17.6)(terser@5.36.0))
+      '@spotter/types':
+        specifier: workspace:*
+        version: link:../types
       '@types/axios':
         specifier: ^0.14.0
         version: 0.14.4
@@ -154,6 +212,15 @@ importers:
       '@types/node-os-utils':
         specifier: ^1.3.2
         version: 1.3.4
+      '@types/qs':
+        specifier: ^6.9.17
+        version: 6.9.17
+      '@types/request-ip':
+        specifier: ^0.0.41
+        version: 0.0.41
+      '@types/stack-trace':
+        specifier: ^0.0.33
+        version: 0.0.33
       '@types/supertest':
         specifier: ^2.0.16
         version: 2.0.16
@@ -186,6 +253,8 @@ importers:
         version: 5.6.3
 
   packages/tsconfig: {}
+
+  packages/types: {}
 
 packages:
 
@@ -991,6 +1060,12 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
+  '@fontsource-variable/source-code-pro@5.1.0':
+    resolution: {integrity: sha512-hbsT9vNrdAIqmBP7qLzzNvFthpb4zkYG5fXT+7KJdYYl8AJwEACzH1marO/bzqUlKnnT8e53cgFuFCEzzJ19qA==}
+
+  '@fontsource/geist-sans@5.1.0':
+    resolution: {integrity: sha512-4AI/UxIcZiYgK6/cTo4R9oM4VHHLcFdHVv7m2+M42VyY16hhKJADrGe4HPjTxvolmce2IZX/jc6sFJ+GkLB64w==}
+
   '@fontsource/inter@5.1.0':
     resolution: {integrity: sha512-zKZR3kf1G0noIes1frLfOHP5EXVVm0M7sV/l9f/AaYf+M/DId35FO4LkigWjqWYjTJZGgplhdv4cB+ssvCqr5A==}
 
@@ -1355,6 +1430,30 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
+  '@prisma/client@5.22.0':
+    resolution: {integrity: sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==}
+    engines: {node: '>=16.13'}
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+
+  '@prisma/debug@5.22.0':
+    resolution: {integrity: sha512-AUt44v3YJeggO2ZU5BkXI7M4hu9BF2zzH2iF2V5pyXT/lRTyWiElZ7It+bRH1EshoMRxHgpYg4VB6rCM+mG5jQ==}
+
+  '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2':
+    resolution: {integrity: sha512-2PTmxFR2yHW/eB3uqWtcgRcgAbG1rwG9ZriSvQw+nnb7c4uCr3RAcGMb6/zfE88SKlC1Nj2ziUvc96Z379mHgQ==}
+
+  '@prisma/engines@5.22.0':
+    resolution: {integrity: sha512-UNjfslWhAt06kVL3CjkuYpHAWSO6L4kDCVPegV6itt7nD1kSJavd3vhgAEhjglLJJKEdJ7oIqDJ+yHk6qO8gPA==}
+
+  '@prisma/fetch-engine@5.22.0':
+    resolution: {integrity: sha512-bkrD/Mc2fSvkQBV5EpoFcZ87AvOgDxbG99488a5cexp5Ccny+UM6MAe/UFkUC0wLYD9+9befNOqGiIJhhq+HbA==}
+
+  '@prisma/get-platform@5.22.0':
+    resolution: {integrity: sha512-pHhpQdr1UPFpt+zFfnPazhulaZYCUqeIcPpJViYoq9R+D/yw4fjE+CtnsnKzPYm0ddUbeXUzjGVGIRVgPDCk4Q==}
+
   '@redocly/ajv@8.11.2':
     resolution: {integrity: sha512-io1JpnwtIcvojV7QKDUSIuMN/ikdOUd1ReEnUnMKGfDVridQZ31J0MmIuqwuRjWDZfmvr+Q0MqCcfHM2gTivOg==}
 
@@ -1551,6 +1650,11 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
+  '@solid-primitives/clipboard@1.5.10':
+    resolution: {integrity: sha512-ohwlrBP4j+Qjksg01CFWaP/USpzX78dBNVA1DPRZkf/vJgytX0T6KMc2YxF6o8fs6ePIYSI8Nt3sKxF0sh1q+Q==}
+    peerDependencies:
+      solid-js: ^1.6.12
+
   '@solid-primitives/event-listener@2.3.3':
     resolution: {integrity: sha512-DAJbl+F0wrFW2xmcV8dKMBhk9QLVLuBSW+TR4JmIfTaObxd13PuL7nqaXnaYKDWOYa6otB00qcCUIGbuIhSUgQ==}
     peerDependencies:
@@ -1626,8 +1730,8 @@ packages:
     peerDependencies:
       solid-js: '>=1.8.4'
 
-  '@solidjs/router@0.14.10':
-    resolution: {integrity: sha512-5B8LVgvvXijfXyXWPVLUm7RQ05BhjIpAyRkYVDZtrR3OaSvftXobWc6qSEwk4ICLoGi/IE9CUp2LUdCBIs9AXg==}
+  '@solidjs/router@0.15.1':
+    resolution: {integrity: sha512-lb5BRBqQqii/1dQCglx2K68xLkgu7QcrcajWKuuEx6FHTsK/hp5IgVhjy6RzPMLj+SFyrrRi/ldirCFNxtzh0Q==}
     peerDependencies:
       solid-js: ^1.8.6
 
@@ -1640,6 +1744,11 @@ packages:
   '@szmarczak/http-timer@5.0.1':
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
+
+  '@tailwindcss/typography@0.5.15':
+    resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -1678,6 +1787,9 @@ packages:
 
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
+
+  '@types/bcrypt@5.0.2':
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
@@ -1760,14 +1872,17 @@ packages:
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
 
-  '@types/qs@6.9.16':
-    resolution: {integrity: sha512-7i+zxXdPD0T4cKDuxCUXJ4wHcsJLwENa6Z3dCu8cfCK743OGy5Nu1RmAGqDPsoTDINVEcdXKRvR/zre+P2Ku1A==}
+  '@types/qs@6.9.17':
+    resolution: {integrity: sha512-rX4/bPcfmvxHDv0XjfJELTTr+iB+tn032nPILqHm5wbthUUUuVtNGGqzhya9XUxjTP8Fpr0qYgSZZKxGY++svQ==}
 
   '@types/range-parser@1.2.7':
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
 
   '@types/react@18.3.12':
     resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
+
+  '@types/request-ip@0.0.41':
+    resolution: {integrity: sha512-Qzz0PM2nSZej4lsLzzNfADIORZhhxO7PED0fXpg4FjXiHuJ/lMyUg+YFF5q8x9HPZH3Gl6N+NOM8QZjItNgGKg==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -1780,6 +1895,9 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
+
+  '@types/stack-trace@0.0.33':
+    resolution: {integrity: sha512-O7in6531Bbvlb2KEsJ0dq0CHZvc3iWSR5ZYMtvGgnHA56VgriAN/AU2LorfmcvAl2xc9N5fbCTRyMRRl8nd74g==}
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -1804,6 +1922,9 @@ packages:
 
   '@types/yargs@17.0.33':
     resolution: {integrity: sha512-WpxBCKWPLr4xSsHgz511rFJAM+wS28w2zEO1QDNY5zM/S8ok70NNfztH0xwhqKyaK0OHCbN98LDAZuy1ctxDkA==}
+
+  '@upstash/redis@1.34.3':
+    resolution: {integrity: sha512-VT25TyODGy/8ljl7GADnJoMmtmJ1F8d84UXfGonRRF8fWYJz7+2J6GzW+a6ETGtk4OyuRTt7FRSvFG5GvrfSdQ==}
 
   '@vercel/nft@0.27.5':
     resolution: {integrity: sha512-b2A7M+4yMHdWKY7xCC+kBEcnMrpaSE84CnuauTjhKKoCEeej0byJMAB8h/RBVnw/HdZOAFVcxR0Izr3LL24FwA==}
@@ -2090,6 +2211,10 @@ packages:
   basic-ftp@5.0.5:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
+
+  bcrypt@5.1.1:
+    resolution: {integrity: sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==}
+    engines: {node: '>= 10.0.0'}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -2475,6 +2600,9 @@ packages:
 
   crossws@0.3.1:
     resolution: {integrity: sha512-HsZgeVYaG+b5zA+9PbIPGq4+J/CJynJuearykPsXx4V/eMhyQ5EDVg3Ak2FBZtVXCiOLu/U7IiwDHTr9MA+IKw==}
+
+  crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
 
   css-select@5.1.0:
     resolution: {integrity: sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==}
@@ -3585,6 +3713,10 @@ packages:
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
+  json-schema-to-zod@2.4.1:
+    resolution: {integrity: sha512-aMoez9TxgnfLAIZaWTPaQ+j7rOt1K9Ew/TBI85XcnhcFlo/47b1MDgpi4r07XndLSZWOX/KsJiRJvhdzSvo2Dw==}
+    hasBin: true
+
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
 
@@ -3648,6 +3780,9 @@ packages:
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
+  lodash.castarray@4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+
   lodash.chunk@4.2.0:
     resolution: {integrity: sha512-ZzydJKfUHJwHa+hF5X66zLFCBrWn5GeF28OHEr4WVWtNDXlQ/IjWKPBiikqKo2ne0+v6JgCgJ0GzJp8k8bHC7w==}
 
@@ -3660,8 +3795,14 @@ packages:
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
 
+  lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
+
   lodash.memoize@4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
+
+  lodash.merge@4.6.2:
+    resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
   lodash.pick@4.4.0:
     resolution: {integrity: sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==}
@@ -3869,6 +4010,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.0.8:
+    resolution: {integrity: sha512-TcJPw+9RV9dibz1hHUzlLVy8N4X9TnwirAjrU08Juo6BNKggzVfP2ZJ/3ZUSq15Xl5i85i+Z89XBO90pB2PghQ==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -3893,6 +4039,9 @@ packages:
     peerDependenciesMeta:
       xml2js:
         optional: true
+
+  node-addon-api@5.1.0:
+    resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
 
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
@@ -4305,6 +4454,10 @@ packages:
     peerDependencies:
       postcss: ^8.2.14
 
+  postcss-selector-parser@6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+
   postcss-selector-parser@6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
     engines: {node: '>=4'}
@@ -4315,6 +4468,11 @@ packages:
   postcss@8.4.47:
     resolution: {integrity: sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==}
     engines: {node: ^10 || ^12 || >=14}
+
+  prettier@2.6.2:
+    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
 
   prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
@@ -4335,6 +4493,11 @@ packages:
 
   printable-characters@1.0.42:
     resolution: {integrity: sha512-dKp+C4iXWK4vVYZmYSd0KBH5F/h1HoZRsbJ82AVKRO3PEo8L4lBS/vLwhVtpwwuYcoIsVY+1JYKR268yn480uQ==}
+
+  prisma@5.22.0:
+    resolution: {integrity: sha512-vtpjW3XuYCSnMsNVBjLMNkTj6OZbudcPPTPYHqX0CJfpcdWciI1dM8uHETwmDxxiqEwCIE6WvXucWUetJgfu/A==}
+    engines: {node: '>=16.13'}
+    hasBin: true
 
   proc-log@4.2.0:
     resolution: {integrity: sha512-g8+OnU/L2v+wyiVK+D5fA34J7EH8jZ8DDlvwhRCMxmMj7UCBvxiO1mGeN+36JXIKF4zevU4kRBd8lVgG9vLelA==}
@@ -4460,6 +4623,9 @@ packages:
     resolution: {integrity: sha512-b7wGPo7o2KE/g7SqkJDDbav6zmrEeP4TK2VpITU72J/M949TLe/23y/ZHJo+pskcGM52xIfFoT9hydwmgr1AEg==}
     engines: {node: '>= 0.10.0'}
     hasBin: true
+
+  request-ip@3.3.0:
+    resolution: {integrity: sha512-cA6Xh6e0fDBBBwH77SLJaJPBmD3nWVAcF9/XAcsrIHdjhFzFiB5aNQFytdjCGPezU3ROwrR11IddKAM08vohxA==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -4696,11 +4862,6 @@ packages:
     peerDependencies:
       solid-js: ^1.8
 
-  solid-icons@1.1.0:
-    resolution: {integrity: sha512-IesTfr/F1ElVwH2E1110s2RPXH4pujKfSs+koT8rwuTAdleO5s26lNSpqJV7D1+QHooJj18mcOiz2PIKs0ic+A==}
-    peerDependencies:
-      solid-js: '*'
-
   solid-js@1.9.3:
     resolution: {integrity: sha512-5ba3taPoZGt9GY3YlsCB24kCg0Lv/rie/HTD4kG6h4daZZz7+yK02xn8Vx8dLYBc9i6Ps5JwAbEiqjmKaLB3Ag==}
 
@@ -4757,6 +4918,10 @@ packages:
 
   sprintf-js@1.1.3:
     resolution: {integrity: sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==}
+
+  stack-trace@1.0.0-pre2:
+    resolution: {integrity: sha512-2ztBJRek8IVofG9DBJqdy2N5kulaacX30Nz7xmkYF6ale9WBVmIy6mFBchvGX7Vx/MyjBhx+Rcxqrj+dbOnQ6A==}
+    engines: {node: '>=16'}
 
   stack-utils@2.0.6:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
@@ -6043,6 +6208,10 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
+  '@fontsource-variable/source-code-pro@5.1.0': {}
+
+  '@fontsource/geist-sans@5.1.0': {}
+
   '@fontsource/inter@5.1.0': {}
 
   '@inquirer/checkbox@4.0.1(@types/node@22.8.7)':
@@ -6615,6 +6784,31 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
+  '@prisma/client@5.22.0(prisma@5.22.0)':
+    optionalDependencies:
+      prisma: 5.22.0
+
+  '@prisma/debug@5.22.0': {}
+
+  '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2': {}
+
+  '@prisma/engines@5.22.0':
+    dependencies:
+      '@prisma/debug': 5.22.0
+      '@prisma/engines-version': 5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2
+      '@prisma/fetch-engine': 5.22.0
+      '@prisma/get-platform': 5.22.0
+
+  '@prisma/fetch-engine@5.22.0':
+    dependencies:
+      '@prisma/debug': 5.22.0
+      '@prisma/engines-version': 5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2
+      '@prisma/get-platform': 5.22.0
+
+  '@prisma/get-platform@5.22.0':
+    dependencies:
+      '@prisma/debug': 5.22.0
+
   '@redocly/ajv@8.11.2':
     dependencies:
       fast-deep-equal: 3.1.3
@@ -6781,6 +6975,11 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
+  '@solid-primitives/clipboard@1.5.10(solid-js@1.9.3)':
+    dependencies:
+      '@solid-primitives/utils': 6.2.3(solid-js@1.9.3)
+      solid-js: 1.9.3
+
   '@solid-primitives/event-listener@2.3.3(solid-js@1.9.3)':
     dependencies:
       '@solid-primitives/utils': 6.2.3(solid-js@1.9.3)
@@ -6859,15 +7058,15 @@ snapshots:
     dependencies:
       solid-js: 1.9.3
 
-  '@solidjs/router@0.14.10(solid-js@1.9.3)':
+  '@solidjs/router@0.15.1(solid-js@1.9.3)':
     dependencies:
       solid-js: 1.9.3
 
-  '@solidjs/start@1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@20.17.6)(terser@5.36.0))':
+  '@solidjs/start@1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@20.17.6)(terser@5.36.0))':
     dependencies:
-      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
-      '@vinxi/server-components': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
-      '@vinxi/server-functions': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/server-components': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/server-functions': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
       defu: 6.1.4
       error-stack-parser: 2.1.4
       html-to-image: 1.11.11
@@ -6886,11 +7085,11 @@ snapshots:
       - vinxi
       - vite
 
-  '@solidjs/start@1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0))':
+  '@solidjs/start@1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0))':
     dependencies:
-      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
-      '@vinxi/server-components': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
-      '@vinxi/server-functions': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/server-components': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/server-functions': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
       defu: 6.1.4
       error-stack-parser: 2.1.4
       html-to-image: 1.11.11
@@ -6916,6 +7115,14 @@ snapshots:
   '@szmarczak/http-timer@5.0.1':
     dependencies:
       defer-to-connect: 2.0.1
+
+  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.14(ts-node@10.9.2(@types/node@22.8.7)(typescript@5.6.3)))':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.4.14(ts-node@10.9.2(@types/node@22.8.7)(typescript@5.6.3))
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
@@ -6963,6 +7170,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.0
 
+  '@types/bcrypt@5.0.2':
+    dependencies:
+      '@types/node': 20.17.6
+
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
@@ -6987,7 +7198,7 @@ snapshots:
   '@types/express-serve-static-core@4.19.6':
     dependencies:
       '@types/node': 20.17.6
-      '@types/qs': 6.9.16
+      '@types/qs': 6.9.17
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
 
@@ -6995,7 +7206,7 @@ snapshots:
     dependencies:
       '@types/body-parser': 1.19.5
       '@types/express-serve-static-core': 4.19.6
-      '@types/qs': 6.9.16
+      '@types/qs': 6.9.17
       '@types/serve-static': 1.15.7
 
   '@types/graceful-fs@4.1.9':
@@ -7056,7 +7267,7 @@ snapshots:
 
   '@types/prop-types@15.7.13': {}
 
-  '@types/qs@6.9.16': {}
+  '@types/qs@6.9.17': {}
 
   '@types/range-parser@1.2.7': {}
 
@@ -7064,6 +7275,10 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.13
       csstype: 3.1.3
+
+  '@types/request-ip@0.0.41':
+    dependencies:
+      '@types/node': 20.17.6
 
   '@types/resolve@1.20.2': {}
 
@@ -7079,6 +7294,8 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/node': 20.17.6
       '@types/send': 0.17.4
+
+  '@types/stack-trace@0.0.33': {}
 
   '@types/stack-utils@2.0.3': {}
 
@@ -7104,6 +7321,10 @@ snapshots:
   '@types/yargs@17.0.33':
     dependencies:
       '@types/yargs-parser': 21.0.3
+
+  '@upstash/redis@1.34.3':
+    dependencies:
+      crypto-js: 4.2.0
 
   '@vercel/nft@0.27.5':
     dependencies:
@@ -7145,7 +7366,7 @@ snapshots:
     transitivePeerDependencies:
       - uWebSockets.js
 
-  '@vinxi/plugin-directives@0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
+  '@vinxi/plugin-directives@0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
       '@babel/parser': 7.26.2
       acorn: 8.14.0
@@ -7156,9 +7377,9 @@ snapshots:
       magicast: 0.2.11
       recast: 0.23.9
       tslib: 2.8.1
-      vinxi: 0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+      vinxi: 0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
 
-  '@vinxi/plugin-directives@0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
+  '@vinxi/plugin-directives@0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
       '@babel/parser': 7.26.2
       acorn: 8.14.0
@@ -7169,51 +7390,51 @@ snapshots:
       magicast: 0.2.11
       recast: 0.23.9
       tslib: 2.8.1
-      vinxi: 0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+      vinxi: 0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
 
-  '@vinxi/server-components@0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
+  '@vinxi/server-components@0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
-      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
       acorn: 8.14.0
       acorn-loose: 8.4.0
       acorn-typescript: 1.4.13(acorn@8.14.0)
       astring: 1.9.0
       magicast: 0.2.11
       recast: 0.23.9
-      vinxi: 0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+      vinxi: 0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
 
-  '@vinxi/server-components@0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
+  '@vinxi/server-components@0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
-      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
       acorn: 8.14.0
       acorn-loose: 8.4.0
       acorn-typescript: 1.4.13(acorn@8.14.0)
       astring: 1.9.0
       magicast: 0.2.11
       recast: 0.23.9
-      vinxi: 0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+      vinxi: 0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
 
-  '@vinxi/server-functions@0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
+  '@vinxi/server-functions@0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
-      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
       acorn: 8.14.0
       acorn-loose: 8.4.0
       acorn-typescript: 1.4.13(acorn@8.14.0)
       astring: 1.9.0
       magicast: 0.2.11
       recast: 0.23.9
-      vinxi: 0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+      vinxi: 0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
 
-  '@vinxi/server-functions@0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
+  '@vinxi/server-functions@0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
-      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
+      '@vinxi/plugin-directives': 0.4.3(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))
       acorn: 8.14.0
       acorn-loose: 8.4.0
       acorn-typescript: 1.4.13(acorn@8.14.0)
       astring: 1.9.0
       magicast: 0.2.11
       recast: 0.23.9
-      vinxi: 0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
+      vinxi: 0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3)
 
   '@xata.io/cli@0.16.11(@types/node@22.8.7)(typescript@5.6.3)':
     dependencies:
@@ -7557,6 +7778,14 @@ snapshots:
   base64-js@1.5.1: {}
 
   basic-ftp@5.0.5: {}
+
+  bcrypt@5.1.1:
+    dependencies:
+      '@mapbox/node-pre-gyp': 1.0.11
+      node-addon-api: 5.1.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
 
   binary-extensions@2.3.0: {}
 
@@ -7934,6 +8163,8 @@ snapshots:
   crossws@0.3.1:
     dependencies:
       uncrypto: 0.1.3
+
+  crypto-js@4.2.0: {}
 
   css-select@5.1.0:
     dependencies:
@@ -9327,6 +9558,8 @@ snapshots:
 
   json-parse-even-better-errors@2.3.1: {}
 
+  json-schema-to-zod@2.4.1: {}
+
   json-schema-traverse@1.0.0: {}
 
   json5@2.2.3: {}
@@ -9393,6 +9626,8 @@ snapshots:
 
   lodash-es@4.17.21: {}
 
+  lodash.castarray@4.4.0: {}
+
   lodash.chunk@4.2.0: {}
 
   lodash.defaults@4.2.0: {}
@@ -9401,7 +9636,11 @@ snapshots:
 
   lodash.isequal@4.5.0: {}
 
+  lodash.isplainobject@4.0.6: {}
+
   lodash.memoize@4.1.2: {}
+
+  lodash.merge@4.6.2: {}
 
   lodash.pick@4.4.0: {}
 
@@ -9562,6 +9801,8 @@ snapshots:
 
   nanoid@3.3.7: {}
 
+  nanoid@5.0.8: {}
+
   natural-compare@1.4.0: {}
 
   natural-orderby@3.0.2: {}
@@ -9570,7 +9811,7 @@ snapshots:
 
   netmask@2.0.2: {}
 
-  nitropack@2.10.2(typescript@5.6.3):
+  nitropack@2.10.2(@upstash/redis@1.34.3)(typescript@5.6.3):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@netlify/functions': 2.8.2
@@ -9637,7 +9878,7 @@ snapshots:
       unctx: 2.3.1
       unenv: 1.10.0
       unimport: 3.13.1(rollup@4.24.3)
-      unstorage: 1.13.1(ioredis@5.4.1)
+      unstorage: 1.13.1(@upstash/redis@1.34.3)(ioredis@5.4.1)
       untyped: 1.5.1
       unwasm: 0.3.9
     transitivePeerDependencies:
@@ -9662,6 +9903,8 @@ snapshots:
       - supports-color
       - typescript
       - webpack-sources
+
+  node-addon-api@5.1.0: {}
 
   node-addon-api@7.1.1: {}
 
@@ -9974,6 +10217,11 @@ snapshots:
       postcss: 8.4.47
       postcss-selector-parser: 6.1.2
 
+  postcss-selector-parser@6.0.10:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+
   postcss-selector-parser@6.1.2:
     dependencies:
       cssesc: 3.0.0
@@ -9986,6 +10234,8 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  prettier@2.6.2: {}
 
   prettier@2.8.8: {}
 
@@ -10002,6 +10252,12 @@ snapshots:
       parse-ms: 2.1.0
 
   printable-characters@1.0.42: {}
+
+  prisma@5.22.0:
+    dependencies:
+      '@prisma/engines': 5.22.0
+    optionalDependencies:
+      fsevents: 2.3.3
 
   proc-log@4.2.0: {}
 
@@ -10143,6 +10399,8 @@ snapshots:
     dependencies:
       chalk: 2.4.2
       commander: 2.20.3
+
+  request-ip@3.3.0: {}
 
   require-directory@2.1.1: {}
 
@@ -10393,10 +10651,6 @@ snapshots:
       '@corvu/utils': 0.3.2(solid-js@1.9.3)
       solid-js: 1.9.3
 
-  solid-icons@1.1.0(solid-js@1.9.3):
-    dependencies:
-      solid-js: 1.9.3
-
   solid-js@1.9.3:
     dependencies:
       csstype: 3.1.3
@@ -10454,6 +10708,8 @@ snapshots:
   sprintf-js@1.0.3: {}
 
   sprintf-js@1.1.3: {}
+
+  stack-trace@1.0.0-pre2: {}
 
   stack-utils@2.0.6:
     dependencies:
@@ -10972,7 +11228,7 @@ snapshots:
       acorn: 8.14.0
       webpack-virtual-modules: 0.6.2
 
-  unstorage@1.13.1(ioredis@5.4.1):
+  unstorage@1.13.1(@upstash/redis@1.34.3)(ioredis@5.4.1):
     dependencies:
       anymatch: 3.1.3
       chokidar: 3.6.0
@@ -10985,6 +11241,7 @@ snapshots:
       ofetch: 1.4.1
       ufo: 1.5.4
     optionalDependencies:
+      '@upstash/redis': 1.34.3
       ioredis: 5.4.1
 
   untun@0.1.3:
@@ -11046,7 +11303,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vinxi@0.4.3(@types/node@20.17.6)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3):
+  vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.0)
@@ -11068,7 +11325,7 @@ snapshots:
       hookable: 5.5.3
       http-proxy: 1.18.1
       micromatch: 4.0.8
-      nitropack: 2.10.2(typescript@5.6.3)
+      nitropack: 2.10.2(@upstash/redis@1.34.3)(typescript@5.6.3)
       node-fetch-native: 1.6.4
       path-to-regexp: 6.3.0
       pathe: 1.1.2
@@ -11079,7 +11336,7 @@ snapshots:
       ufo: 1.5.4
       unctx: 2.3.1
       unenv: 1.10.0
-      unstorage: 1.13.1(ioredis@5.4.1)
+      unstorage: 1.13.1(@upstash/redis@1.34.3)(ioredis@5.4.1)
       vite: 5.4.10(@types/node@20.17.6)(terser@5.36.0)
       zod: 3.23.8
     transitivePeerDependencies:
@@ -11117,7 +11374,7 @@ snapshots:
       - webpack-sources
       - xml2js
 
-  vinxi@0.4.3(@types/node@22.8.7)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3):
+  vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.0)
@@ -11139,7 +11396,7 @@ snapshots:
       hookable: 5.5.3
       http-proxy: 1.18.1
       micromatch: 4.0.8
-      nitropack: 2.10.2(typescript@5.6.3)
+      nitropack: 2.10.2(@upstash/redis@1.34.3)(typescript@5.6.3)
       node-fetch-native: 1.6.4
       path-to-regexp: 6.3.0
       pathe: 1.1.2
@@ -11150,7 +11407,7 @@ snapshots:
       ufo: 1.5.4
       unctx: 2.3.1
       unenv: 1.10.0
-      unstorage: 1.13.1(ioredis@5.4.1)
+      unstorage: 1.13.1(@upstash/redis@1.34.3)(ioredis@5.4.1)
       vite: 5.4.10(@types/node@22.8.7)(terser@5.36.0)
       zod: 3.23.8
     transitivePeerDependencies:

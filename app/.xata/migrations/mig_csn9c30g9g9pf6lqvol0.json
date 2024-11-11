@@ -1,0 +1,27 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn9c30g9g9pf6lqvol0",
+    "operations": [
+      {
+        "add_column": {
+          "up": "''",
+          "table": "project_endpoints",
+          "column": {
+            "pk": false,
+            "name": "requestUrl",
+            "type": "text",
+            "unique": false,
+            "comment": "",
+            "nullable": false
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn9c30g9g9pf6lqvol0",
+  "parent": "mig_csn9bm8g9g9pf6lqvok0",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:51:56.852589Z"
+}

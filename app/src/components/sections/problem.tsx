@@ -36,7 +36,8 @@ export default function Component() {
           <For each={problems}>
             {(problem, index) => (
               //   <BlurFade key={index} delay={0.2 + index * 0.2} inView>
-              <Card class="bg-background border-none shadow-none">
+              // <Card class="bg-background border-none shadow-none">
+              <Card class="bg-muted border hover:shadow-md">
                 <CardContent class="p-6 space-y-4">
                   <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Dynamic

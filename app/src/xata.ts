@@ -8,58 +8,25 @@ import type {
 
 const tables = [
   {
-    name: "posts",
+    name: "project_endpoints",
     checkConstraints: {
-      posts_xata_id_length_xata_id: {
-        name: "posts_xata_id_length_xata_id",
+      project_endpoints_xata_id_length_xata_id: {
+        name: "project_endpoints_xata_id_length_xata_id",
         columns: ["xata_id"],
         definition: "CHECK ((length(xata_id) < 256))",
       },
     },
-    foreignKeys: {
-      fk_users: {
-        name: "fk_users",
-        columns: ["author"],
-        referencedTable: "users",
-        referencedColumns: ["xata_id"],
-        onDelete: "NO ACTION",
-      },
-    },
+    foreignKeys: {},
     primaryKey: [],
     uniqueConstraints: {
-      _pgroll_new_posts_xata_id_key: {
-        name: "_pgroll_new_posts_xata_id_key",
+      _pgroll_new_project_endpoints_xata_id_key: {
+        name: "_pgroll_new_project_endpoints_xata_id_key",
         columns: ["xata_id"],
       },
     },
     columns: [
       {
-        name: "author",
-        type: "link",
-        link: { table: "users" },
-        notNull: true,
-        unique: false,
-        defaultValue: null,
-        comment: '{"xata.link":"users"}',
-      },
-      {
-        name: "created_at",
-        type: "timestamp without time zone",
-        notNull: true,
-        unique: false,
-        defaultValue: null,
-        comment: "",
-      },
-      {
-        name: "labels",
-        type: "multiple",
-        notNull: true,
-        unique: false,
-        defaultValue: null,
-        comment: "",
-      },
-      {
-        name: "slug",
+        name: "projectId",
         type: "text",
         notNull: true,
         unique: false,
@@ -67,7 +34,7 @@ const tables = [
         comment: "",
       },
       {
-        name: "text",
+        name: "requestUrl",
         type: "text",
         notNull: true,
         unique: false,
@@ -75,16 +42,204 @@ const tables = [
         comment: "",
       },
       {
-        name: "title",
-        type: "text",
+        name: "xata_createdat",
+        type: "datetime",
         notNull: true,
         unique: false,
-        defaultValue: null,
+        defaultValue: "now()",
         comment: "",
       },
       {
-        name: "views",
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
         type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "project_requests",
+    checkConstraints: {
+      project_requests_xata_id_length_xata_id: {
+        name: "project_requests_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {
+      _pgroll_new_project_requests_xata_id_key: {
+        name: "_pgroll_new_project_requests_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "error",
+        type: "json",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "projectId",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "request",
+        type: "json",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "response",
+        type: "json",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "stack",
+        type: "json",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "system",
+        type: "json",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "timestamp",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "projects",
+    checkConstraints: {
+      projects_xata_id_length_xata_id: {
+        name: "projects_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {
+      _pgroll_new_projects_xata_id_key: {
+        name: "_pgroll_new_projects_xata_id_key",
+        columns: ["xata_id"],
+      },
+      projects_project_name_unique: {
+        name: "projects_project_name_unique",
+        columns: ["projectId"],
+      },
+    },
+    columns: [
+      {
+        name: "baseUrl",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "createdBy",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "projectId",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "projectLabel",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "serviceType",
+        type: "text",
         notNull: true,
         unique: false,
         defaultValue: null,
@@ -140,29 +295,34 @@ const tables = [
         name: "_pgroll_new_users_xata_id_key",
         columns: ["xata_id"],
       },
+      users__pgroll_new_visitorId_key: {
+        name: "users__pgroll_new_visitorId_key",
+        columns: ["visitorId"],
+      },
+      users_email_unique: { name: "users_email_unique", columns: ["email"] },
     },
     columns: [
-      {
-        name: "bio",
-        type: "text",
-        notNull: true,
-        unique: false,
-        defaultValue: null,
-        comment: "",
-      },
       {
         name: "email",
         type: "text",
         notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "password",
+        type: "text",
+        notNull: true,
         unique: false,
         defaultValue: null,
         comment: "",
       },
       {
-        name: "name",
+        name: "visitorId",
         type: "text",
-        notNull: true,
-        unique: false,
+        notNull: false,
+        unique: true,
         defaultValue: null,
         comment: "",
       },
@@ -205,14 +365,22 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type Posts = InferredTypes["posts"];
-export type PostsRecord = Posts & XataRecord;
+export type ProjectEndpoints = InferredTypes["project_endpoints"];
+export type ProjectEndpointsRecord = ProjectEndpoints & XataRecord;
+
+export type ProjectRequests = InferredTypes["project_requests"];
+export type ProjectRequestsRecord = ProjectRequests & XataRecord;
+
+export type Projects = InferredTypes["projects"];
+export type ProjectsRecord = Projects & XataRecord;
 
 export type Users = InferredTypes["users"];
 export type UsersRecord = Users & XataRecord;
 
 export type DatabaseSchema = {
-  posts: PostsRecord;
+  project_endpoints: ProjectEndpointsRecord;
+  project_requests: ProjectRequestsRecord;
+  projects: ProjectsRecord;
   users: UsersRecord;
 };
 

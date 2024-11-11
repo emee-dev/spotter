@@ -1,6 +1,6 @@
-import { A } from "@solidjs/router";
+import { A, createAsync, query } from "@solidjs/router";
 import { Heart, Star } from "lucide-solid";
-import { createResource, createSignal, For, onMount } from "solid-js";
+import { For } from "solid-js";
 import { NumberTicker } from "~/components/number-ticker";
 import HeroVideoDialog from "~/components/sections/hero/hero-video";
 import { Button, buttonVariants } from "~/components/ui/button";
@@ -11,29 +11,27 @@ type GithubData = {
   forks_count: number;
 };
 
+const getGithubStats = query(async () => {
+  "use server";
+
+  try {
+    const req = await fetch(
+      "https://api.github.com/repos/hasanharman/form-builder"
+    );
+
+    const response = await req.json();
+    return response as GithubData;
+  } catch (err: any) {
+    console.error("Error fetching repo: ", err);
+  }
+}, "github_stats");
+
+export const route = {
+  preload: () => getGithubStats(),
+};
+
 function HeroPill() {
-  const [stars, setStars] = createSignal<number | undefined>(0);
-  const [_, setForks] = createSignal<number | undefined>(0);
-
-  const [users] = createResource(async () => {
-    try {
-      const req = await fetch(
-        "https://api.github.com/repos/hasanharman/form-builder"
-      );
-
-      const response = await req.json();
-      return response as GithubData;
-    } catch (err: any) {
-      console.error("Error fetching repo: ", err);
-    }
-  });
-
-  onMount(() => {
-    if (users()) {
-      setStars(users()?.stargazers_count);
-      setForks(users()?.forks_count);
-    }
-  });
+  const stars = createAsync(() => getGithubStats());
 
   return (
     <div class="flex items-center">
@@ -60,7 +58,7 @@ function HeroPill() {
             <NumberTicker
               delay={0}
               direction="up"
-              value={stars() || 0}
+              value={stars()?.stargazers_count || 0}
               className="ml-1"
               decimalPlaces={0}
             />

@@ -3,30 +3,43 @@
   "description": "An open source lite weight solidstart observability framework.",
   "type": "module",
   "scripts": {
-    "dev": "vinxi dev",
+    "dev": "dotenv -e ./.env.local -- vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
     "version": "vinxi version",
     "ts:lint": "tsc --noEmit",
-    "xata:migrate": "xata pull main"
+    "xata:migrate": "xata pull main",
+    "prisma:migrate": "prisma db pull",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@corvu/drawer": "^0.2.2",
+    "@fontsource-variable/source-code-pro": "^5.1.0",
+    "@fontsource/geist-sans": "^5.1.0",
     "@fontsource/inter": "^5.1.0",
     "@kobalte/core": "^0.13.7",
+    "@prisma/client": "^5.22.0",
+    "@solid-primitives/clipboard": "^1.5.10",
     "@solid-primitives/intersection-observer": "^2.1.6",
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.14.7",
+    "@solidjs/router": "^0.15.1",
     "@solidjs/start": "^1.0.8",
     "@spotter/solidstart": "workspace:*",
+    "@spotter/types": "workspace:*",
+    "@tailwindcss/typography": "^0.5.15",
+    "@upstash/redis": "^1.34.3",
     "@xata.io/client": "0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
     "autoprefixer": "^10.4.20",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "json-schema-to-zod": "^2.4.1",
     "lucide-solid": "^0.454.0",
+    "nanoid": "^5.0.8",
     "postcss": "^8.4.47",
+    "prettier": "2.6.2",
+    "prisma": "^5.22.0",
     "rrweb": "2.0.0-alpha.4",
-    "solid-icons": "^1.1.0",
     "solid-js": "^1.9.1",
     "std-env": "^3.7.0",
     "tailwind-merge": "^2.5.4",
@@ -34,10 +47,15 @@
     "tailwindcss-animate": "^1.0.7",
     "tsconfig": "workspace:*",
     "vinxi": "^0.4.3",
-    "vite-plugin-solid-svg": "^0.8.1"
+    "vite-plugin-solid-svg": "^0.8.1",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.5"
   },
   "engines": {
     "node": ">=18",
     "pnpm": ">= 9.2.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2"
   }
 }

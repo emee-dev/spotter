@@ -1,0 +1,22 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn9798cllq89mv7sd1g",
+    "operations": [
+      {
+        "drop_constraint": {
+          "up": "\"projectId\"",
+          "down": "\"projectId\"",
+          "name": "project_requests__pgroll_new_projectId_key",
+          "table": "project_requests",
+          "column": "projectId"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn9798cllq89mv7sd1g",
+  "parent": "mig_csn972gg9g9pf6lqvod0",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:41:42.828832Z"
+}

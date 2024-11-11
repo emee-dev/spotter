@@ -1,23 +1,6 @@
-import {
-  AlertCircle,
-  BarChart2,
-  BellDot,
-  ChevronDown,
-  Construction,
-  Home,
-  Layout,
-  Menu,
-  MoreHorizontal,
-  Search,
-  Sparkles,
-  X,
-} from "lucide-solid";
+import { BellDot, Construction, Home, Sparkles, X } from "lucide-solid";
 import { For } from "solid-js";
 import { Dynamic } from "solid-js/web";
-
-// Sidebar Structure
-// Home
-// Projects -> tabs (requests, endpoints, actions, settings)
 
 const navItems = [
   {
@@ -43,9 +26,10 @@ const Sidebar = (props: {
 }) => {
   return (
     <div
-      class={`fixed inset-y-0 left-0 z-50 w-64 bg-[#231f2e] transform ${
+      // class={`fixed inset-y-0 left-0 z-50 w-64 bg-[#231f2e] transform ${
+      class={`fixed inset-y-0 left-0 z-50 w-64 bg-[#fefefe]  transform ${
         props.sidebarOpen() ? "translate-x-0" : "-translate-x-full"
-      } transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0`}
+      } transition-transform duration-300 ease-in-out shadow-md lg:relative lg:translate-x-0`}
     >
       <div class="flex flex-col h-full">
         <div class="flex items-center justify-between p-4">
@@ -72,7 +56,8 @@ const Sidebar = (props: {
               {(item) => (
                 <a
                   href={item.path}
-                  class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
+                  // class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
+                  class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-blue-500 hover:bg-muted"
                   // active class
                   // class="flex items-center gap-3 px-4 py-2 text-white bg-white/10"
                 >

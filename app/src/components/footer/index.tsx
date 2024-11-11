@@ -26,7 +26,7 @@ const links: Link[] = [
   { text: "Playground", url: "/playground" },
 ];
 
-export function Footer() {
+ function Footer() {
   return (
     <footer class="max-w-5xl mx-auto flex flex-col gap-y-3 pt-10 pb-5 px-5 lg:px-0">
       <div class="flex items-center justify-between">
@@ -69,3 +69,6 @@ export function Footer() {
     </footer>
   );
 }
+
+
+export default Footer

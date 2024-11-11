@@ -1,0 +1,22 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_csn95p0g9g9pf6lqvoa0",
+    "operations": [
+      {
+        "alter_column": {
+          "up": "(SELECT CASE WHEN \"request\" IS NULL THEN '{}' ELSE \"request\" END)",
+          "down": "(SELECT CASE WHEN \"request\" IS NULL THEN '{}' ELSE \"request\" END)",
+          "table": "project_requests",
+          "column": "request",
+          "nullable": false
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_csn95p0g9g9pf6lqvoa0",
+  "parent": "mig_csn95l8g9g9pf6lqvo90",
+  "schema": "public",
+  "startedAt": "2024-11-08T22:38:29.845002Z"
+}

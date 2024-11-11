@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model project_endpoints {
+  xata_id        String   @unique(map: "_pgroll_new_project_endpoints_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  projectId      String
+  requestUrl     String   @unique(map: "project_endpoints_requestUrl_unique")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model project_requests {
+  xata_id        String   @unique(map: "_pgroll_new_project_requests_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  error          Json?    @db.Json
+  stack          Json?    @db.Json
+  request        Json     @db.Json
+  response       Json?    @db.Json
+  system         Json     @db.Json
+  projectId      String
+  timestamp      DateTime @db.Timestamptz(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model projects {
+  xata_id        String   @unique(map: "_pgroll_new_projects_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  projectId      String   @unique(map: "projects_project_name_unique")
+  projectLabel   String
+  baseUrl        String
+  createdBy      String
+  serviceType    String
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  xata_id        String   @unique(map: "_pgroll_new_users_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  email          String   @unique(map: "users_email_unique")
+  hashPassword   String
+}

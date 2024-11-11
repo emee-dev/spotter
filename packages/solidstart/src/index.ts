@@ -1,2 +1,2 @@
-export { Spotter } from "./utils/config";
-export { withSpotter } from "./logic";
+export { Spotter } from "./lib/config";
+export { withSpotter } from "./spotter";

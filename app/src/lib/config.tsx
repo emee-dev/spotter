@@ -1,4 +1,28 @@
+import { z } from "zod";
+
 export const BLUR_FADE_DELAY = 0.15;
+
+const envSchema = z.object({
+  SESSION_SECRET: z
+    .string()
+    .trim()
+    .min(15)
+    .default("session_password_is_session_password"),
+  DATABASE_URL: z.string().trim().min(1),
+
+  // disabled since am using prisma
+  // XATA_POSTGRESQL_ENDPOINT: z.string().trim().min(1),
+  // XATA_HTTP_ENDPOINT: z.string().trim().min(1),
+  // XATA_API_KEY: z.string().trim().min(1),
+
+  UPSTASH_REDIS_REST_URL: z.string().trim().min(1),
+  UPSTASH_REDIS_REST_TOKEN: z.string().trim().min(1),
+  // NODE_ENV: z
+  //   .enum(["development", "test", "production"])
+  //   .default("development"),
+});
+
+export const env = envSchema.parse(process.env);
 
 export const siteConfig = {
   name: "acme.ai",
@@ -61,5 +85,76 @@ export const siteConfig = {
     },
   ],
 };
+
+export const errors = {
+  UNAUTHORIZED: {
+    name: "UNAUTHORIZED",
+    message: "You are not authorized to access this resource. Please login.",
+  },
+  INVALID_CREDENTIALS: {
+    name: "INVALID_CREDENTIALS",
+    message: "The email or password provided is incorrect. Please try again.",
+  },
+  USER_NOT_FOUND: {
+    name: "USER_NOT_FOUND",
+    message: "User does not exist. Please register first.",
+  },
+  USER_ALREADY_EXISTS: {
+    name: "USER_ALREADY_EXISTS",
+    message: "An account with this email already exists. Please log in.",
+  },
+  PASSWORD_TOO_WEAK: {
+    name: "PASSWORD_TOO_WEAK",
+    message:
+      "Password is too weak. Please use a stronger password with at least 8 characters, including numbers and symbols.",
+  },
+  EMAIL_INVALID: {
+    name: "EMAIL_INVALID",
+    message:
+      "The email provided is not valid. Please enter a valid email address.",
+  },
+  PASSWORD_MISMATCH: {
+    name: "PASSWORD_MISMATCH",
+    message: "The passwords do not match. Please re-enter your password.",
+  },
+  MISSING_FIELDS: {
+    name: "MISSING_FIELDS",
+    message: "All fields are required. Please complete the form and try again.",
+  },
+  ACCOUNT_LOCKED: {
+    name: "ACCOUNT_LOCKED",
+    message:
+      "Your account is locked due to multiple unsuccessful login attempts. Please reset your password or try again later.",
+  },
+  SERVER_ERROR: {
+    name: "SERVER_ERROR",
+    message: "An unexpected error occurred. Please try again later.",
+  },
+  TOKEN_EXPIRED: {
+    name: "TOKEN_EXPIRED",
+    message: "Your session has expired. Please log in again.",
+  },
+  PERMISSION_DENIED: {
+    name: "PERMISSION_DENIED",
+    message:
+      "You do not have the required permissions to access this resource.",
+  },
+  INVALID_INPUT: {
+    name: "INVALID_INPUT",
+    message: "One or more inputs are invalid. Please check and try again.",
+  },
+  CAPTCHA_REQUIRED: {
+    name: "CAPTCHA_REQUIRED",
+    message: "Please complete the CAPTCHA verification to continue.",
+  },
+} as const;
+
+export class AccountError extends Error {
+  name: keyof typeof errors;
+  constructor(message: string, name: keyof typeof errors) {
+    super(message);
+    this.name = name;
+  }
+}
 
 export type SiteConfig = typeof siteConfig;
