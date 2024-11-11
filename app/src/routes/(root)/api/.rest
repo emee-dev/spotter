@@ -20,56 +20,59 @@ POST http://localhost:3000/api/payload
 Content-Type: application/json
 
 {
-    "data":   {
-    id: "1",
-    error: {
-      name: "TypeError",
-      file: "apply/utils/src/instrumentation",
-      line: 30,
-      column: 10,
-      message: "Failed to fetch resource",
-      function: "fetchData",
+  "data": {
+    "spotter": {
+      "apiKey": "api-key",
+      "projectId": "project-id"
     },
-    stack: [
+    "error": {
+      "name": "TypeError",
+      "file": "apply/utils/src/instrumentation",
+      "line": 30,
+      "column": 10,
+      "message": "Failed to fetch resource",
+      "function": "fetchData"
+    },
+    "stack": [
       {
-        file: "apply/utils/src/instrumentation",
-        line: 29,
-        column: 5,
-        function: "initializeRequest",
-        method: "GET",
+        "file": "apply/utils/src/instrumentation",
+        "line": 29,
+        "column": 5,
+        "function": "initializeRequest",
+        "method": "GET"
       },
       {
-        file: "apply/utils/src/instrumentation",
-        line: 30,
-        column: 10,
-        function: "fetchData",
-        method: null,
-      },
+        "file": "apply/utils/src/instrumentation",
+        "line": 30,
+        "column": 10,
+        "function": "fetchData",
+        "method": null
+      }
     ],
-    request: {
-      method: "GET",
-      url: "/projects/direct/backend/releases/v7210",
-      params: { projectId: "404" },
-      query: { search: "true" },
-      headers: {
+    "request": {
+      "method": "GET",
+      "url": "/projects/direct/backend/releases/v7210",
+      "params": { "projectId": "404" },
+      "query": { "search": "true" },
+      "headers": {
         "User-Agent": "Mozilla/5.0",
         "Accept-Language": "en-US,en;q=0.9",
-        Authorization: "Bearer some_token_here",
-      },
+        "Authorization": "Bearer some_token_here"
+      }
     },
-    response: {
-      status: 404,
-      params: { errorCode: "404" },
-      headers: {
+    "response": {
+      "status": 404,
+      "params": { "errorCode": "404" },
+      "headers": {
         "Content-Type": "application/json",
-        "Cache-Control": "no-cache",
-      },
+        "Cache-Control": "no-cache"
+      }
     },
-    system: {
-      ip: "192.168.1.1",
-      arch: "x64",
-      platform: "macOS",
+    "system": {
+      "ip": "192.168.1.1",
+      "arch": "x64",
+      "platform": "macOS"
     },
-    timestamp: "2024-11-04T08:30:00Z",
-  },
+    "timestamp": "2024-11-04T08:30:00Z"
+  }
 }
