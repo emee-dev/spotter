@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "dotenv -e ./.env.local -- vinxi dev",
-    "build": "vinxi build",
+    "build": "prisma db push && pnpm prisma generate && vinxi build",
     "start": "vinxi start",
     "version": "vinxi version",
     "ts:lint": "tsc --noEmit",

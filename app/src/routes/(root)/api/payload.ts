@@ -6,6 +6,7 @@ import type {
   SpotterPayload,
   SpotterPayloadWithRuntimeError,
 } from "@spotter/types";
+import prisma, { Prisma } from "~/lib/db/prisma";
 import { z } from "zod";
 
 // Type for INVALID_RESPONSE_BODY
@@ -88,7 +89,7 @@ export const POST = async (event: APIEvent) => {
     }
 
     return Response.json(
-      { message: "Payload recieved", data: null },
+      { message: "Payload recieved", data: params },
       { status: 200 }
     );
   } catch (error) {

@@ -1,9 +1,8 @@
-import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { customAlphabet, nanoid } from "nanoid";
 import { getEndpoint } from "~/lib/utils";
 import { AccountError, errors } from "../config";
-const prisma = new PrismaClient();
+import prisma, { Prisma } from "./prisma";
 
 const alphabet =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
