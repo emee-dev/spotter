@@ -1,4 +1,6 @@
 {
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env"],
   "tasks": {
     "build": {
       "env": [
@@ -8,5 +10,6 @@
         "UPSTASH_REDIS_REST_TOKEN"
       ]
     }
-  }
+  },
+  "extends": ["//"]
 }

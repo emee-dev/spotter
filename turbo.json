@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^test"],
-      "outputs": [".next/**", "!.next/cache/**"],
+      "outputs": [".next/**", "!.next/cache/**", ".vercel/**", ".vinxi/**"],
       "inputs": [
         "$TURBO_DEFAULT$",
         ".env.production.local",
