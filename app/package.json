@@ -1,6 +1,6 @@
 {
   "name": "@spotter/web",
-  "description": "An open source lite weight solidstart observability framework.",
+  "description": "An open source lite weight observability tool for solidstart apps.",
   "type": "module",
   "scripts": {
     "dev": "dotenv -e ./.env.local -- vinxi dev",
@@ -57,5 +57,6 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2"
-  }
+  },
+  "license": "MIT"
 }

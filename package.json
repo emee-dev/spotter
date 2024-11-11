@@ -2,6 +2,7 @@
   "name": "spotter.dev",
   "private": true,
   "author": "Emmanuel Ajike",
+  "description": "An open source lite weight observability tool for solidstart apps.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "turbo run dev --filter=@spotter/web",

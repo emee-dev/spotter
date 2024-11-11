@@ -3,7 +3,14 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^test"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env.production.local",
+        ".env.local",
+        ".env.production",
+        ".env"
+      ]
     },
     "test": {
       "dependsOn": ["build"]
@@ -19,7 +26,7 @@
       "cache": false,
       "persistent": true
     },
-    "xata:migrate": {
+    "prisma:migrate": {
       "cache": false,
       "persistent": true
     }

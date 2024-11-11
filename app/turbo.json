@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "build": {
+      "env": [
+        "DATABASE_URL",
+        "SESSION_SECRET",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
+      ]
+    }
+  }
+}
