@@ -76,6 +76,7 @@ export default function RegisterPage() {
             >
               {(_) => (
                 <Button
+                  disabled
                   type="submit"
                   class="w-full mb-2 flex transition-all items-center"
                 >
@@ -84,6 +85,13 @@ export default function RegisterPage() {
               )}
             </Show>
           </form>
+          <Show when={submission.error as Error}>
+            {(error) => (
+              <div class="text-sm leading-3 tracking-tight text-red-400">
+                {error().message}
+              </div>
+            )}
+          </Show>
           <div class="mt-4 text-center text-sm">
             Already have an account?{" "}
             <A href="/login" class="underline">

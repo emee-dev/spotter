@@ -4,13 +4,6 @@ import { getEndpoint } from "~/lib/utils";
 import { AccountError, errors } from "../config";
 import prisma, { Prisma } from "./prisma";
 
-const alphabet =
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-const idLength = 8;
-
-// Create the custom ID generator function
-const generateId = customAlphabet(alphabet, idLength);
-
 /* S
 
 *** WARNING ***
@@ -27,11 +20,11 @@ type Users = {
   password: string;
 };
 
-type Projects = {
+export type Projects = {
   projectId: string; // unqiue
   projectLabel: string;
   baseUrl: string;
-  /** The `userId` of the creator */
+  /** The `email` of the creator */
   createdBy: string;
   serviceType: "solidstart"; // more to come
 };
@@ -149,12 +142,22 @@ export const createUser = async (args: Users) => {
 export const createProject = async (args: Projects) => {
   "use server";
 
+  let doesUserExist = await prisma.users.findFirst({
+    where: {
+      email: args.createdBy,
+    },
+  });
+
+  if (!doesUserExist) {
+    throw new Error("Unable to create project, try again.");
+  }
+
   let new_record = await prisma.projects.create({
     data: {
       xata_id: nanoid(),
       baseUrl: args.baseUrl,
       projectId: args.projectId,
-      createdBy: args.createdBy,
+      createdBy: doesUserExist.email,
       serviceType: args.serviceType,
       projectLabel: args.projectLabel,
     },
@@ -162,6 +165,40 @@ export const createProject = async (args: Projects) => {
 
   if (!new_record) {
     throw new Error("Unable to create project, please retry.");
+  }
+
+  return new_record;
+};
+
+export const updateProjectDetails = async (
+  args: Pick<Projects, "baseUrl" | "projectLabel" | "projectId"> & {
+    email: string;
+  }
+) => {
+  "use server";
+
+  const doesUserExist = await prisma.users.findFirst({
+    where: {
+      email: args.email,
+    },
+  });
+
+  if (!doesUserExist) {
+    throw new Error("Unable to update project, try again.");
+  }
+
+  const new_record = await prisma.projects.update({
+    where: {
+      projectId: args.projectId,
+    },
+    data: {
+      baseUrl: args.baseUrl,
+      projectLabel: args.projectLabel,
+    },
+  });
+
+  if (!new_record) {
+    throw new Error("Unable to set changes, please retry.");
   }
 
   return new_record;
@@ -225,4 +262,24 @@ export const createRequest = async (args: ProjectRequests) => {
   });
 
   return result;
+};
+
+export const listAllProjects = async (args: Projects) => {
+  let doesUserExist = await prisma.users.findFirst({
+    where: {
+      email: args.createdBy,
+    },
+  });
+
+  if (!doesUserExist) {
+    throw new Error("User does not exist");
+  }
+
+  let findRecords = await prisma.projects.findMany({
+    where: {
+      createdBy: args.createdBy,
+    },
+  });
+
+  return findRecords || [];
 };

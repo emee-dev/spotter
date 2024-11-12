@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -16,3 +17,10 @@ export function getEndpoint(url: string): string {
 
   return `/${staticSegments.join("/")}`;
 }
+
+const alphabet =
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const idLength = 8;
+
+// Create the custom ID generator function
+export const genProjectId = customAlphabet(alphabet, idLength);

@@ -73,6 +73,7 @@ export default function LoginPage() {
             >
               {(_) => (
                 <Button
+                  disabled
                   type="submit"
                   class="w-full mb-2 flex transition-all items-center"
                 >
@@ -80,9 +81,14 @@ export default function LoginPage() {
                 </Button>
               )}
             </Show>
-            {/* <input type="hidden" name="type" value="login" /> */}
           </form>
-          <div>{submission.error?.message || "No error"}</div>
+          <Show when={submission.error as Error}>
+            {(error) => (
+              <div class="text-sm leading-3 tracking-tight text-red-400">
+                {error().message}
+              </div>
+            )}
+          </Show>
           <div class="mt-5 text-center text-sm">
             Don't have an account?{" "}
             <A href="/register" class="underline">

@@ -1,4 +1,4 @@
-import { createAsync, RouteSectionProps } from "@solidjs/router";
+import { A, createAsync, RouteSectionProps } from "@solidjs/router";
 import { Menu, Plus } from "lucide-solid";
 import { createSignal } from "solid-js";
 import Sidebar from "~/components/sidebar";
@@ -37,12 +37,12 @@ const Header = (props: { setSidebarOpen: (val: boolean) => void }) => {
         <Menu class="h-6 w-6" />
       </Button>
       <h1 class="text-xl font-semibold">Issues</h1>
-      <div class="">
+      <A href="/projects/create">
         <Button variant="outline" size={"sm"}>
           <Plus class="size-4 mr-2" />
           <span>Add API</span>
         </Button>
-      </div>{" "}
+      </A>
     </header>
   );
 };
