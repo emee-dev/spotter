@@ -1,6 +1,6 @@
 {
   "name": "@spotter/solidstart",
-  "description": "Solidstart sdk for spotter",
+  "description": "Solidstart SDK for spotter.",
   "version": "0.0.1",
   "publishConfig": {
     "access": "public"

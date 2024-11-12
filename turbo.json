@@ -4,7 +4,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^test"],
-      "outputs": [".next/**", "!.next/cache/**", ".vercel/**", ".vinxi/**"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        ".vercel/**",
+        ".vinxi/**",
+        "dist/**"
+      ],
       "inputs": [
         "$TURBO_DEFAULT$",
         ".env.production.local",
