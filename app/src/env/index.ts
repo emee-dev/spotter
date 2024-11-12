@@ -20,4 +20,4 @@ const envSchema = z.object({
     .default("development"),
 });
 
-export const env = envSchema.parse(import.meta.env);
+export const env = envSchema.parse(process.env);
