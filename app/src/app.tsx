@@ -2,6 +2,7 @@ import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
+import { Toaster } from "~/components/ui/toast";
 import "@fontsource/inter";
 import "./index.css";
 
@@ -17,6 +18,7 @@ export default function App() {
     >
       {/* <main class="min-h-[70vh]">{children}</main> */}
       <FileRoutes />
+      <Toaster />
     </Router>
   );
 }

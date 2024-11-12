@@ -1,6 +1,36 @@
-import { ChevronDown, Search, X } from "lucide-solid";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Box,
+  Clock,
+  Copy,
+  Key,
+  Radio,
+} from "lucide-solid";
 import { createSignal } from "solid-js";
-import { LargeRequestCard, Payload } from "~/components/request-cards";
+import {
+  LargeRequestCard,
+  Payload,
+  SmallRequestCard,
+} from "~/components/request-cards";
+import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import { Label } from "~/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import {
+  TextField,
+  TextFieldInput,
+  TextFieldLabel,
+} from "~/components/ui/text-field";
+import { showToast } from "~/components/ui/toast";
+// import { Input } from "~/components/ui/input";
 
 // Mock data with sparkline data points
 const issues: Payload[] = [
@@ -153,59 +183,274 @@ export default function ProjectsDashboard() {
 
   return (
     <div class="flex-1 overflow-auto p-4 space-y-4">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div class="flex-1 w-full relative">
-          <Search class="absolute left-3 top-2.5 h-5 w-5 text-gray-500" />
-          <input
-            type="text"
-            value={searchQuery()}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            class="w-full bg-[#231f2e] text-white pl-10 pr-4 py-2 rounded-lg border border-gray-800 focus:outline-none focus:border-indigo-500"
-          />
-          {searchQuery() && (
-            <button
-              onClick={() => setSearchQuery("")}
-              class="absolute right-3 top-2.5 text-gray-500 hover:text-white"
-            >
-              <X class="h-5 w-5" />
-            </button>
-          )}
-        </div>
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <button class="flex items-center gap-2 px-4 py-2 bg-[#231f2e] text-white rounded-lg hover:bg-[#2a2535] w-full sm:w-auto justify-center sm:justify-start">
-            Sort by: Date Added
-            <ChevronDown class="h-4 w-4" />
-          </button>
-        </div>
-      </div>
+      <Tabs defaultValue="overview" class="space-y-4">
+        <TabsList>
+          <TabsTrigger value="overview" class="text-sm">
+            Overview
+          </TabsTrigger>
+          <TabsTrigger value="requests" class="text-sm">
+            Requests
+          </TabsTrigger>
+          <TabsTrigger value="endpoints" class="text-sm">
+            Endpoints
+          </TabsTrigger>
 
-      <div class="flex overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
-        <button class="px-4 py-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full text-sm whitespace-nowrap">
-          All requests <span class="text-gray-600 ml-1">241</span>
-        </button>
-        <button class="px-4 py-1.5 bg-white/10 text-white rounded-full text-sm whitespace-nowrap">
-          By Error <span class="text-gray-400 ml-1">7</span>
-        </button>
-      </div>
+          <TabsTrigger value="settings" class="text-sm">
+            Settings
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" class="space-y-4">
+          <div class="grid gap-4">
+            <Card>
+              <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle class="text-sm font-medium">Stats</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Box class="h-4 w-4" />
+                      Requests
+                    </div>
+                    <p class="text-2xl font-bold">459</p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock class="h-4 w-4" />
+                      Requests per minute
+                    </div>
+                    <p class="text-2xl font-bold">0</p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                      <AlertTriangle class="h-4 w-4" />
+                      Problems
+                    </div>
+                    <p class="text-2xl font-bold">4</p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Radio class="h-4 w-4" />
+                      Endpoints
+                    </div>
+                    <p class="text-2xl font-bold">9</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle class="text-sm font-medium">API Score</CardTitle>
+                <Button
+                  variant="link"
+                  size="sm"
+                  class="text-sm text-muted-foreground"
+                >
+                  View details
+                  <ArrowRight class="ml-1 h-4 w-4" />
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <div class="grid grid-cols-3 gap-4">
+                  <div class="space-y-2">
+                    <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
+                      <span class="text-xl font-bold">73</span>
+                    </div>
+                    <p class="text-sm text-muted-foreground">Performance</p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
+                      <span class="text-xl font-bold">58</span>
+                    </div>
+                    <p class="text-sm text-muted-foreground">Security</p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
+                      <span class="text-xl font-bold">65</span>
+                    </div>
+                    <p class="text-sm text-muted-foreground">Quality</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle class="text-sm font-medium">Team members</CardTitle>
+                <Button
+                  variant="link"
+                  size="sm"
+                  class="text-sm text-muted-foreground"
+                >
+                  Manage
+                  <ArrowRight class="ml-1 h-4 w-4" />
+                </Button>
+              </CardHeader>
+              <CardContent class="space-y-4">
+                <h3 class="font-semibold">Invite new members</h3>
+                <p class="text-sm text-muted-foreground">
+                  You can add one or more e-mails and invite them to your
+                  project.
+                </p>
+                <div class="flex gap-2">
+                  {/* <Input placeholder="Separate new emails with a comma" /> */}
+                  <Button>Send invite</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
 
-      <div class="space-y-2">
-        {issues.map((issue) => (
-          <LargeRequestCard
-            id={issue.id}
-            error={issue.error}
-            request={issue.request}
-            system={issue.system}
-            timestamp={issue.timestamp}
-            // response={issue.response}
-          />
-          // <SmallRequestCard
-          //   id={issue.id}
-          //   request={issue.request}
-          //   response={issue.response}
-          //   timestamp={issue.timestamp}
-          // />
-        ))}
-      </div>
+        <TabsContent value="requests" class="space-y-2">
+          {issues.map((issue) => (
+            <LargeRequestCard
+              id={issue.id}
+              error={issue.error}
+              request={issue.request}
+              system={issue.system}
+              timestamp={issue.timestamp}
+              // response={issue.response}
+            />
+          ))}
+        </TabsContent>
+
+        <TabsContent value="endpoints" class="space-y-2">
+          {issues.map((issue) => (
+            <SmallRequestCard
+              id={issue.id}
+              request={issue.request}
+              response={issue.response}
+              timestamp={issue.timestamp}
+            />
+          ))}
+        </TabsContent>
+
+        <TabsContent value="settings">
+          <SettingsTabContent />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
+
+function SettingsTabContent() {
+  const [apiKey, setApiKey] = createSignal("");
+  const [teamName, setTeamName] = createSignal("My Project");
+  const [teamUrl, setTeamUrl] = createSignal("my-project");
+
+  const handleGenerateApiKey = () => {
+    // In a real app, this would make an API call
+    const newKey = "pk_" + Math.random().toString(36).substring(2, 15);
+    setApiKey(newKey);
+    showToast({
+      title: "API Key Generated",
+      description: "Your new API key has been generated successfully.",
+    });
+  };
+
+  const handleCopyApiKey = () => {
+    navigator.clipboard.writeText(apiKey());
+    showToast({
+      title: "Copied",
+      description: "API key copied to clipboard",
+    });
+  };
+
+  return (
+    <div class="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>API Keys</CardTitle>
+          <CardDescription>
+            Generate and manage API keys to authenticate your requests.
+          </CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-4">
+          <div class="space-y-2">
+            {apiKey() && (
+              <div class="flex items-center gap-2">
+                <TextFieldInput value={apiKey()} type="text" />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleCopyApiKey}
+                >
+                  <Copy class="h-4 w-4" />
+                  <span class="sr-only">Copy API key</span>
+                </Button>
+              </div>
+            )}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button onClick={handleGenerateApiKey}>
+            <Key class="mr-2 h-4 w-4" />
+            Generate New API Key
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Team Name</CardTitle>
+          <CardDescription>
+            This is your team&apos;s visible name within the platform. For
+            example, the name of your company or department.
+          </CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-4">
+          <TextField class="space-y-2">
+            <TextFieldLabel for="teamName">Name</TextFieldLabel>
+            <TextFieldInput
+              id="teamName"
+              type="text"
+              value={teamName()}
+              onChange={(e) => setTeamName(e.target.value)}
+              maxLength={32}
+            />
+            <p class="text-sm text-muted-foreground">
+              Please use 32 characters at maximum.
+            </p>
+          </TextField>
+        </CardContent>
+        <CardFooter>
+          <Button>Save Changes</Button>
+        </CardFooter>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Team URL</CardTitle>
+          <CardDescription>
+            This is your team&apos;s URL namespace on the platform. Within it,
+            your team can inspect their projects, check out any recent activity,
+            or configure settings to their liking.
+          </CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-4">
+          <TextField class="space-y-2">
+            <Label for="teamUrl">URL</Label>
+            <div class="flex">
+              <div class="flex h-10 items-center rounded-l-md border border-r-0 bg-muted px-3 text-sm text-muted-foreground">
+                app.example.com/
+              </div>
+              <TextFieldInput
+                id="teamUrl"
+                type="text"
+                value={teamUrl()}
+                onChange={(e) => setTeamUrl(e.target.value)}
+                class="rounded-l-none"
+                maxLength={48}
+              />
+            </div>
+            <p class="text-sm text-muted-foreground">
+              Please use 48 characters at maximum.
+            </p>
+          </TextField>
+        </CardContent>
+        <CardFooter>
+          <Button>Save Changes</Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

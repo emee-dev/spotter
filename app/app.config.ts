@@ -11,6 +11,7 @@ export default defineConfig({
     preset: "vercel",
   },
   vite: {
+    envDir: "/",
     plugins: [solidSvg()],
   },
 });

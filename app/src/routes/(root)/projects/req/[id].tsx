@@ -9,12 +9,14 @@ import {
   Share2,
   XCircle,
 } from "lucide-solid";
-import { For, Show } from "solid-js";
+import { For, onMount, Show } from "solid-js";
 import { Payload } from "~/components/request-cards";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import hljs from "highlight.js";
+import "highlight.js/styles/github-dark.css"; // Choose a style or customize
 
 /* 
 
@@ -176,48 +178,7 @@ const issues: Payload[] = [
   },
 ];
 
-// <Component
-//   error={issue.error}
-//   request={issue.request}
-//   response={issue.response}
-//   stack={issue.stack}
-//   system={issue.system}
-//   timestamp={issue.timestamp}
-//   onBack={() => {}}
-// />
-
-// const useCopyText = () => {
-//   const [value, setValue] = createSignal<string>("");
-//   const [isCopied, setIsCopied] = createSignal<boolean>(false);
-
-//   let id: any;
-//   createEffect(
-//     on(value, (value) => {
-//       clearTimeout(id);
-
-//       console.log("Timer");
-
-//       id = setTimeout(() => {
-//         navigator.clipboard.writeText(value); // Copy to clipboard
-//         setIsCopied(true);
-//       }, 100);
-//     })
-//   );
-
-//   onCleanup(() => {
-//     setIsCopied(false);
-//     clearTimeout(id);
-//   });
-
-//   return [isCopied, setValue] as [
-//     isCopied: Accessor<boolean>,
-//     setValue: Setter<string>
-//   ];
-// };
-
 const Component = () => {
-  // const [isCopied, setValue] = useCopyText();
-  // Define issue object data as a signal in Solid
   const issue = {
     id: "1",
     error: {
@@ -271,6 +232,8 @@ const Component = () => {
     },
     timestamp: "2024-11-04T08:30:00Z",
   };
+
+  onMount(() => {});
 
   function getStatusIcon(status: number) {
     if (status >= 200 && status < 300) {

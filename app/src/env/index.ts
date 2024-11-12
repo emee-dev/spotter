@@ -1,4 +1,5 @@
 import { z } from "zod";
+import "dotenv/config";
 
 const envSchema = z.object({
   SESSION_SECRET: z
@@ -15,9 +16,9 @@ const envSchema = z.object({
 
   UPSTASH_REDIS_REST_URL: z.string().trim().min(1),
   UPSTASH_REDIS_REST_TOKEN: z.string().trim().min(1),
-  // NODE_ENV: z
-  //   .enum(["development", "test", "production"])
-  //   .default("development"),
+  NODE_ENV: z
+    .enum(["development", "test", "production"])
+    .default("development"),
 });
 
-export const env = envSchema.parse(process.env);
+export const env = envSchema.parse(import.meta.env);

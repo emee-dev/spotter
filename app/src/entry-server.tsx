@@ -1,6 +1,6 @@
 // @refresh reload
 import { createHandler, StartServer } from "@solidjs/start/server";
-import { Spotter, withSpotter } from "@spotter/solidstart";
+import { Spotter } from "@spotter/solidstart";
 
 Spotter.init({
   apikey: "your_api_key",

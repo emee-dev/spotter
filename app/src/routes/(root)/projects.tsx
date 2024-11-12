@@ -17,8 +17,7 @@ export default function ProjectLayout(props: RouteSectionProps) {
   const [sidebarOpen, setSidebarOpen] = createSignal(false);
 
   return (
-    // <div class="flex h-screen bg-[#1a1625] text-white">
-    <div class="flex h-screen bg-background">
+    <div class="flex h-screen bg-muted">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <Separator orientation="vertical" />
 
@@ -33,14 +32,10 @@ export default function ProjectLayout(props: RouteSectionProps) {
 
 const Header = (props: { setSidebarOpen: (val: boolean) => void }) => {
   return (
-    // <header class="bg-[#231f2e] p-4 flex items-center justify-between">
-    <header class="bg-background/95 z-30 p-4 flex items-center justify-between">
-      <button
-        onClick={() => props.setSidebarOpen(true)}
-        class="lg:hidden text-gray-400 hover:text-white"
-      >
+    <header class="bg-muted z-30 p-3 flex items-center justify-between">
+      <Button onClick={() => props.setSidebarOpen(true)} class="lg:hidden">
         <Menu class="h-6 w-6" />
-      </button>
+      </Button>
       <h1 class="text-xl font-semibold">Issues</h1>
       <div class="">
         <Button variant="outline" size={"sm"}>

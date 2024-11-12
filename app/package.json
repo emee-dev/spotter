@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "dotenv -e ./.env.local -- vinxi dev",
+    "dev:build": "vinxi build",
     "build": "prisma db push && pnpm prisma generate && vinxi build",
     "start": "vinxi start",
     "version": "vinxi version",
@@ -33,6 +34,8 @@
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.0.3",
+    "highlight.js": "^11.10.0",
     "json-schema-to-zod": "^2.4.1",
     "lucide-solid": "^0.454.0",
     "nanoid": "^5.0.8",
