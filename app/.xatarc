@@ -1,6 +1,0 @@
-{
-  "databaseURL": "https://Emmanuel-Ajike-s-workspace-vu4bvg.us-east-1.xata.sh/db/spotter",
-  "codegen": {
-    "output": "src/xata.ts"
-  }
-}

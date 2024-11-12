@@ -4,6 +4,7 @@ import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import { Toaster } from "~/components/ui/toast";
 import "@fontsource/inter";
+import "@fontsource/geist-sans";
 import "./index.css";
 
 export default function App() {
