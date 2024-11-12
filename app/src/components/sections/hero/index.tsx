@@ -47,7 +47,7 @@ function HeroPill() {
             Sponsor
           </Button>
         </a>
-        <A
+        <a
           href="https://github.com/emee-dev/spotter"
           target="_blank"
           class="h-10 cursor-pointer flex w-auto items-center space-x-1 rounded-full bg-muted px-3 group border-2 border-white whitespace-pre shadow hover:shadow-lg"
@@ -63,7 +63,7 @@ function HeroPill() {
               decimalPlaces={0}
             />
           </div>
-        </A>
+        </a>
       </div>
     </div>
   );
@@ -115,15 +115,15 @@ function HeroCTA() {
   return (
     <>
       <div class="mx-auto mt-3 flex w-full max-w-2xl flex-col items-center justify-center space-y-4 sm:mt-6 sm:flex-row sm:space-x-4 sm:space-y-0">
-        <A
-          href="/playground"
+        <a
+          href="/projects"
           class={cn(
             buttonVariants({ variant: "default" }),
             "w-full sm:w-auto text-background flex gap-2 rounded-full"
           )}
         >
           Go to Dashboard
-        </A>
+        </a>
       </div>
     </>
   );

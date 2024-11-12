@@ -8,24 +8,6 @@ const companies = [
     name: "shadcn/ui",
     author: "shadcn",
   },
-  // {
-  //   img: "53986236",
-  //   link: "React Hook Forms",
-  //   name: "react-hook-form",
-  //   author: "react-hook-form",
-  // },
-  // {
-  //   img: "3084745",
-  //   link: "Zod",
-  //   name: "zod",
-  //   author: "colinhacks",
-  // },
-  {
-    img: "106016365",
-    link: "Shadcn Extensions",
-    name: "shadcn-extensions",
-    author: "shadcn",
-  },
   // mine
   {
     img: "79226042",

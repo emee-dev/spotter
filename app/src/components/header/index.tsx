@@ -1,5 +1,4 @@
-import { A } from "@solidjs/router";
-import { Github, Menu, Twitter } from "lucide-solid";
+ import { Github, Menu, Twitter } from "lucide-solid";
 import { For, Show } from "solid-js";
 import Logo from "~/assets/spotter.svg";
 import { Button } from "~/components/ui/button";
@@ -8,7 +7,7 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerFooter,
-  DrawerTrigger,
+  DrawerTrigger
 } from "~/components/ui/drawer";
 import { cn } from "~/lib/utils";
 
@@ -39,10 +38,10 @@ const tabs: Tabs[] = [
   },
   { name: "Pricing", href: "/pricing", variant: "link" },
   {
-    name: "Get started",
+    name: "Continue",
     href: "/login",
     variant: "default",
-    class: "bg-primary text-white rounded-full flex items-center px-4",
+    class: "bg-primary text-white hover:bg-primary/80 rounded-full flex items-center px-4",
     isUpdated: false,
   },
 ];
@@ -50,9 +49,9 @@ const tabs: Tabs[] = [
 export default function Header() {
   return (
     <header class="max-w-5xl mx-auto flex justify-between items-center my-5 px-5 lg:px-0">
-      <A href="/" class="cursor-pointer size-[48px] aspect-square">
+      <a href="/" class="cursor-pointer size-[48px] aspect-square">
         <Logo />
-      </A>
+      </a>
 
       <div class="hidden md:flex items-center gap-3">
         <For each={tabs}>
@@ -75,47 +74,49 @@ export default function Header() {
           )}
         </For>
 
-        <A href="https://github.com/emee-dev/spotter" target="_blank">
+        <a href="https://github.com/emee-dev/spotter" target="_blank">
           <Button variant="outline" class="rounded-full p-2">
             <Github class="text-lg size-5" />
           </Button>
-        </A>
-        <A href="https://x.com/___emee_" target="_blank">
+        </a>
+        <a href="https://x.com/___emee_" target="_blank">
           <Button variant="outline" class="rounded-full p-2">
             <Twitter class="text-lg size-5" />
           </Button>
-        </A>
+        </a>
       </div>
 
       <div class="md:hidden">
         <Drawer>
-          {/* TODO this drawer is not working */}
-          <DrawerTrigger>
-            <Button variant="outline" class="rounded-full" size="icon">
-              <Menu />
-            </Button>
+          <DrawerTrigger
+            as={Button<"button">}
+            variant="outline"
+            class="rounded-full"
+            size="icon"
+          >
+            <Menu />
           </DrawerTrigger>
 
-          <DrawerContent>
-            <div class="mx-auto w-full max-w-sm flex flex-col gap-3">
+          <DrawerContent class="mx-auto w-full max-w-sm flex flex-col gap-3">
+          
               <DrawerFooter>
                 <div class="flex justify-end space-x-2">
-                  <A href="https://github.com/emee-dev/spotter" target="_blank">
+                  <a href="https://github.com/emee-dev/spotter" target="_blank">
                     <Button variant="outline" class="rounded-full p-2">
                       <Github class="text-lg size-4" />
                     </Button>
-                  </A>
+                  </a>
 
-                  <A href="https://x.com/___emee_" target="_blank">
+                  <a href="https://x.com/___emee_" target="_blank">
                     <Button variant="outline" class="rounded-full p-2">
                       <Twitter class="text-lg size-4" />
                     </Button>
-                  </A>
+                  </a>
                 </div>
 
                 <For each={tabs}>
                   {(tab) => (
-                    <DrawerClose>
+                    <div>
                       <a href={tab.href}>
                         <Button
                           variant="secondary"
@@ -124,7 +125,7 @@ export default function Header() {
                           {tab.name}
                         </Button>
                       </a>
-                    </DrawerClose>
+                    </div>
                   )}
                 </For>
 
@@ -134,7 +135,7 @@ export default function Header() {
                   </Button>
                 </DrawerClose>
               </DrawerFooter>
-            </div>
+        
           </DrawerContent>
         </Drawer>
       </div>

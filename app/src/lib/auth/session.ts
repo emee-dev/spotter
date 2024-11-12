@@ -1,7 +1,7 @@
 import { query, redirect } from "@solidjs/router";
 import { useSession } from "vinxi/http";
-import { redisRemoveData } from "../redis";
 import { env } from "~/env";
+import { redisRemoveData } from "../redis_session";
 
 export interface SessionData {
   email: string | undefined | null;

@@ -15,6 +15,15 @@ Content-Type: application/json
 }
 
 
+### Put request
+PUT http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "names": "emee" 
+}
+
+
 ### Post request
 POST http://localhost:3000/api/payload
 Content-Type: application/json

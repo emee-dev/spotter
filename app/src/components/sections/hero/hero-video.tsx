@@ -1,8 +1,4 @@
-// import Image from "next/image";
-// import { AnimatePresence, motion } from "framer-motion";
-
 import { cn } from "~/lib/utils";
-
 import { Play, XIcon } from "lucide-solid";
 import ThumbnailImage from "~/assets/yt3.png";
 import { createSignal } from "solid-js";
@@ -114,16 +110,9 @@ export default function HeroVideoDialog({
       </div>
       <AnimatePresence>
         {isVideoOpen() && (
-          <div
-            // initial={{ opacity: 0 }}
-            // animate={{ opacity: 1 }}
-            // onClick={() => setIsVideoOpen(false)}
-            // exit={{ opacity: 0 }}
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md"
-          >
+          <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
             <div
               {...selectedAnimation}
-              //   transition={{ type: "spring", damping: 30, stiffness: 300 }}
               class="relative w-full max-w-4xl aspect-video mx-4 md:mx-0"
             >
               <button class="absolute -top-16 right-0 text-white text-xl bg-neutral-900/50 ring-1 backdrop-blur-md rounded-full p-2 dark:bg-neutral-100/50 dark:text-black">
@@ -133,7 +122,6 @@ export default function HeroVideoDialog({
                 <iframe
                   src={videoSrc}
                   class="size-full rounded-2xl"
-                  //   allowFullScreen
                   allowfullscreen
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 ></iframe>

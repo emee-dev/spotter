@@ -1,7 +1,7 @@
 import { query, redirect } from "@solidjs/router";
 import { getSessionUser } from "../auth/session";
-import { redisGetUserByEmail } from "../redis";
 import { UNAUTHORIZED_ROUTE } from "./action";
+import { redisGetUserByEmail } from "../redis_session";
 
 export const getLoggedUser = query(async () => {
   "use server";

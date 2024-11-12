@@ -13,6 +13,8 @@ const envSchema = z.object({
   // XATA_HTTP_ENDPOINT: z.string().trim().min(1),
   // XATA_API_KEY: z.string().trim().min(1),
 
+  UNKEY_API_ID: z.string().trim().min(1),
+  UNKEY_ROOT_KEY: z.string().trim().min(1),
   UPSTASH_REDIS_REST_URL: z.string().trim().min(1),
   UPSTASH_REDIS_REST_TOKEN: z.string().trim().min(1),
   NODE_ENV: z

@@ -1,4 +1,3 @@
-// import BlurFade from "~/components/magicui/blur-fade";
 import Section from "~/components/section";
 import { Card, CardContent } from "~/components/ui/card";
 import { Repeat2, ShieldClose, Workflow } from "lucide-solid";
@@ -35,8 +34,6 @@ export default function Component() {
         {
           <For each={problems}>
             {(problem, index) => (
-              //   <BlurFade key={index} delay={0.2 + index * 0.2} inView>
-              // <Card class="bg-background border-none shadow-none">
               <Card class="bg-muted border hover:shadow-md">
                 <CardContent class="p-6 space-y-4">
                   <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
@@ -49,7 +46,7 @@ export default function Component() {
                   <p class="text-muted-foreground">{problem.description}</p>
                 </CardContent>
               </Card>
-              //   </BlurFade>
+            
             )}
           </For>
         }

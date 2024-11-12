@@ -1,4 +1,3 @@
-import { A } from "@solidjs/router";
 import { Github, Mail, Twitter } from "lucide-solid";
 import { For, ValidComponent } from "solid-js";
 import { Dynamic } from "solid-js/web";
@@ -31,9 +30,9 @@ const links: Link[] = [
     <footer class="max-w-5xl mx-auto flex flex-col gap-y-3 pt-10 pb-5 px-5 lg:px-0">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-x-2">
-          <A href="/" class="cursor-pointer size-[48px] aspect-square">
+          <a href="/" class="cursor-pointer size-[48px] aspect-square">
             <Logo />
-          </A>
+          </a>
           <h2 class="font-semibold text-neutral-900 dark:text-white">
             Spotter.dev
           </h2>

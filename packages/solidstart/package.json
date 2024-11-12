@@ -32,7 +32,11 @@
     "middleware",
     "sdk"
   ],
-  "author": "Emmanuel Ajike",
+  "author": {
+    "email": "emmanuelajike2000@gmail.com",
+    "name": "Emmanuel Ajike",
+    "url": "https://github.com/emee-dev"
+  },
   "license": "MIT",
   "dependencies": {
     "axios": "^1.3.4",

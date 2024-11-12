@@ -1,19 +1,19 @@
 import { A, createAsync, RouteSectionProps } from "@solidjs/router";
 import { Menu, Plus } from "lucide-solid";
-import { createSignal } from "solid-js";
+import { createSignal, Suspense } from "solid-js";
 import Sidebar from "~/components/sidebar";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-import { getLoggedUser } from "~/lib/auth/user";
+// import { getLoggedUser } from "~/lib/auth/user";
 
-export const route = {
-  preload() {
-    return getLoggedUser();
-  },
-};
+// export const route = {
+//   preload() {
+//     return getLoggedUser();
+//   },
+// };
 
 export default function ProjectLayout(props: RouteSectionProps) {
-  const user = createAsync(() => getLoggedUser(), { deferStream: true });
+  // const user = createAsync(() => getLoggedUser(), { deferStream: true });
   const [sidebarOpen, setSidebarOpen] = createSignal(false);
 
   return (
@@ -24,7 +24,9 @@ export default function ProjectLayout(props: RouteSectionProps) {
       <div class="flex-1 flex flex-col overflow-hidden">
         <Header setSidebarOpen={setSidebarOpen} />
         <Separator orientation="horizontal" />
-        {props.children}
+        <Suspense fallback={<div>Loading dashboard</div>}>
+          {props.children}
+        </Suspense>
       </div>
     </div>
   );
@@ -36,13 +38,13 @@ const Header = (props: { setSidebarOpen: (val: boolean) => void }) => {
       <Button onClick={() => props.setSidebarOpen(true)} class="lg:hidden">
         <Menu class="h-6 w-6" />
       </Button>
-      <h1 class="text-xl font-semibold">Issues</h1>
-      <A href="/projects/create">
+      <h1 class="text-xl font-semibold">Project</h1>
+      <a href="/projects/create">
         <Button variant="outline" size={"sm"}>
           <Plus class="size-4 mr-2" />
           <span>Add API</span>
         </Button>
-      </A>
+      </a>
     </header>
   );
 };

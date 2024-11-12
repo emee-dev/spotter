@@ -1,8 +1,12 @@
 {
   "name": "spotter.dev",
+  "description": "An open source observability tool for solidstart apps. Uncover those zombie apis today.",
   "private": true,
-  "author": "Emmanuel Ajike",
-  "description": "An open source lite weight observability tool for solidstart apps.",
+  "author": {
+    "email": "emmanuelajike2000@gmail.com",
+    "name": "Emmanuel Ajike",
+    "url": "https://github.com/emee-dev"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "turbo run dev --filter=@spotter/web",

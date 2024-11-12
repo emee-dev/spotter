@@ -31,14 +31,14 @@ export default function UnauthorizedAccess() {
           </p>
         </CardContent>
         <CardFooter class="flex flex-col space-y-3">
-          <A href="/login" class="w-full">
+          <a href="/login" class="w-full">
             <Button class="w-full">Log In</Button>
-          </A>
-          <A href="/" class="w-full">
+          </a>
+          <a href="/" class="w-full">
             <Button variant="outline" class="w-full">
               Go to Homepage
             </Button>
-          </A>
+          </a>
         </CardFooter>
       </Card>
     </div>

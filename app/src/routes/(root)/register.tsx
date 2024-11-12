@@ -48,9 +48,9 @@ export default function RegisterPage() {
             <div class="grid gap-2">
               <div class="flex items-center">
                 <Label for="password">Password</Label>
-                <A href="#" class="ml-auto inline-block text-sm underline">
+                <a href="#" class="ml-auto inline-block text-sm underline">
                   Forgot your password?
-                </A>
+                </a>
               </div>
               <TextField>
                 <TextFieldInput
@@ -94,9 +94,9 @@ export default function RegisterPage() {
           </Show>
           <div class="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <A href="/login" class="underline">
+            <a href="/login" class="underline">
               Login now
-            </A>
+            </a>
           </div>
         </CardContent>
       </Card>

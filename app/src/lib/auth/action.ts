@@ -4,7 +4,7 @@ import { getSessionUser, setSession, terminateSession } from "./session";
 import { AccountError, errors } from "../config";
 import { createUser, getUserRecord } from "../db";
 import bcrypt from "bcrypt";
-import { redisHasAccount, redisSetUserEmail } from "../redis";
+import { redisHasAccount, redisSetUserEmail } from "../redis_session";
 
 export const AFTER_LOGIN_REDIRECT = "/projects";
 export const UNAUTHORIZED_ROUTE = "/unauthorized";

@@ -20,9 +20,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        // GeistSans: "var(--geist-sans)",
-        // SourceCodePro: "var(--source-code-pro)",
+        inter: ["'Inter'", "sans-serif"],
         geistsans: ["'Geist Sans'", "sans-serif"],
+        geistmono: ["'Geist Mono'", "monospace"],
         sourcecodepro: ["'Source Code Pro Variable'", "monospace"],
       },
       colors: {

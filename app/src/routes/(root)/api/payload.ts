@@ -3,7 +3,10 @@
 import type { APIEvent } from "@solidjs/start/server";
 import type { SpotterPayload } from "@spotter/types";
 import { createRequest } from "~/lib/db";
+import { Unkey, verifyKey } from "@unkey/api";
+
 import { formatZodError, SpotterPayloadSchema } from "~/schema";
+import { env } from "~/env";
 
 export const POST = async (event: APIEvent) => {
   try {
@@ -19,6 +22,23 @@ export const POST = async (event: APIEvent) => {
         },
         { status: 404 }
       );
+    }
+
+    const { result: unkey_result, error: unkey_error } = await verifyKey({
+      key: params.data.spotter.apiKey,
+      apiId: env.UNKEY_API_ID,
+    });
+
+    if (unkey_error) {
+      // handle potential network or bad request error
+      // a link to our docs will be in the `error.docs` field
+      console.error(unkey_error.message);
+      return;
+    }
+
+    if (!unkey_result.valid) {
+      // do not grant access
+      return;
     }
 
     const { error, spotter, request, response, stack, system, timestamp } =

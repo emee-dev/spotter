@@ -3,6 +3,7 @@ import { customAlphabet, nanoid } from "nanoid";
 import { getEndpoint } from "~/lib/utils";
 import { AccountError, errors } from "../config";
 import prisma, { Prisma } from "./prisma";
+import { getStats } from "./redis_cache";
 
 /* S
 
@@ -204,6 +205,68 @@ export const updateProjectDetails = async (
   return new_record;
 };
 
+export const getProjectStatsById = async (args: { projectId: string }) => {
+  "use server";
+
+  const record = await prisma.projects.findFirst({
+    where: {
+      projectId: args.projectId,
+    },
+  });
+
+  if (!record) {
+    throw new Error("Unable to find record, please try again.");
+  }
+
+  // Run the count queries in parallel
+  const [requestCount, endpointsCount] = await Promise.all([
+    prisma.project_requests.count({
+      where: {
+        projectId: args.projectId,
+      },
+    }),
+    prisma.project_endpoints.count({
+      where: {
+        projectId: args.projectId,
+      },
+    }),
+  ]);
+
+  const stats = [
+    {
+      label: "Requests",
+      value: requestCount || 0,
+      icon: "Box",
+      color: "text-blue-500",
+    },
+    {
+      label: "Endpoints",
+      value: endpointsCount || 0,
+      icon: "Radio",
+      color: "text-purple-500",
+    },
+  ] as const;
+
+  // const statRedis = await getStats(`stats:${args.projectId}`);
+
+  // const stats = [
+  //   {
+  //     label: "Requests",
+  //     value: statRedis?.requestCount || 0,
+  //     icon: "Box",
+  //     color: "text-blue-500",
+  //   },
+  //   {
+  //     label: "Endpoints",
+  //     value: statRedis?.endpointsCount || 0,
+  //     icon: "Radio",
+  //     color: "text-purple-500",
+  //   },
+  // ] as const;
+
+  return stats;
+};
+
 export const createRequest = async (args: ProjectRequests) => {
   "use server";
 
@@ -264,10 +327,12 @@ export const createRequest = async (args: ProjectRequests) => {
   return result;
 };
 
-export const listAllProjects = async (args: Projects) => {
-  let doesUserExist = await prisma.users.findFirst({
+export const listAllProjects = async (args: { email: string }) => {
+  "use server";
+
+  const doesUserExist = await prisma.users.findFirst({
     where: {
-      email: args.createdBy,
+      email: args.email,
     },
   });
 
@@ -275,11 +340,42 @@ export const listAllProjects = async (args: Projects) => {
     throw new Error("User does not exist");
   }
 
-  let findRecords = await prisma.projects.findMany({
+  const findRecords = await prisma.projects.findMany({
     where: {
-      createdBy: args.createdBy,
+      createdBy: args.email,
     },
   });
 
   return findRecords || [];
+};
+
+export const listAllRequests = async (args: {
+  projectId: string;
+  page?: number;
+  pageSize?: number;
+}) => {
+  "use server";
+
+  const { projectId, page = 1, pageSize = 10 } = args;
+
+  // const findRecords = await prisma.project_requests.findMany({
+  //   where: {
+  //     projectId: projectId,
+  //   },
+  //   skip: (page - 1) * pageSize,
+  //   take: pageSize,
+  // });
+
+  const [count, records] = await prisma.$transaction([
+    prisma.project_requests.count(),
+    prisma.project_requests.findMany({
+      where: {
+        projectId: projectId,
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+  ]);
+
+  return { count, records };
 };

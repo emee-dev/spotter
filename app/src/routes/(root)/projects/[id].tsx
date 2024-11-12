@@ -1,16 +1,7 @@
-import { useSubmission } from "@solidjs/router";
-import {
-  AlertTriangle,
-  ArrowRight,
-  Box,
-  Clock,
-  Copy,
-  Key,
-  Radio,
-  RotateCw,
-} from "lucide-solid";
-import { Show } from "solid-js";
-import { createSignal } from "solid-js";
+import { createAsync, query, useParams, useSubmission } from "@solidjs/router";
+import { Box, Copy, Key, Radio, RotateCw } from "lucide-solid";
+import { createSignal, ErrorBoundary, For, Show } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import {
   LargeRequestCard,
   Payload,
@@ -26,6 +17,14 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
+import {
+  Pagination,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationItems,
+  PaginationNext,
+  PaginationPrevious,
+} from "~/components/ui/pagination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import {
   TextField,
@@ -33,8 +32,8 @@ import {
   TextFieldLabel,
 } from "~/components/ui/text-field";
 import { showToast } from "~/components/ui/toast";
+import { getProjectStatsById, listAllRequests } from "~/lib/db";
 import { updateProjectAction } from "~/lib/db/action";
-// import { Input } from "~/components/ui/input";
 
 // Mock data with sparkline data points
 const issues: Payload[] = [
@@ -182,183 +181,166 @@ const issues: Payload[] = [
   },
 ];
 
+const overview = [
+  {
+    icon: Box,
+    label: "Requests",
+    value: 0,
+    color: "text-blue-500",
+  },
+  {
+    icon: Radio,
+    label: "Endpoints",
+    value: 0,
+    color: "text-purple-500",
+  },
+];
+
+const statsIcons = {
+  Box: Box,
+  Radio: Radio,
+};
+
+const projectStats = query(async () => {
+  const params = useParams<{ id: string }>();
+
+  const data = await getProjectStatsById({ projectId: params.id });
+
+  return data;
+}, "projectStats");
+
+// const listProjectRequests = query(async () => {}, "listProjectRequests");
+
+export const route = {
+  preload: () => {
+    projectStats();
+  },
+};
+
 export default function ProjectsDashboard() {
-  const [searchQuery, setSearchQuery] = createSignal("");
+  const [page, setPage] = createSignal(1);
+  const params = useParams<{ id: string }>();
+
+  const getProjectStats = createAsync(() => projectStats());
+
+  const getPaginatedReqs = createAsync(() =>
+    listAllRequests({ projectId: params.id, page: page() })
+  );
 
   return (
-    <div class="flex-1 overflow-auto p-4 space-y-4">
-      <Tabs defaultValue="overview" class="space-y-4">
-        <TabsList>
-          <TabsTrigger value="overview" class="text-sm">
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="requests" class="text-sm">
-            Requests
-          </TabsTrigger>
-          <TabsTrigger value="endpoints" class="text-sm">
-            Endpoints
-          </TabsTrigger>
+    <ErrorBoundary fallback={(err, reset) => <div>There is an error</div>}>
+      <div class="flex-1 overflow-auto p-4 space-y-4">
+        <Tabs defaultValue="overview" class="space-y-4">
+          <TabsList>
+            <For each={["Overview", "Requests", "Endpoints", "Settings"]}>
+              {(item) => (
+                <TabsTrigger value={item.toLowerCase()} class="text-sm">
+                  {item}
+                </TabsTrigger>
+              )}
+            </For>
+          </TabsList>
+          <TabsContent value="overview" class="space-y-4">
+            <div class="grid gap-4">
+              <Card class="w-full max-w-3xl">
+                <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle class="text-lg font-bold">
+                    Stats Overview
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div class="grid grid-cols-2 gap-4">
+                    <For each={getProjectStats()}>
+                      {(stat, index) => (
+                        <div class="flex items-center space-x-4 rounded-lg bg-neutral-300/50 p-4 transition-colors border hover:border-blue-400">
+                          <div
+                            class={`rounded-full bg-muted p-2 ${stat.color}`}
+                          >
+                            <Dynamic
+                              component={statsIcons[stat.icon]}
+                              class="h-6 w-6"
+                            />
+                          </div>
+                          <div>
+                            <p class="text-sm font-medium text-muted-foreground">
+                              {stat.label}
+                            </p>
+                            <p class={`text-2xl font-bold ${stat.color}`}>
+                              {stat.value}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </For>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
 
-          <TabsTrigger value="settings" class="text-sm">
-            Settings
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="overview" class="space-y-4">
-          <div class="grid gap-4">
-            <Card>
-              <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle class="text-sm font-medium">Stats</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Box class="h-4 w-4" />
-                      Requests
-                    </div>
-                    <p class="text-2xl font-bold">459</p>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock class="h-4 w-4" />
-                      Requests per minute
-                    </div>
-                    <p class="text-2xl font-bold">0</p>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                      <AlertTriangle class="h-4 w-4" />
-                      Problems
-                    </div>
-                    <p class="text-2xl font-bold">4</p>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Radio class="h-4 w-4" />
-                      Endpoints
-                    </div>
-                    <p class="text-2xl font-bold">9</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle class="text-sm font-medium">API Score</CardTitle>
-                <Button
-                  variant="link"
-                  size="sm"
-                  class="text-sm text-muted-foreground"
-                >
-                  View details
-                  <ArrowRight class="ml-1 h-4 w-4" />
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <div class="grid grid-cols-3 gap-4">
-                  <div class="space-y-2">
-                    <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
-                      <span class="text-xl font-bold">73</span>
-                    </div>
-                    <p class="text-sm text-muted-foreground">Performance</p>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
-                      <span class="text-xl font-bold">58</span>
-                    </div>
-                    <p class="text-sm text-muted-foreground">Security</p>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
-                      <span class="text-xl font-bold">65</span>
-                    </div>
-                    <p class="text-sm text-muted-foreground">Quality</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle class="text-sm font-medium">Team members</CardTitle>
-                <Button
-                  variant="link"
-                  size="sm"
-                  class="text-sm text-muted-foreground"
-                >
-                  Manage
-                  <ArrowRight class="ml-1 h-4 w-4" />
-                </Button>
-              </CardHeader>
-              <CardContent class="space-y-4">
-                <h3 class="font-semibold">Invite new members</h3>
-                <p class="text-sm text-muted-foreground">
-                  You can add one or more e-mails and invite them to your
-                  project.
-                </p>
-                <div class="flex gap-2">
-                  {/* <Input placeholder="Separate new emails with a comma" /> */}
-                  <Button>Send invite</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
+          <TabsContent value="requests" class="space-y-10">
+            <div class="space-y-2">
+              {issues.map((issue) => (
+                <LargeRequestCard
+                  id={issue.id}
+                  error={issue.error}
+                  system={issue.system}
+                  request={issue.request}
+                  timestamp={issue.timestamp}
+                />
+              ))}
+            </div>
 
-        <TabsContent value="requests" class="space-y-2">
-          {issues.map((issue) => (
-            <LargeRequestCard
-              id={issue.id}
-              error={issue.error}
-              request={issue.request}
-              system={issue.system}
-              timestamp={issue.timestamp}
-              // response={issue.response}
-            />
-          ))}
-        </TabsContent>
+            <div>{JSON.stringify(getPaginatedReqs()?.records || [])}</div>
 
-        <TabsContent value="endpoints" class="space-y-2">
-          {issues.map((issue) => (
-            <SmallRequestCard
-              id={issue.id}
-              request={issue.request}
-              response={issue.response}
-              timestamp={issue.timestamp}
-            />
-          ))}
-        </TabsContent>
+            <div class="flex justify-center">
+              <Pagination
+                count={getPaginatedReqs()?.count || 0}
+                fixedItems
+                itemComponent={(props) => (
+                  <PaginationItem page={props.page}>
+                    {props.page}
+                  </PaginationItem>
+                )}
+                ellipsisComponent={() => <PaginationEllipsis />}
+              >
+                <PaginationPrevious
+                  onClick={() => {
+                    setPage(page() - 1);
+                  }}
+                />
+                <PaginationItems />
+                <PaginationNext
+                  onClick={() => {
+                    setPage(page() + 1);
+                  }}
+                />
+              </Pagination>
+            </div>
+          </TabsContent>
 
-        <TabsContent value="settings">
-          <SettingsTabContent />
-        </TabsContent>
-      </Tabs>
-    </div>
+          <TabsContent value="endpoints" class="space-y-2">
+            {issues.map((issue) => (
+              <SmallRequestCard
+                id={issue.id}
+                request={issue.request}
+                response={issue.response}
+                timestamp={issue.timestamp}
+              />
+            ))}
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <SettingsTabContent />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </ErrorBoundary>
   );
 }
 
 function SettingsTabContent() {
-  const [apiKey, setApiKey] = createSignal("");
-  const [teamUrl, setTeamUrl] = createSignal("my-project");
-
   const updateProject = useSubmission(updateProjectAction);
-
-  const handleGenerateApiKey = () => {
-    // In a real app, this would make an API call
-    const newKey = "pk_" + Math.random().toString(36).substring(2, 15);
-    setApiKey(newKey);
-    showToast({
-      title: "API Key Generated",
-      description: "Your new API key has been generated successfully.",
-    });
-  };
-
-  const handleCopyApiKey = () => {
-    navigator.clipboard.writeText(apiKey());
-    showToast({
-      title: "Copied",
-      description: "API key copied to clipboard",
-    });
-  };
 
   return (
     <div class="space-y-6">
@@ -413,23 +395,19 @@ function SettingsTabContent() {
         </CardHeader>
         <CardContent class="space-y-4">
           <div class="space-y-2">
-            {apiKey() && (
+            {
               <div class="flex items-center gap-2">
-                <TextFieldInput value={apiKey()} type="text" />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleCopyApiKey}
-                >
+                <TextFieldInput type="text" />
+                <Button variant="outline" size="icon">
                   <Copy class="h-4 w-4" />
                   <span class="sr-only">Copy API key</span>
                 </Button>
               </div>
-            )}
+            }
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleGenerateApiKey}>
+          <Button onClick={() => {}}>
             <Key class="mr-2 h-4 w-4" />
             Generate New API Key
           </Button>
@@ -455,8 +433,6 @@ function SettingsTabContent() {
               <TextFieldInput
                 id="teamUrl"
                 type="text"
-                value={teamUrl()}
-                onChange={(e) => setTeamUrl(e.target.value)}
                 class="rounded-l-none"
                 maxLength={48}
               />

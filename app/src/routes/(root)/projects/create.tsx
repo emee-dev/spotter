@@ -92,7 +92,7 @@ export default function CreateNewProject() {
           </Show>
         </CardContent>
         <CardContent class="mt-2">
-          <A href="/projects">
+          <a href="/projects">
             <Button
               type="button"
               variant="outline"
@@ -100,7 +100,7 @@ export default function CreateNewProject() {
             >
               Discard
             </Button>
-          </A>
+          </a>
         </CardContent>
       </Card>
     </div>

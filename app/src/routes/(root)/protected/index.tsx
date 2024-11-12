@@ -13,7 +13,7 @@ export const route = {
 
 export default function Protected() {
   const user = createAsync(() => getLoggedUser(), { deferStream: true });
-
+  
   return (
     <main>
       <Title>Protected</Title>
