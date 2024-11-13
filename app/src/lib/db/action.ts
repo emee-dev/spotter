@@ -81,7 +81,5 @@ export const createProjectAPIKey = action(async (formData: FormData) => {
   const keyId = result.keyId;
   const apiKey = result.key;
 
-  console.log({ keyId, apiKey });
-
   return { apiKey };
 });

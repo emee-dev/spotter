@@ -327,6 +327,22 @@ export const createRequest = async (args: ProjectRequests) => {
   return result;
 };
 
+export const getRequestById = async (args: { xata_id: string }) => {
+  "use server";
+
+  const record = await prisma.project_requests.findFirst({
+    where: {
+      xata_id: args.xata_id,
+    },
+  });
+
+  if (!record) {
+    throw new Error("Unable to find request, please try again.");
+  }
+
+  return record;
+};
+
 export const listAllProjects = async (args: { email: string }) => {
   "use server";
 
@@ -358,17 +374,32 @@ export const listAllRequests = async (args: {
 
   const { projectId, page = 1, pageSize = 10 } = args;
 
-  // const findRecords = await prisma.project_requests.findMany({
-  //   where: {
-  //     projectId: projectId,
-  //   },
-  //   skip: (page - 1) * pageSize,
-  //   take: pageSize,
-  // });
-
   const [count, records] = await prisma.$transaction([
     prisma.project_requests.count(),
     prisma.project_requests.findMany({
+      where: {
+        projectId: projectId,
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+  ]);
+
+  return { count, records };
+};
+
+export const listAllEndpoints = async (args: {
+  projectId: string;
+  page?: number;
+  pageSize?: number;
+}) => {
+  "use server";
+
+  const { projectId, page = 1, pageSize = 10 } = args;
+
+  const [count, records] = await prisma.$transaction([
+    prisma.project_endpoints.count(),
+    prisma.project_endpoints.findMany({
       where: {
         projectId: projectId,
       },

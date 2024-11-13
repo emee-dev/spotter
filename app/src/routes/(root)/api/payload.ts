@@ -3,8 +3,8 @@
 import type { APIEvent } from "@solidjs/start/server";
 import type { SpotterPayload } from "@spotter/types";
 import { verifyKey } from "@unkey/api";
-
 import { env } from "~/env";
+import { createRequest } from "~/lib/db";
 import { formatZodError, SpotterPayloadSchema } from "~/schema";
 
 export const POST = async (event: APIEvent) => {
@@ -32,28 +32,38 @@ export const POST = async (event: APIEvent) => {
       // handle potential network or bad request error
       // a link to our docs will be in the `error.docs` field
       console.error(unkey_error.message);
-      return;
+      return Response.json(
+        {
+          message: "Internal server error, please try again.",
+          data: null,
+        },
+        { status: 500 }
+      );
     }
 
     if (!unkey_result.valid) {
       // do not grant access
-      return;
+      return Response.json(
+        {
+          message: "Permission denied, please refrain from dubious activites.",
+          data: null,
+        },
+        { status: 403 }
+      );
     }
 
     const { error, spotter, request, response, stack, system, timestamp } =
       params.data;
 
-    // const isValidKey = "";
-
-    // const findProject = await createRequest({
-    //   error: error,
-    //   projectId: spotter.projectId,
-    //   request,
-    //   response,
-    //   stack,
-    //   system,
-    //   timestamp,
-    // });
+    const findProject = await createRequest({
+      error: error,
+      projectId: spotter.projectId,
+      request,
+      response,
+      stack,
+      system,
+      timestamp,
+    });
 
     return Response.json(
       { message: "Payload recieved", data: params.data },

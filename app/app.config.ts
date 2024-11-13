@@ -1,19 +1,21 @@
-import * as dotenv from "dotenv";
 import { defineConfig } from "@solidjs/start/config";
-import { dirname, resolve } from "node:path";
+import * as dotenv from "dotenv";
 import solidSvg from "vite-plugin-solid-svg";
-import { fileURLToPath } from "node:url";
 
 dotenv.config({ path: ["./.env", "./.env.local"] });
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export default defineConfig({
   server: {
     preset: "vercel",
+    compressPublicAssets: true,
+    // prerender: {
+    //   routes: ["/readme"],
+    // },
   },
   vite: {
     plugins: [solidSvg()],
+    optimizeDeps: {
+      exclude: ["@codemirror/state", "@codemirror/view"],
+    },
   },
 });

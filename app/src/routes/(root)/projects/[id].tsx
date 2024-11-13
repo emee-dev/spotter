@@ -7,9 +7,19 @@ import {
 } from "@solidjs/router";
 import { Unkey } from "@unkey/api";
 import { Box, Copy, Key, Radio, RotateCw } from "lucide-solid";
-import { createSignal, ErrorBoundary, For, Show } from "solid-js";
-import { Dynamic } from "solid-js/web";
 import {
+  createEffect,
+  createSignal,
+  ErrorBoundary,
+  For,
+  on,
+  Show,
+  Suspense,
+} from "solid-js";
+import { Dynamic } from "solid-js/web";
+import ErrorMessage from "~/components/error";
+import {
+  EndpointCard,
   LargeRequestCard,
   Payload,
   SmallRequestCard,
@@ -40,7 +50,11 @@ import {
 } from "~/components/ui/text-field";
 import { showToast } from "~/components/ui/toast";
 import { env } from "~/env";
-import { getProjectStatsById, listAllRequests } from "~/lib/db";
+import {
+  getProjectStatsById,
+  listAllEndpoints,
+  listAllRequests,
+} from "~/lib/db";
 import { createProjectAPIKey } from "~/lib/db/action";
 // import { updateProjectAction } from "~/lib/db/action";
 
@@ -218,6 +232,28 @@ const projectStats = query(async () => {
   return data;
 }, "projectStats");
 
+type XataRequests = {
+  error: Payload["error"];
+  projectId: string;
+  xata_id: string;
+  xata_version: number;
+  xata_createdat: Date;
+  xata_updatedat: Date;
+  stack: Payload["stack"];
+  request: Payload["request"];
+  response: Payload["response"];
+  system: Payload["system"];
+  timestamp: Date;
+};
+
+type XataEndpoints = {
+  xata_id: string;
+  xata_version: number;
+  xata_createdat: Date;
+  xata_updatedat: Date;
+  projectId: string;
+  requestUrl: string;
+};
 // const listProjectRequests = query(async () => {}, "listProjectRequests");
 
 export const route = {
@@ -360,25 +396,68 @@ function SettingsTabContent() {
 }
 
 export default function ProjectsDashboard() {
-  const [page, setPage] = createSignal(1);
   const params = useParams<{ id: string }>();
-
   const getProjectStats = createAsync(() => projectStats());
 
+  const [page, setPage] = createSignal(1);
+  const [endpointPage, setEndpointPage] = createSignal(1);
+
+  const [requests, setRequests] = createSignal<XataRequests[]>([]);
+  const [endpoints, setEndpoints] = createSignal<XataEndpoints[]>([]);
+
+  const [count, setCount] = createSignal<number>(0);
+  const [endpoointCount, setEndpointCount] = createSignal<number>(0);
+
   const getPaginatedReqs = createAsync(() =>
-    listAllRequests({ projectId: params.id, page: page() })
+    listAllRequests({ projectId: params.id, page: page(), pageSize: 8 })
+  );
+
+  const getPaginatedEndpoints = createAsync(() =>
+    listAllEndpoints({
+      projectId: params.id,
+      page: endpointPage(),
+      pageSize: 8,
+    })
+  );
+
+  createEffect(
+    on(getPaginatedReqs, (reqs) => {
+      if (reqs && reqs.records) {
+        setCount(reqs.count);
+        setRequests(reqs.records as XataRequests[]);
+      }
+    })
+  );
+
+  createEffect(
+    on(getPaginatedEndpoints, (endpoints) => {
+      if (endpoints && endpoints.records) {
+        setEndpointCount(endpoints.count);
+        setEndpoints(endpoints.records as XataEndpoints[]);
+      }
+    })
   );
 
   return (
-    <ErrorBoundary
-      fallback={(err, reset) => <div>There is an error {err.message}</div>}
-    >
+    <ErrorBoundary fallback={(err, reset) => <ErrorMessage />}>
       <div class="flex-1 overflow-auto p-4 space-y-4">
         <Tabs defaultValue="overview" class="space-y-4">
           <TabsList>
             <For each={["Overview", "Requests", "Endpoints", "Settings"]}>
               {(item) => (
-                <TabsTrigger value={item.toLowerCase()} class="text-sm">
+                <TabsTrigger
+                  value={item.toLowerCase()}
+                  class="text-sm"
+                  onClick={() => {
+                    if (item === "Requests") {
+                      console.log("requests", requests());
+                    }
+
+                    if (item === "Endpoints") {
+                      console.log("endpoints", endpoints());
+                    }
+                  }}
+                >
                   {item}
                 </TabsTrigger>
               )}
@@ -422,56 +501,82 @@ export default function ProjectsDashboard() {
             </div>
           </TabsContent>
 
-          <TabsContent value="requests" class="space-y-10">
+          <TabsContent value="requests" class="">
             <div class="space-y-2">
-              {issues.map((issue) => (
-                <LargeRequestCard
-                  id={issue.id}
-                  error={issue.error}
-                  system={issue.system}
-                  request={issue.request}
-                  timestamp={issue.timestamp}
-                />
-              ))}
+              <For each={requests()}>
+                {(issue) => {
+                  const targetDate = new Date(issue.xata_createdat);
+                  const now = new Date();
+                  const difference = targetDate.getTime() - now.getTime();
+
+                  return (
+                    <LargeRequestCard
+                      id={issue.xata_id}
+                      error={issue.error}
+                      system={issue.system}
+                      request={issue.request}
+                      xata_createdat={difference}
+                    />
+                  );
+                }}
+              </For>
             </div>
 
-            <div>{JSON.stringify(getPaginatedReqs()?.records || [])}</div>
-
-            <div class="flex justify-center">
+            <div class="flex mt-auto justify-center">
               <Pagination
-                count={getPaginatedReqs()?.count || 0}
+                count={count()}
                 fixedItems
                 itemComponent={(props) => (
-                  <PaginationItem page={props.page}>
+                  <PaginationItem
+                    page={props.page}
+                    onClick={() => setPage(props.page)}
+                  >
                     {props.page}
                   </PaginationItem>
                 )}
                 ellipsisComponent={() => <PaginationEllipsis />}
               >
-                <PaginationPrevious
-                  onClick={() => {
-                    setPage(page() - 1);
-                  }}
-                />
                 <PaginationItems />
-                <PaginationNext
-                  onClick={() => {
-                    setPage(page() + 1);
-                  }}
-                />
               </Pagination>
             </div>
           </TabsContent>
 
-          <TabsContent value="endpoints" class="space-y-2">
-            {issues.map((issue) => (
-              <SmallRequestCard
-                id={issue.id}
-                request={issue.request}
-                response={issue.response}
-                timestamp={issue.timestamp}
-              />
-            ))}
+          <TabsContent value="endpoints" class="space-y-10">
+            <div class="space-y-2">
+              <For each={endpoints()}>
+                {(issue) => {
+                  const targetDate = new Date(issue.xata_createdat);
+                  const now = new Date();
+                  const difference = targetDate.getTime() - now.getTime();
+
+                  return (
+                    <EndpointCard
+                      id={issue.xata_id}
+                      requestUrl={issue.requestUrl}
+                      xata_createdat={difference}
+                    />
+                  );
+                }}
+              </For>
+            </div>
+
+            <div class="flex mt-auto justify-center">
+              <Pagination
+                count={endpoointCount()}
+                fixedItems
+                itemComponent={(props) => (
+                  <PaginationItem
+                    page={props.page}
+                    onClick={() => setEndpointPage(props.page)}
+                  >
+                    {props.page}
+                  </PaginationItem>
+                )}
+                ellipsisComponent={() => <PaginationEllipsis />}
+              >
+                <PaginationItems />
+              </Pagination>
+            </div>
           </TabsContent>
 
           <TabsContent value="settings">

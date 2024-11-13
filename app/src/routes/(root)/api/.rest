@@ -31,36 +31,14 @@ Content-Type: application/json
 {
   "data": {
     "spotter": {
-      "apiKey": "api-key",
-      "projectId": "project-id"
+      "apiKey": "spotter_3ZQv663Jcmn5v79ZC9GznG6Y",
+      "projectId": "OGJ6YzU9"
     },
-    "error": {
-      "name": "TypeError",
-      "file": "apply/utils/src/instrumentation",
-      "line": 30,
-      "column": 10,
-      "message": "Failed to fetch resource",
-      "function": "fetchData"
-    },
-    "stack": [
-      {
-        "file": "apply/utils/src/instrumentation",
-        "line": 29,
-        "column": 5,
-        "function": "initializeRequest",
-        "method": "GET"
-      },
-      {
-        "file": "apply/utils/src/instrumentation",
-        "line": 30,
-        "column": 10,
-        "function": "fetchData",
-        "method": null
-      }
-    ],
+    "error": null,
+    "stack": null,
     "request": {
-      "method": "GET",
-      "url": "/projects/direct/backend/releases/v7210",
+      "method": "POST",
+      "url": "/user",
       "params": { "projectId": "404" },
       "query": { "search": "true" },
       "headers": {
@@ -70,8 +48,8 @@ Content-Type: application/json
       }
     },
     "response": {
-      "status": 404,
-      "params": { "errorCode": "404" },
+      "status": 500,
+      "params": { "name": "emee" },
       "headers": {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache"

@@ -1,7 +1,8 @@
-import { AlertTriangle, MoreHorizontal, XCircle } from "lucide-solid";
+import { AlertTriangle, Link, MoreHorizontal, XCircle } from "lucide-solid";
 import { Show } from "solid-js";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
+import { formatDateRelative } from "@solid-primitives/date";
 
 export type Payload = {
   id: string;
@@ -44,46 +45,50 @@ export type Payload = {
 
 export const LargeRequestCard = (props: {
   id: string;
-  timestamp: string;
   error: Payload["error"];
   system: Payload["system"];
   request: Payload["request"];
+  xata_createdat: number;
 }) => {
   return (
-    <Card class="flex bg-background font-geistsans flex-col sm:flex-row items-start sm:items-center gap-4 p-4  rounded-lg  group">
-      <div class="pl-2 flex-1 min-w-0 space-y-1 sm:space-y-2">
-        <Show
-          when={props.error}
-          fallback={
-            <div class="flex items-start sm:items-center gap-2 flex-wrap" />
-          }
-        >
-          {(error) => (
-            <div class="flex items-start sm:items-center gap-2 flex-wrap">
-              <span class="font-medium text-sm">{error().name}</span>
-              <span class=" text-sm hidden sm:inline">{error().line}</span>
-            </div>
-          )}
-        </Show>
+    <a href={`/projects/req/${props.id}`}>
+      <Card class="flex bg-background font-geistsans flex-col sm:flex-row items-start sm:items-center gap-4 p-4  rounded-lg  group">
+        <div class="pl-2 flex-1 min-w-0 space-y-1 sm:space-y-2">
+          <Show
+            when={props.error}
+            fallback={
+              <div class="flex items-start sm:items-center gap-2 flex-wrap" />
+            }
+          >
+            {(error) => (
+              <div class="flex items-start sm:items-center gap-2 flex-wrap">
+                <span class="font-medium text-sm">{error().name}</span>
+                <span class=" text-sm hidden sm:inline">{error().line}</span>
+              </div>
+            )}
+          </Show>
 
-        <div class="text-sm   space-x-3 truncate">
-          <span>{props.request.method}</span> <span>{props.request.url}</span>
+          <div class="text-sm   space-x-3 truncate">
+            <span>{props.request.method}</span> <span>{props.request.url}</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <span class="font-medium text-xs ">{props.system.platform}</span>
+            <span class="text-gray-600/75">
+              {formatDateRelative(props.xata_createdat)}
+            </span>
+          </div>
         </div>
-        <div class="flex items-center gap-2 text-sm">
-          <span class="font-medium text-xs ">{props.system.platform}</span>
-          <span class="text-gray-600/75">{props.timestamp}</span>
+        <div class="flex items-center gap-4 w-full sm:w-auto">
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            class="p-1.5 hover:bg-white/10 rounded opacity-0 group-hover:opacity-100"
+          >
+            <MoreHorizontal class="h-5 w-5" />
+          </Button>
         </div>
-      </div>
-      <div class="flex items-center gap-4 w-full sm:w-auto">
-        <Button
-          variant={"outline"}
-          size={"icon"}
-          class="p-1.5 hover:bg-white/10 rounded opacity-0 group-hover:opacity-100"
-        >
-          <MoreHorizontal class="h-5 w-5" />
-        </Button>
-      </div>
-    </Card>
+      </Card>
+    </a>
   );
 };
 
@@ -117,33 +122,58 @@ export const LargeRequestCard = (props: {
 //     </div>
 //   );
 // };
+
 export const SmallRequestCard = (props: {
   id: string;
-  timestamp: string;
   request: Payload["request"];
   response: Payload["response"];
+  xata_createdat: number;
 }) => {
   return (
-    <Card class="group grid hover:shadow text-base grid-cols-[auto_auto_auto_auto_1fr] items-center gap-3 p-3 rounded-lg backdrop-blur-sm transition-colors">
-      <div class="flex w-16 space-x-5 items-center">
-        {props.response ? (
-          <StatusIcon status={props.response.status} />
-        ) : (
-          <span class="opacity-0">●</span>
-        )}
+    <a href={`/project/req/${props.id}`}>
+      <Card class="group grid hover:shadow text-base grid-cols-[auto_auto_auto_auto_1fr] items-center gap-3 p-3 rounded-lg backdrop-blur-sm transition-colors">
+        <div class="flex w-16 space-x-5 items-center">
+          {props.response ? (
+            <StatusIcon status={props.response.status} />
+          ) : (
+            <span class="opacity-0">●</span>
+          )}
 
-        {props.response ? (
-          <StatusCode status={props.response.status} />
-        ) : (
-          <span class="opacity-0"></span>
-        )}
-      </div>
+          {props.response ? (
+            <StatusCode status={props.response.status} />
+          ) : (
+            <span class="opacity-0"></span>
+          )}
+        </div>
 
-      <span class=" text-center">{props.timestamp}</span>
-      <span class="font-mono text-indigo-400 text-center">
-        | {props.request.method} |
+        <span class=" text-center">
+          {formatDateRelative(props.xata_createdat)}
+        </span>
+        <span class="font-mono text-indigo-400 text-center">
+          | {props.request.method} |
+        </span>
+        <span class="font-mono truncate">{props.request.url}</span>
+      </Card>
+    </a>
+  );
+};
+
+export const EndpointCard = (props: {
+  id: string;
+  requestUrl: string;
+  xata_createdat: number;
+}) => {
+  return (
+    <Card class="group hover:shadow text-base flex items-center gap-3 p-3 rounded-lg backdrop-blur-sm transition-colors">
+      <span class="font-mono ml-3  text-center mr-2">
+        <Link class="size-4"></Link>
       </span>
-      <span class="font-mono truncate">{props.request.url}</span>
+      <span class="font-mono group-hover:underline underline-offset-4 text-blue-400 text-center">
+        {props.requestUrl}
+      </span>
+      <span class="ml-auto text-center text-sm text-neutral-400">
+        {formatDateRelative(props.xata_createdat)}
+      </span>
     </Card>
   );
 };

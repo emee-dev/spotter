@@ -1,3 +1,4 @@
+import { formatDateRelative } from "@solid-primitives/date";
 import { type ClassValue, clsx } from "clsx";
 import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
@@ -24,3 +25,11 @@ const idLength = 8;
 
 // Create the custom ID generator function
 export const genProjectId = customAlphabet(alphabet, idLength);
+
+export const getRelativeTime = (ts: Date) => {
+  const targetDate = new Date(ts);
+  const now = new Date();
+  const difference = targetDate.getTime() - now.getTime();
+
+  return formatDateRelative(difference);
+};
