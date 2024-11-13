@@ -164,7 +164,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Roadmap
 
 - [x] Add request observability
-- [x] Add action observability
+- [ ] Add action observability
 - [ ] Add Schema inference
 - [ ] Payload masking
 - [ ] Add security best practises evaluation
