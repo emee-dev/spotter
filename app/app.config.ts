@@ -4,7 +4,7 @@ import { dirname, resolve } from "node:path";
 import solidSvg from "vite-plugin-solid-svg";
 import { fileURLToPath } from "node:url";
 
-dotenv.config();
+dotenv.config({ path: ["./.env", "./.env.local"] });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

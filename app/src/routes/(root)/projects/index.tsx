@@ -1,15 +1,11 @@
 import { formatDateRelative } from "@solid-primitives/date";
-import { A, createAsync, query } from "@solidjs/router";
-import { Unkey } from "@unkey/api";
+import { createAsync, query } from "@solidjs/router";
 import { Link, MoreHorizontal } from "lucide-solid";
 import { ErrorBoundary, For } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
-import { env } from "~/env";
 import { getLoggedUser } from "~/lib/auth/user";
 import { listAllProjects } from "~/lib/db";
-
-const unkey = new Unkey({ rootKey: env.UNKEY_ROOT_KEY });
 
 const listProjects = query(async () => {
   const user = await getLoggedUser();

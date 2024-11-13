@@ -2,11 +2,10 @@
 // import jsonSchemaToZod from "json-schema-to-zod";
 import type { APIEvent } from "@solidjs/start/server";
 import type { SpotterPayload } from "@spotter/types";
-import { createRequest } from "~/lib/db";
-import { Unkey, verifyKey } from "@unkey/api";
+import { verifyKey } from "@unkey/api";
 
-import { formatZodError, SpotterPayloadSchema } from "~/schema";
 import { env } from "~/env";
+import { formatZodError, SpotterPayloadSchema } from "~/schema";
 
 export const POST = async (event: APIEvent) => {
   try {
@@ -26,7 +25,7 @@ export const POST = async (event: APIEvent) => {
 
     const { result: unkey_result, error: unkey_error } = await verifyKey({
       key: params.data.spotter.apiKey,
-      apiId: env.UNKEY_API_ID,
+      apiId: env().UNKEY_API_ID,
     });
 
     if (unkey_error) {

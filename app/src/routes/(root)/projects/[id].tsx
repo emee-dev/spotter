@@ -1,4 +1,11 @@
-import { createAsync, query, useParams, useSubmission } from "@solidjs/router";
+import {
+  createAsync,
+  query,
+  useAction,
+  useParams,
+  useSubmission,
+} from "@solidjs/router";
+import { Unkey } from "@unkey/api";
 import { Box, Copy, Key, Radio, RotateCw } from "lucide-solid";
 import { createSignal, ErrorBoundary, For, Show } from "solid-js";
 import { Dynamic } from "solid-js/web";
@@ -32,8 +39,10 @@ import {
   TextFieldLabel,
 } from "~/components/ui/text-field";
 import { showToast } from "~/components/ui/toast";
+import { env } from "~/env";
 import { getProjectStatsById, listAllRequests } from "~/lib/db";
-import { updateProjectAction } from "~/lib/db/action";
+import { createProjectAPIKey } from "~/lib/db/action";
+// import { updateProjectAction } from "~/lib/db/action";
 
 // Mock data with sparkline data points
 const issues: Payload[] = [
@@ -183,13 +192,13 @@ const issues: Payload[] = [
 
 const overview = [
   {
-    icon: Box,
+    icon: "Box",
     label: "Requests",
     value: 0,
     color: "text-blue-500",
   },
   {
-    icon: Radio,
+    icon: "Radio",
     label: "Endpoints",
     value: 0,
     color: "text-purple-500",
@@ -217,6 +226,139 @@ export const route = {
   },
 };
 
+function SettingsTabContent() {
+  const params = useParams<{ id: string }>();
+  // const updateProject = useSubmission(updateProjectAction);
+  const createAPIKey = useSubmission(createProjectAPIKey);
+
+  return (
+    <div class="space-y-6">
+      {/* <Card>
+        <CardHeader>
+          <CardTitle>Project</CardTitle>
+        </CardHeader>
+        <form action={updateProjectAction} method="post">
+          <CardContent class="space-y-4">
+            <TextField class="space-y-2">
+              <TextFieldLabel for="projectLabel">Label</TextFieldLabel>
+              <TextFieldInput
+                id="projectLabel"
+                name="projectLabel"
+                type="text"
+                placeholder="Service name"
+                maxLength={32}
+              />
+            </TextField>
+            <TextField class="space-y-2">
+              <TextFieldLabel for="baseUrl">Base URL</TextFieldLabel>
+              <TextFieldInput
+                id="baseUrl"
+                name="baseUrl"
+                type="text"
+                placeholder="https://localhost:3000/"
+                maxLength={32}
+              />
+            </TextField>
+          </CardContent>
+          <CardFooter>
+            <Show
+              when={updateProject.pending}
+              fallback={<Button type="submit">Save</Button>}
+            >
+              {(_) => (
+                <Button disabled type="submit">
+                  Saving <RotateCw class="ml-2 size-4 animate-spin" />
+                </Button>
+              )}
+            </Show>
+          </CardFooter>
+        </form>
+      </Card> */}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>API Keys</CardTitle>
+          <CardDescription>
+            Generate and manage API keys to authenticate your requests.
+          </CardDescription>
+        </CardHeader>
+        <form action={createProjectAPIKey} method="post">
+          <CardContent class="space-y-4">
+            <div class="space-y-2">
+              <TextField class="flex items-center gap-2">
+                <TextFieldInput
+                  type="text"
+                  value={
+                    createAPIKey.result?.apiKey || "You may generate a new key."
+                  }
+                />
+                <Button variant="outline" size="icon">
+                  <Copy class="h-4 w-4" />
+                  <span class="sr-only">Copy API key</span>
+                </Button>
+              </TextField>
+              <span class="mt-3 leading-3 tracking-tighter text-sm font-mono text-red-400">
+                Be sure to copy key, it will be shown once.
+              </span>
+              <input
+                type="text"
+                name="projectId"
+                value={params.id}
+                class="hidden"
+              />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Show
+              when={createAPIKey.pending}
+              fallback={<Button type="submit">Generate Key</Button>}
+            >
+              {(_) => (
+                <Button disabled type="submit">
+                  Generating ... <RotateCw class="ml-2 size-4 animate-spin" />
+                </Button>
+              )}
+            </Show>
+          </CardFooter>
+        </form>
+      </Card>
+
+      {/* <Card>
+        <CardHeader>
+          <CardTitle>Team URL</CardTitle>
+          <CardDescription>
+            This is your team's URL namespace on the platform. Within it, your
+            team can inspect their projects, check out any recent activity, or
+            configure settings to their liking.
+          </CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-4">
+          <TextField class="space-y-2">
+            <TextFieldLabel for="teamUrl">URL</TextFieldLabel>
+            <div class="flex">
+              <div class="flex h-10 items-center rounded-l-md border border-r-0 bg-muted px-3 text-sm text-muted-foreground">
+                app.example.com/
+              </div>
+              <TextFieldInput
+                id="teamUrl"
+                type="text"
+                class="rounded-l-none"
+                maxLength={48}
+              />
+            </div>
+            <p class="text-sm text-muted-foreground">
+              Please use 48 characters at maximum.
+            </p>
+          </TextField>
+        </CardContent>
+        <CardFooter>
+          <Button>Save Changes</Button>
+        </CardFooter>
+      </Card> */}
+    </div>
+  );
+}
+
 export default function ProjectsDashboard() {
   const [page, setPage] = createSignal(1);
   const params = useParams<{ id: string }>();
@@ -228,7 +370,9 @@ export default function ProjectsDashboard() {
   );
 
   return (
-    <ErrorBoundary fallback={(err, reset) => <div>There is an error</div>}>
+    <ErrorBoundary
+      fallback={(err, reset) => <div>There is an error {err.message}</div>}
+    >
       <div class="flex-1 overflow-auto p-4 space-y-4">
         <Tabs defaultValue="overview" class="space-y-4">
           <TabsList>
@@ -336,116 +480,5 @@ export default function ProjectsDashboard() {
         </Tabs>
       </div>
     </ErrorBoundary>
-  );
-}
-
-function SettingsTabContent() {
-  const updateProject = useSubmission(updateProjectAction);
-
-  return (
-    <div class="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Project</CardTitle>
-        </CardHeader>
-        <form action={updateProjectAction} method="post">
-          <CardContent class="space-y-4">
-            <TextField class="space-y-2">
-              <TextFieldLabel for="projectLabel">Label</TextFieldLabel>
-              <TextFieldInput
-                id="projectLabel"
-                name="projectLabel"
-                type="text"
-                placeholder="Service name"
-                maxLength={32}
-              />
-            </TextField>
-            <TextField class="space-y-2">
-              <TextFieldLabel for="baseUrl">Base URL</TextFieldLabel>
-              <TextFieldInput
-                id="baseUrl"
-                name="baseUrl"
-                type="text"
-                placeholder="https://localhost:3000/"
-                maxLength={32}
-              />
-            </TextField>
-          </CardContent>
-          <CardFooter>
-            <Show
-              when={updateProject.pending}
-              fallback={<Button type="submit">Save</Button>}
-            >
-              {(_) => (
-                <Button disabled type="submit">
-                  Saving <RotateCw class="ml-2 size-4 animate-spin" />
-                </Button>
-              )}
-            </Show>
-          </CardFooter>
-        </form>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>API Keys</CardTitle>
-          <CardDescription>
-            Generate and manage API keys to authenticate your requests.
-          </CardDescription>
-        </CardHeader>
-        <CardContent class="space-y-4">
-          <div class="space-y-2">
-            {
-              <div class="flex items-center gap-2">
-                <TextFieldInput type="text" />
-                <Button variant="outline" size="icon">
-                  <Copy class="h-4 w-4" />
-                  <span class="sr-only">Copy API key</span>
-                </Button>
-              </div>
-            }
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button onClick={() => {}}>
-            <Key class="mr-2 h-4 w-4" />
-            Generate New API Key
-          </Button>
-        </CardFooter>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Team URL</CardTitle>
-          <CardDescription>
-            This is your team&apos;s URL namespace on the platform. Within it,
-            your team can inspect their projects, check out any recent activity,
-            or configure settings to their liking.
-          </CardDescription>
-        </CardHeader>
-        <CardContent class="space-y-4">
-          <TextField class="space-y-2">
-            <Label for="teamUrl">URL</Label>
-            <div class="flex">
-              <div class="flex h-10 items-center rounded-l-md border border-r-0 bg-muted px-3 text-sm text-muted-foreground">
-                app.example.com/
-              </div>
-              <TextFieldInput
-                id="teamUrl"
-                type="text"
-                class="rounded-l-none"
-                maxLength={48}
-              />
-            </div>
-            <p class="text-sm text-muted-foreground">
-              Please use 48 characters at maximum.
-            </p>
-          </TextField>
-        </CardContent>
-        <CardFooter>
-          <Button>Save Changes</Button>
-        </CardFooter>
-      </Card>
-    </div>
   );
 }

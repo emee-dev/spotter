@@ -4,6 +4,8 @@
     "build": {
       "env": [
         "DATABASE_URL",
+        "UNKEY_API_ID",
+        "UNKEY_ROOT_KEY",
         "SESSION_SECRET",
         "UPSTASH_REDIS_REST_URL",
         "UPSTASH_REDIS_REST_TOKEN"

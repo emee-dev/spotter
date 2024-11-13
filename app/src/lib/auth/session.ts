@@ -11,7 +11,7 @@ export function getSession() {
   "use server";
 
   return useSession<SessionData>({
-    password: env.SESSION_SECRET,
+    password: env().SESSION_SECRET,
   });
 }
 
