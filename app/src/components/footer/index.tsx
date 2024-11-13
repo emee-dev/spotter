@@ -1,7 +1,7 @@
 import { Github, Mail, Twitter } from "lucide-solid";
 import { For, ValidComponent } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import Logo from "~/assets/spotter.svg";
+import Logo from "~/assets/logo.svg";
 
 interface Icon {
   icon: ValidComponent;
@@ -9,9 +9,9 @@ interface Icon {
 }
 
 const icons: Icon[] = [
-  { icon: Github, url: "https://github.com/hasanharman/form-builder" },
-  { icon: Twitter, url: "https://x.com/strad3r" },
-  { icon: Mail, url: "mailto:hasanharman33@gmail.com" },
+  { icon: Github, url: "https://github.com/emee-dev/spotter" },
+  { icon: Twitter, url: "https://x.com/___emee_" },
+  { icon: Mail, url: "mailto:emmanuelajike2000@gmail.com" },
 ];
 
 type Link = {
