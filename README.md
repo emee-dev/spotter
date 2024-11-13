@@ -99,7 +99,7 @@ The best part of all this is, you have nothing to lose, it is open source and co
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-- [![Solidstart][solidStart.js]][Solidstart-url]
+- [![Solidstart][solidstart.js]][solidstart-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -166,7 +166,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Add request observability
 - [x] Add action observability
 - [ ] Add Schema inference
-- [ ] Add Security best practises evaluation
+- [ ] Payload masking
+- [ ] Add security best practises evaluation
 - [ ] Notifications Support
   - [ ] webhooks
 - [ ] Automatic OpenApi schema generation
@@ -174,6 +175,112 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Usage
+
+To integrate observability into your solidstart api/service. Do the following.
+
+```ts
+// entry-server.tsx
+
+import { Spotter } from "@spotter/solidstart";
+
+// Initialise the config
+Spotter.init({
+  apikey: "your_api_key", // spotter_3ZQv663Jcmn5v79ZC9GznG6Y
+  projectId: "your_project_id",
+});
+```
+
+To enable spotter be able to collect request data. Do the following, in your api routes.
+
+```ts
+// wrap your route handlers with withSpotter
+
+import type { APIEvent } from "@solidjs/start/server";
+import { withSpotter } from "@spotter/solidstart";
+
+// spotter is able to collect it all.
+
+export const GET = withSpotter(async (event) => {
+  console.log("Server root is good.");
+  return Response.json({ message: "Hello" });
+});
+
+// Will throw error but has trycatch block
+export const POST = withSpotter(async (event: APIEvent) => {
+  try {
+    let params = (await event.request.json()) as { name: string };
+
+    if (!params.name) {
+      throw new Error("Params is not defined");
+    }
+
+    console.log("params:", params);
+
+    return Response.json(
+      { message: "Hello" },
+      {
+        headers: {
+          "cache-control": "max-age=60",
+        },
+      }
+    );
+  } catch (error: any) {
+    return Response.json({ message: "Internal server error" }, { status: 500 });
+  }
+});
+
+// Will error out or response valid response returned.
+export const PUT = withSpotter(async (event: APIEvent) => {
+  let params = (await event.request.json()) as { name: string };
+
+  if (!params.name) {
+    throw new Error("Params is not defined");
+  }
+
+  console.log("params:", params);
+
+  return Response.json(
+    { message: "Hello" },
+    {
+      headers: {
+        "cache-control": "max-age=60",
+      },
+    }
+  );
+});
+```
+
+## Technical info
+
+Spotter is built entirely with solidstart and mostly SSR.
+
+The main technical points of the application can be summarized as follows:
+
+- Solidstart for SSR with server functions and api route for data handling.
+- Xata Database integration with solidstart server functions and actions.
+
+## User interface
+
+The user interface was implemented using the following:
+
+- @kobalte/core: an accessible sort of low level components for solid js.
+- @corvu: UI primitives for solidjs.
+- @solid-primitives: simple primitives and reusable functions for solidstart.
+- @solidui: a shadcn port for solidjs.
+
+## Observability
+
+To enhance developer workflow and debugging practises. The `withSpotter` route wrapper collects info such as request and response payloads. In the future payload masking will be introduced to protect sensitive parameters.
+
+## Hosting
+
+The project has been hosted on vercel.
+
+## Dependencies
+
+The most important dependency is probably the `@unkey` SDK which is used to generate project api keys.
 
 <!-- CONTRIBUTING -->
 
@@ -242,5 +349,5 @@ Special shoutout to the following technologies or tools for their incredible con
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: app/public/product.png
-[SolidStart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
-[Solidstart-url]: https://start.solidjs.com/
+[solidstart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
+[solidstart-url]: https://start.solidjs.com/
