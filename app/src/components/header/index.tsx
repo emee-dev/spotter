@@ -1,6 +1,6 @@
  import { Github, Menu, Twitter } from "lucide-solid";
 import { For, Show } from "solid-js";
-import Logo from "~/assets/spotter.svg";
+import Logo from "~/assets/logo.svg";
 import { Button } from "~/components/ui/button";
 import {
   Drawer,
@@ -32,7 +32,7 @@ type Tabs = {
 const tabs: Tabs[] = [
   {
     name: "Roadmap",
-    href: "https://shadcnform.featurebase.app/",
+    href: "#",
     variant: "arrow",
     isNewTab: true,
   },
