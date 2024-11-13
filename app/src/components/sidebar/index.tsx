@@ -1,16 +1,15 @@
-import { BellDot, Construction, Home, Sparkles, X } from "lucide-solid";
+import { useLocation } from "@solidjs/router";
+import { BellDot, Home, X } from "lucide-solid";
 import { For } from "solid-js";
 import { Dynamic } from "solid-js/web";
+import Logo from "~/assets/logo.svg";
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 const navItems = [
   {
     label: "Home",
     icon: Home,
-    path: "/",
-  },
-  {
-    label: "Projects",
-    icon: Construction,
     path: "/projects",
   },
   {
@@ -24,40 +23,48 @@ const Sidebar = (props: {
   sidebarOpen: () => boolean;
   setSidebarOpen: (val: boolean) => void;
 }) => {
+  const location = useLocation();
+
   return (
     <div
-      class={`fixed inset-y-0 left-0 z-50 w-64 bg-background/75  transform ${
-        props.sidebarOpen() ? "translate-x-0" : "-translate-x-full"
+      class={`fixed inset-y-0 left-0 z-50 w-64 bg-background  transform ${
+        props.sidebarOpen()
+          ? "translate-x-0 bg-background opacity-100"
+          : "-translate-x-full"
       } transition-transform duration-300 ease-in-out shadow-md lg:relative lg:translate-x-0`}
     >
       <div class="flex flex-col h-full">
-        <div class="flex items-center justify-between p-4">
+        <div class="flex items-center justify-between p-3">
           <div class="flex items-center gap-3">
-            <div class="h-8 w-8 rounded bg-emerald-500 flex items-center justify-center">
-              <Sparkles class="h-5 w-5" />
+            <div class="h-8 w-8 rounded flex items-center justify-center">
+              <Logo />
             </div>
             <div>
-              <div class="font-semibold">Empower Plant</div>
-              <div class="text-sm text-gray-400">Jane Schmidt</div>
+              <div class="font-semibold">Spotter.dev</div>
+              {/* <div class="text-sm text-gray-400">Jane Schmidt</div> */}
             </div>
           </div>
-          <button
+          <Button
+            size={"icon"}
             onClick={() => props.setSidebarOpen(false)}
-            class="lg:hidden text-gray-400 hover:text-neutral-600"
+            class="lg:hidden size-8 "
           >
-            <X class="h-6 w-6" />
-          </button>
+            <X class="size-5" />
+          </Button>
         </div>
+
+        <Separator></Separator>
 
         <nav class="flex-1 overflow-y-auto py-4">
           <For each={navItems}>
             {(item) => (
               <a
                 href={item.path}
-                // class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10"
-                class="flex items-center gap-3 px-4 py-2 text-current hover:bg-neutral-100"
-                // active class
-                // class="flex items-center gap-3 px-4 py-2 text-white bg-white/10"
+                class={`${
+                  location.pathname.startsWith(item.path)
+                    ? "bg-accent text-accent-foreground" // Active styles
+                    : "text-muted-foreground hover:bg-muted" // Inactive styles
+                } rounded flex items-center gap-3 px-4 py-2`}
               >
                 <Dynamic component={item.icon} class="size-4" />
                 <span class="text-balance text-base">{item.label}</span>

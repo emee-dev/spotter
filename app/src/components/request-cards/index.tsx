@@ -1,8 +1,9 @@
 import { AlertTriangle, Link, MoreHorizontal, XCircle } from "lucide-solid";
 import { Show } from "solid-js";
-import { Card } from "../ui/card";
+import { getMethodColor, getRelativeTime } from "~/lib/utils";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { formatDateRelative } from "@solid-primitives/date";
+import { Card } from "../ui/card";
 
 export type Payload = {
   id: string;
@@ -48,11 +49,11 @@ export const LargeRequestCard = (props: {
   error: Payload["error"];
   system: Payload["system"];
   request: Payload["request"];
-  xata_createdat: number;
+  xata_createdat: Date;
 }) => {
   return (
     <a href={`/projects/req/${props.id}`}>
-      <Card class="flex bg-background font-geistsans flex-col sm:flex-row items-start sm:items-center gap-4 p-4  rounded-lg  group">
+      <Card class="flex bg-background font-inter flex-col sm:flex-row items-start sm:items-center p-2 rounded-lg group">
         <div class="pl-2 flex-1 min-w-0 space-y-1 sm:space-y-2">
           <Show
             when={props.error}
@@ -61,24 +62,37 @@ export const LargeRequestCard = (props: {
             }
           >
             {(error) => (
-              <div class="flex items-start sm:items-center gap-2 flex-wrap">
-                <span class="font-medium text-sm">{error().name}</span>
-                <span class=" text-sm hidden sm:inline">{error().line}</span>
+              <div class="flex items-start  sm:items-center gap-2 flex-wrap">
+                <span class="font-medium text-base text-red-400">
+                  {error().name}
+                </span>
+                <span class=" text-sm hidden sm:inline">{`(${
+                  error().file
+                })`}</span>
               </div>
             )}
           </Show>
 
-          <div class="text-sm   space-x-3 truncate">
-            <span>{props.request.method}</span> <span>{props.request.url}</span>
+          <div class="text-sm   space-x-3">
+            <Badge
+              class={`${getMethodColor(
+                props.request.method
+              )} ${"hover:bg-transparent"}`}
+            >
+              {props.request.method}
+            </Badge>{" "}
+            <span class="max-w-sm md:max-w-full md:ml-4 md:whitespace-normal ">
+              {props.request.url}
+            </span>
           </div>
           <div class="flex items-center gap-2 text-sm">
             <span class="font-medium text-xs ">{props.system.platform}</span>
             <span class="text-gray-600/75">
-              {formatDateRelative(props.xata_createdat)}
+              {getRelativeTime(props.xata_createdat)}
             </span>
           </div>
         </div>
-        <div class="flex items-center gap-4 w-full sm:w-auto">
+        <div class=" hidden sm:flex items-center gap-4 w-full sm:w-auto">
           <Button
             variant={"outline"}
             size={"icon"}
@@ -92,42 +106,11 @@ export const LargeRequestCard = (props: {
   );
 };
 
-// export const SmallRequestCard = (props: {
-//   id: string;
-//   timestamp: string;
-//   request: Payload["request"];
-//   response: Payload["response"];
-// }) => {
-//   return (
-//     <div class="group grid grid-cols-[auto_auto_auto_auto_1fr] items-center gap-3 p-3 bg-[#231f2e]/50 rounded-lg hover:bg-[#231f2e] backdrop-blur-sm transition-colors">
-//       <div class="flex w-16 space-x-5 items-center">
-//         {props.response ? (
-//           <StatusIcon status={props.response.status} />
-//         ) : (
-//           <span class="opacity-0">●</span>
-//         )}
-
-//         {props.response ? (
-//           <StatusCode status={props.response.status} />
-//         ) : (
-//           <span class="opacity-0"></span>
-//         )}
-//       </div>
-
-//       <span class="text-gray-400 text-center">{props.timestamp}</span>
-//       <span class="font-mono text-indigo-400 text-center">
-//         | {props.request.method} |
-//       </span>
-//       <span class="font-mono text-gray-300 truncate">{props.request.url}</span>
-//     </div>
-//   );
-// };
-
 export const SmallRequestCard = (props: {
   id: string;
   request: Payload["request"];
   response: Payload["response"];
-  xata_createdat: number;
+  xata_createdat: Date;
 }) => {
   return (
     <a href={`/project/req/${props.id}`}>
@@ -147,7 +130,7 @@ export const SmallRequestCard = (props: {
         </div>
 
         <span class=" text-center">
-          {formatDateRelative(props.xata_createdat)}
+          {getRelativeTime(props.xata_createdat)}
         </span>
         <span class="font-mono text-indigo-400 text-center">
           | {props.request.method} |
@@ -161,18 +144,18 @@ export const SmallRequestCard = (props: {
 export const EndpointCard = (props: {
   id: string;
   requestUrl: string;
-  xata_createdat: number;
+  xata_createdat: Date;
 }) => {
   return (
     <Card class="group hover:shadow text-base flex items-center gap-3 p-3 rounded-lg backdrop-blur-sm transition-colors">
       <span class="font-mono ml-3  text-center mr-2">
         <Link class="size-4"></Link>
       </span>
-      <span class="font-mono group-hover:underline underline-offset-4 text-blue-400 text-center">
+      <span class="font-mono truncate max-w-sm md:max-w-full md:whitespace-normal  group-hover:underline underline-offset-4 text-blue-400 text-center">
         {props.requestUrl}
       </span>
       <span class="ml-auto text-center text-sm text-neutral-400">
-        {formatDateRelative(props.xata_createdat)}
+        {getRelativeTime(props.xata_createdat)}
       </span>
     </Card>
   );

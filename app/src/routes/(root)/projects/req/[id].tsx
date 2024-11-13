@@ -19,7 +19,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"; // Choose a style or customize
 import { getRequestById } from "~/lib/db";
-import { getRelativeTime } from "~/lib/utils";
+import { getMethodColor, getRelativeTime } from "~/lib/utils";
 
 type XataRequestInfo = {
   xata_id: string;
@@ -64,20 +64,6 @@ const Component = () => {
       return <AlertTriangle class="size-4  text-amber-400" />;
     }
     return <XCircle class="size-4  text-red-400" />;
-  }
-
-  function getMethodColor(method: string) {
-    const methodColors = {
-      GET: "text-blue-500 bg-blue-100",
-      POST: "text-green-500 bg-green-100",
-      PUT: "text-yellow-500 bg-yellow-100",
-      DELETE: "text-red-500 bg-red-100",
-      PATCH: "text-purple-500 bg-purple-100",
-      OPTIONS: "text-gray-500 bg-gray-100",
-      HEAD: "text-pink-500 bg-pink-100",
-    };
-
-    return methodColors[method as keyof typeof methodColors];
   }
 
   function getStatusColor(status: number) {

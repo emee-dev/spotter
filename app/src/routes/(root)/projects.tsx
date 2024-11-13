@@ -1,4 +1,4 @@
-import { A, createAsync, RouteSectionProps } from "@solidjs/router";
+import { RouteSectionProps } from "@solidjs/router";
 import { Menu, Plus } from "lucide-solid";
 import { createSignal, Suspense } from "solid-js";
 import Sidebar from "~/components/sidebar";
@@ -35,8 +35,13 @@ export default function ProjectLayout(props: RouteSectionProps) {
 const Header = (props: { setSidebarOpen: (val: boolean) => void }) => {
   return (
     <header class="bg-muted z-30 p-3 flex items-center justify-between">
-      <Button onClick={() => props.setSidebarOpen(true)} class="lg:hidden">
-        <Menu class="h-6 w-6" />
+      <Button
+        size="icon"
+        variant="outline"
+        onClick={() => props.setSidebarOpen(true)}
+        class="lg:hidden"
+      >
+        <Menu class="size-4" />
       </Button>
       <h1 class="text-xl font-semibold">Project</h1>
       <a href="/projects/create">

@@ -1,12 +1,5 @@
-import {
-  createAsync,
-  query,
-  useAction,
-  useParams,
-  useSubmission,
-} from "@solidjs/router";
-import { Unkey } from "@unkey/api";
-import { Box, Copy, Key, Radio, RotateCw } from "lucide-solid";
+import { createAsync, query, useParams, useSubmission } from "@solidjs/router";
+import { Box, Copy, Radio, RotateCw } from "lucide-solid";
 import {
   createEffect,
   createSignal,
@@ -14,7 +7,6 @@ import {
   For,
   on,
   Show,
-  Suspense,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import ErrorMessage from "~/components/error";
@@ -22,7 +14,6 @@ import {
   EndpointCard,
   LargeRequestCard,
   Payload,
-  SmallRequestCard,
 } from "~/components/request-cards";
 import { Button } from "~/components/ui/button";
 import {
@@ -33,204 +24,20 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { Label } from "~/components/ui/label";
 import {
   Pagination,
   PaginationEllipsis,
   PaginationItem,
   PaginationItems,
-  PaginationNext,
-  PaginationPrevious,
 } from "~/components/ui/pagination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import {
-  TextField,
-  TextFieldInput,
-  TextFieldLabel,
-} from "~/components/ui/text-field";
-import { showToast } from "~/components/ui/toast";
-import { env } from "~/env";
+import { TextField, TextFieldInput } from "~/components/ui/text-field";
 import {
   getProjectStatsById,
   listAllEndpoints,
   listAllRequests,
 } from "~/lib/db";
 import { createProjectAPIKey } from "~/lib/db/action";
-// import { updateProjectAction } from "~/lib/db/action";
-
-// Mock data with sparkline data points
-const issues: Payload[] = [
-  {
-    id: "1",
-    error: {
-      name: "TypeError",
-      file: "apply/utils/src/instrumentation",
-      line: 30,
-      column: 10,
-      message: "Failed to fetch resource",
-      function: "fetchData",
-    },
-    stack: [
-      {
-        file: "apply/utils/src/instrumentation",
-        line: 29,
-        column: 5,
-        function: "initializeRequest",
-        method: "GET",
-      },
-      {
-        file: "apply/utils/src/instrumentation",
-        line: 30,
-        column: 10,
-        function: "fetchData",
-        method: null,
-      },
-    ],
-    request: {
-      method: "GET",
-      url: "/projects/direct/backend/releases/v7210",
-      params: { projectId: "404" },
-      query: { search: "true" },
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-        "Accept-Language": "en-US,en;q=0.9",
-        Authorization: "Bearer some_token_here",
-      },
-    },
-    response: {
-      status: 404,
-      params: { errorCode: "404" },
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-cache",
-      },
-    },
-    system: {
-      ip: "192.168.1.1",
-      arch: "x64",
-      platform: "macOS",
-    },
-    timestamp: "2024-11-04T08:30:00Z",
-  },
-  {
-    id: "2",
-    error: {
-      name: "ForbiddenError",
-      file: "fetchData/app/components/HoverCard",
-      line: 15,
-      column: 8,
-      message: "User does not have permission to access this resource",
-      function: "authorizeUser",
-    },
-    stack: [
-      {
-        file: "app/components/HoverCard",
-        line: 15,
-        column: 8,
-        function: "authorizeUser",
-        method: "POST",
-      },
-    ],
-    request: {
-      method: "POST",
-      url: "/api/user/update",
-      params: null,
-      query: null,
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-        "Content-Type": "application/json",
-        Authorization: "Bearer another_token",
-      },
-    },
-    response: null,
-    system: {
-      ip: null,
-      arch: "x64",
-      platform: "Windows",
-    },
-    timestamp: "2024-11-04T03:05:00Z",
-  },
-  {
-    id: "3",
-    error: {
-      name: "ZodSchemaError",
-      file: "validateData/app/forms/UserForm",
-      line: 42,
-      column: 15,
-      message: "Input validation failed for user input",
-      function: "validateUserInput",
-    },
-    stack: [
-      {
-        file: "app/forms/UserForm",
-        line: 42,
-        column: 15,
-        function: "validateUserInput",
-        method: "PUT",
-      },
-      {
-        file: "app/forms/UserForm",
-        line: 10,
-        column: 8,
-        function: "handleSubmit",
-        method: null,
-      },
-    ],
-    request: {
-      method: "PUT",
-      url: "/api/user/12345",
-      params: { userId: "12345" },
-      query: { validate: "true" },
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 10)",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    },
-    response: {
-      status: 422,
-      params: { statusCode: "422" },
-      headers: {
-        "Content-Type": "application/json",
-        "Retry-After": "120",
-      },
-    },
-    system: {
-      ip: "10.0.0.25",
-      arch: "arm",
-      platform: "Android",
-    },
-    timestamp: "2024-11-03T18:45:00Z",
-  },
-];
-
-const overview = [
-  {
-    icon: "Box",
-    label: "Requests",
-    value: 0,
-    color: "text-blue-500",
-  },
-  {
-    icon: "Radio",
-    label: "Endpoints",
-    value: 0,
-    color: "text-purple-500",
-  },
-];
-
-const statsIcons = {
-  Box: Box,
-  Radio: Radio,
-};
-
-const projectStats = query(async () => {
-  const params = useParams<{ id: string }>();
-
-  const data = await getProjectStatsById({ projectId: params.id });
-
-  return data;
-}, "projectStats");
 
 type XataRequests = {
   error: Payload["error"];
@@ -254,7 +61,19 @@ type XataEndpoints = {
   projectId: string;
   requestUrl: string;
 };
-// const listProjectRequests = query(async () => {}, "listProjectRequests");
+
+const statsIcons = {
+  Box: Box,
+  Radio: Radio,
+};
+
+const projectStats = query(async () => {
+  const params = useParams<{ id: string }>();
+
+  const data = await getProjectStatsById({ projectId: params.id });
+
+  return data;
+}, "projectStats");
 
 export const route = {
   preload: () => {
@@ -406,19 +225,22 @@ export default function ProjectsDashboard() {
   const [endpoints, setEndpoints] = createSignal<XataEndpoints[]>([]);
 
   const [count, setCount] = createSignal<number>(0);
-  const [endpoointCount, setEndpointCount] = createSignal<number>(0);
-
+  const [endpointCount, setEndpointCount] = createSignal<number>(0);
+  const pageSize = 6;
   const getPaginatedReqs = createAsync(() =>
-    listAllRequests({ projectId: params.id, page: page(), pageSize: 8 })
+    listAllRequests({ projectId: params.id, page: page(), pageSize })
   );
 
   const getPaginatedEndpoints = createAsync(() =>
     listAllEndpoints({
       projectId: params.id,
       page: endpointPage(),
-      pageSize: 8,
+      pageSize,
     })
   );
+
+  const totalRequestPages = () => Math.ceil(count() / pageSize);
+  const totalEndpointPages = () => Math.ceil(endpointCount() / pageSize);
 
   createEffect(
     on(getPaginatedReqs, (reqs) => {
@@ -472,7 +294,7 @@ export default function ProjectsDashboard() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div class="grid grid-cols-2 gap-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <For each={getProjectStats()}>
                       {(stat, index) => (
                         <div class="flex items-center space-x-4 rounded-lg bg-neutral-300/50 p-4 transition-colors border hover:border-blue-400">
@@ -504,27 +326,21 @@ export default function ProjectsDashboard() {
           <TabsContent value="requests" class="">
             <div class="space-y-2">
               <For each={requests()}>
-                {(issue) => {
-                  const targetDate = new Date(issue.xata_createdat);
-                  const now = new Date();
-                  const difference = targetDate.getTime() - now.getTime();
-
-                  return (
-                    <LargeRequestCard
-                      id={issue.xata_id}
-                      error={issue.error}
-                      system={issue.system}
-                      request={issue.request}
-                      xata_createdat={difference}
-                    />
-                  );
-                }}
+                {(issue) => (
+                  <LargeRequestCard
+                    id={issue.xata_id}
+                    error={issue.error}
+                    system={issue.system}
+                    request={issue.request}
+                    xata_createdat={issue.xata_createdat}
+                  />
+                )}
               </For>
             </div>
 
             <div class="flex mt-auto justify-center">
               <Pagination
-                count={count()}
+                count={totalRequestPages()}
                 fixedItems
                 itemComponent={(props) => (
                   <PaginationItem
@@ -544,25 +360,19 @@ export default function ProjectsDashboard() {
           <TabsContent value="endpoints" class="space-y-10">
             <div class="space-y-2">
               <For each={endpoints()}>
-                {(issue) => {
-                  const targetDate = new Date(issue.xata_createdat);
-                  const now = new Date();
-                  const difference = targetDate.getTime() - now.getTime();
-
-                  return (
-                    <EndpointCard
-                      id={issue.xata_id}
-                      requestUrl={issue.requestUrl}
-                      xata_createdat={difference}
-                    />
-                  );
-                }}
+                {(issue) => (
+                  <EndpointCard
+                    id={issue.xata_id}
+                    requestUrl={issue.requestUrl}
+                    xata_createdat={issue.xata_createdat}
+                  />
+                )}
               </For>
             </div>
 
             <div class="flex mt-auto justify-center">
               <Pagination
-                count={endpoointCount()}
+                count={totalEndpointPages()}
                 fixedItems
                 itemComponent={(props) => (
                   <PaginationItem

@@ -21,9 +21,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         inter: ["'Inter'", "sans-serif"],
-        geistsans: ["'Geist Sans'", "sans-serif"],
         geistmono: ["'Geist Mono'", "monospace"],
-        sourcecodepro: ["'Source Code Pro Variable'", "monospace"],
+        sourcecodepro: ["'Source Code Pro'", "monospace"],
       },
       colors: {
         background: "hsl(var(--background))",

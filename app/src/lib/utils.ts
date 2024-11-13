@@ -33,3 +33,17 @@ export const getRelativeTime = (ts: Date) => {
 
   return formatDateRelative(difference);
 };
+
+export function getMethodColor(method: string) {
+  const methodColors = {
+    GET: "text-blue-500 bg-blue-100",
+    POST: "text-green-500 bg-green-100",
+    PUT: "text-yellow-500 bg-yellow-100",
+    DELETE: "text-red-500 bg-red-100",
+    PATCH: "text-purple-500 bg-purple-100",
+    OPTIONS: "text-gray-500 bg-gray-100",
+    HEAD: "text-pink-500 bg-pink-100",
+  };
+
+  return methodColors[method as keyof typeof methodColors];
+}

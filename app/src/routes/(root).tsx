@@ -1,8 +1,5 @@
-import { createAsync, RouteDefinition } from "@solidjs/router";
-import { ParentProps, Suspense } from "solid-js";
-import { getSessionUser } from "~/lib/auth/session";
-import "@fontsource/geist-sans";
-import "@fontsource-variable/source-code-pro";
+import { ParentProps } from "solid-js";
+// import { getSessionUser } from "~/lib/auth/session";
 
 // export const route: RouteDefinition = {
 //   preload: async () => {
