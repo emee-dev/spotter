@@ -176,6 +176,22 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Environment variables
+
+To be able to use this product, some variables are required to be present in code. The variables are validated to minimize errors. Copy from the `.env.example` to `.env.local`.
+
+```sh
+DATABASE_URL=""
+SESSION_SECRET=""
+UPSTASH_REDIS_REST_URL=""
+UPSTASH_REDIS_REST_TOKEN=""
+
+
+UNKEY_ROOT_KEY=""
+UNKEY_API_ID=""
+
+```
+
 ## Usage
 
 To integrate observability into your solidstart api/service. Do the following.
