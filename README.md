@@ -38,14 +38,14 @@
   <p align="center">
     A fullstack observability framework, with first class solidstart support.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="#"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="#">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="#">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="#">Request Feature</a>
   </p>
 </div>
 
@@ -247,7 +247,7 @@ export const POST = withSpotter(async (event: APIEvent) => {
   }
 });
 
-// Will error out or response valid response returned.
+// Will error out and no valid response returned.
 export const PUT = withSpotter(async (event: APIEvent) => {
   let params = (await event.request.json()) as { name: string };
 
@@ -270,7 +270,7 @@ export const PUT = withSpotter(async (event: APIEvent) => {
 
 ## Technical info
 
-Spotter is built entirely with solidstart and mostly SSR.
+Spotter is built entirely with solidstart and mostly with SSR in mind.
 
 The main technical points of the application can be summarized as follows:
 
