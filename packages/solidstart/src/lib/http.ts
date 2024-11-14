@@ -1,14 +1,13 @@
+import type {
+  SpotterPayload,
+  SpotterPayloadWithRuntimeError,
+} from "@spotter.dev/types";
 import axios from "axios";
 import normalizeUrl from "normalize-url";
 import { SpotterArgs } from "./config";
-import type {
-  INVALID_RESPONSE_BODY,
-  SpotterPayload,
-  SpotterPayloadWithRuntimeError,
-} from "@spotter/types";
 
 const BASE_URL = "https://spotter-rust.vercel.app/";
-const apiEndpoint = "/payload";
+const API_ENDPOINT = "/payload";
 
 /**
  * Retrieves the appropriate base URL based on environment.
@@ -20,12 +19,9 @@ export const getBaseUrlByEnvironment = (
   environment: SpotterArgs["environment"],
   debugUrl?: string
 ): string | null => {
-  console.log("Environment:", environment);
-  console.log("Debug URL:", debugUrl);
-
   switch (environment) {
     case "production":
-      return `${BASE_URL}${apiEndpoint}`;
+      return `${BASE_URL}${API_ENDPOINT}`;
     case "debug":
       return debugUrl ? normalizeUrl(debugUrl) : null;
     default:
@@ -56,7 +52,9 @@ export const sendPayloadToSpotter = async (
         headers: { "Content-Type": "application/json" },
       });
 
-      log(response.data, logLevel);
+      if (logLevel === "verbose") {
+        console.log("Response:", response.data);
+      }
       break;
     } catch (error) {
       if (attempt < retries - 1) {
@@ -69,17 +67,6 @@ export const sendPayloadToSpotter = async (
       }
     }
     attempt++;
-  }
-};
-
-/**
- * Logs the message if log level is set to verbose.
- * @param message - The message to log.
- * @param logLevel - Logging level, either "verbose" or "silent".
- */
-const log = (message: unknown, logLevel: SpotterArgs["logLevel"]): void => {
-  if (logLevel === "verbose") {
-    console.log("Response:", message);
   }
 };
 

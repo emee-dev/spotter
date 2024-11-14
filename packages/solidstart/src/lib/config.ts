@@ -11,6 +11,16 @@ export type SpotterArgs = {
   logLevel?: "verbose" | "silent";
 };
 
+// const SpotterArgsSchema = z.object({
+//   apikey: z.string().min(1, "API key is required"), // Required string, must not be empty
+//   projectId: z.string().min(1, "Project ID is required"), // Required string, must not be empty
+//   maskKeys: z.array(z.string()).optional(), // Optional array of strings
+//   ignorePaths: z.array(z.string()).optional(), // Optional array of strings
+//   environment: z.enum(["development", "production", "debug"]).optional(), // Optional enum value
+//   debugUrl: z.string().url().optional(), // Optional string, must be a valid URL if provided
+//   logLevel: z.enum(["verbose", "silent"]).optional(), // Optional enum value
+// });
+
 export class Spotter {
   private static instance: Spotter;
 
@@ -36,7 +46,9 @@ export class Spotter {
       Spotter.instance = new Spotter();
     }
     Spotter.instance.updateConfig(args);
-    // Spotter.instance.log("SDK Initialized.", "verbose");
+    if (args && args.logLevel === "verbose") {
+      Spotter.instance.log("Initialized.", "verbose");
+    }
   }
 
   /**
@@ -48,7 +60,7 @@ export class Spotter {
 
     requiredKeys.forEach((key) => {
       if (!args[key]) {
-        throw new Error(`Missing required config property: ${key}`);
+        this.log(`Missing required config: ${key}`);
       }
     });
 
@@ -88,3 +100,7 @@ export class Spotter {
     }
   }
 }
+
+// const formatZodError = <T>(error: ZodError<T>) => {
+//   return error.errors.map((i) => `Path: '${i.path.join(".")}' - ${i.message}`);
+// };

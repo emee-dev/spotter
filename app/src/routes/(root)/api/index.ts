@@ -1,5 +1,5 @@
 import type { APIEvent } from "@solidjs/start/server";
-import { withSpotter } from "@spotter/solidstart";
+import { withSpotter } from "@spotter.dev/solidstart";
 
 export const GET = withSpotter(async (event) => {
   console.log("Server root is good.");

@@ -1,42 +1,26 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<!-- Improved compatibility of back-to-top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
 <a id="readme-top"></a>
 
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
 <!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/emee-dev/spotter.dev-demo">
     <img src="app/public/spotter.svg" alt="Logo" width="120px" height="120px">
   </a>
 
   <h3 align="center">Spotter</h3>
 
   <p align="center">
-    A fullstack observability framework, with first class solidstart support.
+    A fullstack observability framework with first-class SolidStart support.
     <br />
     <a href="#"><strong>Explore the docs »</strong></a>
     <br />
@@ -49,25 +33,19 @@
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#environment-variables">Environment Variables</a></li>
+    <li><a href="#technical-info">Technical Info</a></li>
+    <li><a href="#user-interface">User Interface</a></li>
+    <li><a href="#observability">Observability</a></li>
+    <li><a href="#hosting">Hosting</a></li>
+    <li><a href="#dependencies">Dependencies</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -75,253 +53,167 @@
   </ol>
 </details>
 
-<!-- ABOUT THE PROJECT -->
-
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Screenshot][product-screenshot]](https://example.com)
 
-When is comes to fullstack web development or even rest api development, there is a lot that could go wrong without proper planning. Some of the potential problems that could arise in this space includes not ahering to security best practises, inconsistent team collaboration, inadequate team communication etc
+In fullstack and API development, ensuring secure, reliable, and well-documented API endpoints can be challenging without adequate observability. Common issues in this space include insufficient security measures, inconsistent team collaboration, and gaps in communication.
 
-Here's why you need this:
+Here's why Spotter is invaluable:
 
-- Your time should be focused on solving a problem and providing amazing solutions.
-- The team should'nt have to worry about the number of api endpoints and what parameters they accept.
-- Get your api endpoints and actions evaluated for security best practises.
-- View the parameters, arguments and schemas for your endpoints and actions.
-- Get an overview of your product infrastructure, be it micro-service etc.
+- Allows the team to focus on solving problems without worrying about endpoint specifications.
+- Ensures security best practices are met across API endpoints.
+- Provides visibility into parameters, arguments, and schemas for endpoints and actions.
+- Offers a comprehensive view of your application infrastructure, whether monolithic or microservices.
 
-The best part of all this is, you have nothing to lose, it is open source and cost efficient. We intend to provide you with the best service available. So
+The best part? Spotter is open-source and cost-efficient.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-- [![Solidstart][solidstart.js]][solidstart-url]
+- [SolidStart][solidstart-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- GETTING STARTED -->
 
 ## Getting Started
 
-To set up the project locally, go ahead and do the following.
+To set up the project locally, follow these steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+To use Spotter, we recommend PNPM:
 
-- npm
-  ```sh
-  npm install pnpm -g
-  ```
+```sh
+npm install pnpm -g
+```
+
+Clone the repository:
+
+```sh
+git clone https://github.com/emee-dev/spotter.dev-demo.git
+```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Install the Spotter package for SolidStart:
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/emee-dev/spotter.git
-   ```
-3. cd project folder
-   ```sh
-   cd spotter
-   ```
-4. Install dependencies
+1. Get a free API Key at [Spotter.dev](https://spotter-rust.vercel.app/).
+2. Install the SolidStart SDK:
 
    ```sh
-   npm install
+   npm install @spotter.dev/solidstart
 
-   or
+   # or
 
-   pnpm install
+   pnpm install @spotter.dev/solidstart
    ```
 
-5. Copy content from `.env.example` to `.env.local`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+3. Set up environment variables from `.env.example` to `.env.local`:
+
+   ```sh
+   SPOTTER_API_KEY="spotter_xxxxxxxxxxxxx"
+   SPOTTER_PROJECT_ID="project_id"
    ```
-6. Launch project, by going to `http://localhost:3000` in your default browser.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
-<!-- ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- ROADMAP -->
 
 ## Roadmap
 
 - [x] Add request observability
 - [ ] Add action observability
-- [ ] Add Schema inference
+- [ ] Add schema inference
 - [ ] Payload masking
-- [ ] Add security best practises evaluation
-- [ ] Notifications Support
-  - [ ] webhooks
-- [ ] Automatic OpenApi schema generation
+- [ ] Security best practices evaluation
+- [ ] Notifications support (webhooks)
+- [ ] Automatic OpenAPI schema generation
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/emee-dev/spotter.dev-demo/issues) for a full list of proposed features and known issues.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Environment variables
+## Environment Variables
 
-To be able to use this product, some variables are required to be present in code. The variables are validated to minimize errors. Copy from the `.env.example` to `.env.local`.
+To use Spotter, ensure the following variables are set in your `.env.local` file:
 
 ```sh
 DATABASE_URL=""
 SESSION_SECRET=""
 UPSTASH_REDIS_REST_URL=""
 UPSTASH_REDIS_REST_TOKEN=""
-
-
 UNKEY_ROOT_KEY=""
 UNKEY_API_ID=""
-
 ```
 
 ## Usage
 
-To integrate observability into your solidstart api/service. Do the following.
+To integrate observability into your SolidStart API/service, initialize the SDK in `src/app.tsx`:
 
 ```ts
-// entry-server.tsx
-
 import { Spotter } from "@spotter/solidstart";
 
-// Initialise the config
 Spotter.init({
-  apikey: "your_api_key", // spotter_3ZQv663Jcmn5v79ZC9GznG6Y
+  apikey: "your_api_key",
   projectId: "your_project_id",
 });
+
+export default function App() {
+  return <Router>...code ...</Router>;
+}
 ```
 
-To enable spotter be able to collect request data. Do the following, in your api routes.
+To capture request data, wrap route handlers with `withSpotter` in your API routes:
 
 ```ts
-// wrap your route handlers with withSpotter
-
 import type { APIEvent } from "@solidjs/start/server";
 import { withSpotter } from "@spotter/solidstart";
 
-// spotter is able to collect it all.
-
 export const GET = withSpotter(async (event) => {
-  console.log("Server root is good.");
   return Response.json({ message: "Hello" });
-});
-
-// Will throw error but has trycatch block
-export const POST = withSpotter(async (event: APIEvent) => {
-  try {
-    let params = (await event.request.json()) as { name: string };
-
-    if (!params.name) {
-      throw new Error("Params is not defined");
-    }
-
-    console.log("params:", params);
-
-    return Response.json(
-      { message: "Hello" },
-      {
-        headers: {
-          "cache-control": "max-age=60",
-        },
-      }
-    );
-  } catch (error: any) {
-    return Response.json({ message: "Internal server error" }, { status: 500 });
-  }
-});
-
-// Will error out and no valid response returned.
-export const PUT = withSpotter(async (event: APIEvent) => {
-  let params = (await event.request.json()) as { name: string };
-
-  if (!params.name) {
-    throw new Error("Params is not defined");
-  }
-
-  console.log("params:", params);
-
-  return Response.json(
-    { message: "Hello" },
-    {
-      headers: {
-        "cache-control": "max-age=60",
-      },
-    }
-  );
 });
 ```
 
-## Technical info
+## Technical Info
 
-Spotter is built entirely with solidstart and mostly with SSR in mind.
+Spotter is built with SolidStart and primarily uses SSR.
 
-The main technical points of the application can be summarized as follows:
+Key technical aspects:
 
-- Solidstart for SSR with server functions and api route for data handling.
-- Xata Database integration with solidstart server functions and actions.
+- SolidStart for SSR with server functions and API routes.
+- Xata database integration with server functions and actions.
 
-## User interface
+## User Interface
 
-The user interface was implemented using the following:
+The UI uses:
 
-- @kobalte/core: an accessible sort of low level components for solid js.
-- @corvu: UI primitives for solidjs.
-- @solid-primitives: simple primitives and reusable functions for solidstart.
-- @solidui: a shadcn port for solidjs.
+- @kobalte/core for accessible, low-level Solid.js components.
+- @corvu for Solid.js UI primitives.
+- @solid-primitives for reusable functions.
+- @solidui for Solid.js UI components.
 
 ## Observability
 
-To enhance developer workflow and debugging practises. The `withSpotter` route wrapper collects info such as request and response payloads. In the future payload masking will be introduced to protect sensitive parameters.
+The `withSpotter` route wrapper collects information on request and response payloads, and future updates will introduce payload masking for sensitive parameters.
 
 ## Hosting
 
-The project has been hosted on vercel.
+Spotter is hosted on Vercel.
 
 ## Dependencies
 
-The most important dependency is probably the `@unkey` SDK which is used to generate project api keys.
-
-<!-- CONTRIBUTING -->
+The primary dependency is the `@unkey` SDK for generating project API keys.
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are welcome! To contribute:
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+1. Fork the project.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- ### Top contributors:
-
-<a href="https://github.com/othneildrew/Best-README-Template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=othneildrew/Best-README-Template" alt="contrib.rocks image" />
-</a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- LICENSE -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 
@@ -329,41 +221,32 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTACT -->
-
 ## Contact
 
-Your Name - [@emee-dev](https://x.com/__emee_) - emmanuelajike2000@gmail.com
+Emmanuel Ajike - [@emee-dev](https://x.com/__emee_) - emmanuelajike2000@gmail.com
 
-Project Link: [https://github.com/emee-dev/spotter](https://github.com/emee-dev/spotter)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
+Project Link: [https://github.com/emee-dev/spotter.dev-demo](https://github.com/emee-dev/spotter.dev-demo)
 
 ## Acknowledgments
 
-Special shoutout to the following technologies or tools for their incredible contributions to the open source movement.
+This project was inspired by and made possible thanks to:
 
-- [Shadcn Form Builder](https://github.com/hasanharman/form-builder)
+- [SolidStart](https://solidjs.com/docs/latest/start)
+- [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+- The open-source community
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[contributors-shield]: https://img.shields.io/github/contributors/emee-dev/spotter.dev-demo.svg?style=for-the-badge
+[contributors-url]: https://github.com/emee-dev/spotter.dev-demo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/emee-dev/spotter.dev-demo.svg?style=for-the-badge
+[forks-url]: https://github.com/emee-dev/spotter.dev-demo/network/members
+[stars-shield]: https://img.shields.io/github/stars/emee-dev/spotter.dev-demo.svg?style=for-the-badge
+[stars-url]: https://github.com/emee-dev/spotter/stargazers
+[issues-shield]: https://img.shields.io/github/issues/emee-dev/spotter.dev-demo.svg?style=for-the-badge
+[issues-url]: https://github.com/emee-dev/spotter.dev-demo/issues
+[license-shield]: https://img.shields.io/github/license/emee-dev/spotter.dev-demo.svg?style=for-the-badge
+[license-url]: https://github.com/emee-dev/spotter.dev-demo/blob/main/LICENSE
 [product-screenshot]: app/public/product.png
-[solidstart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
-[solidstart-url]: https://start.solidjs.com/

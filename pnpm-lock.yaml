@@ -66,10 +66,10 @@ importers:
       '@solidjs/start':
         specifier: ^1.0.8
         version: 1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@22.8.7)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0))
-      '@spotter/solidstart':
+      '@spotter.dev/solidstart':
         specifier: workspace:*
         version: link:../packages/solidstart
-      '@spotter/types':
+      '@spotter.dev/types':
         specifier: workspace:*
         version: link:../packages/types
       '@tailwindcss/typography':
@@ -187,11 +187,14 @@ importers:
       stacktracey:
         specifier: ^2.1.8
         version: 2.1.8
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@solidjs/start':
         specifier: ^1.0.8
         version: 1.0.10(solid-js@1.9.3)(vinxi@0.4.3(@types/node@20.17.6)(@upstash/redis@1.34.3)(ioredis@5.4.1)(terser@5.36.0)(typescript@5.6.3))(vite@5.4.10(@types/node@20.17.6)(terser@5.36.0))
-      '@spotter/types':
+      '@spotter.dev/types':
         specifier: workspace:*
         version: link:../types
       '@types/axios':
@@ -5702,7 +5705,7 @@ snapshots:
       '@babel/traverse': 7.25.9
       '@babel/types': 7.26.0
       convert-source-map: 2.0.0
-      debug: 4.3.7(supports-color@9.4.0)
+      debug: 4.3.7
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -5862,7 +5865,7 @@ snapshots:
       '@babel/parser': 7.26.2
       '@babel/template': 7.25.9
       '@babel/types': 7.26.0
-      debug: 4.3.7(supports-color@9.4.0)
+      debug: 4.3.7
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -7582,7 +7585,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.3.7(supports-color@9.4.0)
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -9009,7 +9012,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.7(supports-color@9.4.0)
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -9107,7 +9110,7 @@ snapshots:
     dependencies:
       '@ioredis/commands': 1.2.0
       cluster-key-slot: 1.1.2
-      debug: 4.3.7(supports-color@9.4.0)
+      debug: 4.3.7
       denque: 2.1.0
       lodash.defaults: 4.2.0
       lodash.isarguments: 3.1.0

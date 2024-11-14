@@ -1,9 +1,11 @@
 import type { APIEvent } from "@solidjs/start/server";
+import {
+  SpotterPayload,
+  SpotterPayloadWithRuntimeError,
+} from "@spotter.dev/types";
 import os from "node:os";
-import * as stackTrace from "stack-trace";
-import { getBaseUrlByEnvironment, sendPayloadToSpotter } from "./lib/http";
-import { SpotterPayload, SpotterPayloadWithRuntimeError } from "@spotter/types";
 import { Spotter, SpotterArgs } from "./lib/config";
+import { getBaseUrlByEnvironment, sendPayloadToSpotter } from "./lib/http";
 import {
   extractQueryParams,
   getErrorMessage,
@@ -30,8 +32,8 @@ type RouteHandler = (event: APIEvent) => Response | Promise<Response>;
  * @remarks
  * - **Error Handling**: This function does not catch or handle errors automatically. The route handler must
  *   handle its own errors, or unhandled exceptions will propagate.
- * - **Configuration Requirements**: Requires Spotter configuration values (`apiKey`, `projectId`, `environment`)
- *   to be set in `spotter.getConfig()`. If the config is missing, the request proceeds without Spotter logging.
+ * - **Configuration Requirements**: Requires Spotter configuration values (`apiKey`, `projectId`)
+ *   to be set in `spotter.init()`. If the config is missing, the request proceeds without Spotter logging.
  * - **Response Type Limitation**: This function only processes `Response` objects. If the route handler
  *   returns other types (e.g., text), they are passed through unmodified.
  *
@@ -60,12 +62,6 @@ type RouteHandler = (event: APIEvent) => Response | Promise<Response>;
  *   }
  * });
  * ```
- *
- * ## Important Information for End Users
- * - **Does Not Catch Errors**: Ensure that any exceptions in the route handler are caught and handled,
- *   or they will propagate unhandled.
- * - **Logging Level**: The log level is determined by Spotter configuration (`logLevel`), with "verbose"
- *   enabling detailed response logging.
  */
 export const withSpotter = (cb: RouteHandler) => {
   const spotter = Spotter.getInstance();
@@ -138,7 +134,7 @@ const captureNoRuntimeErrorRequest = async ({
   config: SpotterArgs | null;
 }) => {
   if (!config) {
-    console.log("Spotter config missing.");
+    console.log("[Spotter] config missing.");
     return response;
   }
 

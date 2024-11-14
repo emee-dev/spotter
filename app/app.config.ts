@@ -14,8 +14,5 @@ export default defineConfig({
   },
   vite: {
     plugins: [solidSvg()],
-    optimizeDeps: {
-      exclude: ["@codemirror/state", "@codemirror/view"],
-    },
   },
 });
