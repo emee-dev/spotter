@@ -1,5 +1,5 @@
-import { A, useSubmission } from "@solidjs/router";
-import { RotateCw } from "lucide-solid";
+import { useSubmission } from "@solidjs/router";
+import { Loader, RotateCw } from "lucide-solid";
 import { Show } from "solid-js";
 import { Button } from "~/components/ui/button";
 import {
@@ -76,7 +76,7 @@ export default function CreateNewProject() {
                     type="submit"
                     class="w-full mb-2 flex transition-all items-center"
                   >
-                    Submitting <RotateCw class="ml-2 size-4 animate-spin" />
+                    Submitting <Loader class="ml-2 size-4 animate-spin" />
                   </Button>
                 )}
               </Show>

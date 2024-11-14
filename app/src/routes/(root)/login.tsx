@@ -1,5 +1,5 @@
-import { A, useSubmission } from "@solidjs/router";
-import { RotateCw } from "lucide-solid";
+import { useSubmission } from "@solidjs/router";
+import { Loader, RotateCw } from "lucide-solid";
 import { Show } from "solid-js";
 import { Button } from "~/components/ui/button";
 import {
@@ -24,7 +24,7 @@ export default function LoginPage() {
     <div class="flex h-screen w-full items-center justify-center">
       <Card class="mx-auto w-[24rem] md:w-[500px] ">
         <CardHeader>
-          <CardTitle class="text-2xl">Welcome back</CardTitle>
+          <CardTitle class="text-2xl">Login</CardTitle>
           <CardDescription>Enter your email below to continue</CardDescription>
         </CardHeader>
         <CardContent>
@@ -77,7 +77,7 @@ export default function LoginPage() {
                   type="submit"
                   class="w-full mb-2 flex transition-all items-center"
                 >
-                  Submitting <RotateCw class="ml-2 size-4 animate-spin" />
+                  Submitting <Loader class="ml-2 size-4 animate-spin" />
                 </Button>
               )}
             </Show>

@@ -14,5 +14,8 @@ export default defineConfig({
   },
   vite: {
     plugins: [solidSvg()],
+    optimizeDeps: {
+      exclude: ["prettier"],
+    },
   },
 });

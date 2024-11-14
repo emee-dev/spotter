@@ -46,6 +46,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7",
+    "to-json-schema": "^0.2.5",
     "tsconfig": "workspace:*",
     "vinxi": "^0.4.3",
     "vite-plugin-solid-svg": "^0.8.1",
@@ -58,6 +59,8 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/prettier": "^3.0.0",
+    "@types/to-json-schema": "^0.2.4",
     "shiki": "^1.22.2"
   },
   "license": "MIT"

@@ -1,6 +1,7 @@
 import { RouteSectionProps } from "@solidjs/router";
 import { Menu, Plus } from "lucide-solid";
 import { createSignal, Suspense } from "solid-js";
+import { SpinnerLoader } from "~/components/loaders";
 import Sidebar from "~/components/sidebar";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
@@ -24,9 +25,7 @@ export default function ProjectLayout(props: RouteSectionProps) {
       <div class="flex-1 flex flex-col overflow-hidden">
         <Header setSidebarOpen={setSidebarOpen} />
         <Separator orientation="horizontal" />
-        <Suspense fallback={<div>Loading dashboard</div>}>
-          {props.children}
-        </Suspense>
+        <Suspense fallback={<SpinnerLoader />}>{props.children}</Suspense>
       </div>
     </div>
   );

@@ -1,12 +1,18 @@
-import { formatDateRelative } from "@solid-primitives/date";
 import { createAsync, query } from "@solidjs/router";
-import { Link, MoreHorizontal } from "lucide-solid";
+import { Globe, MoreVertical } from "lucide-solid";
 import { ErrorBoundary, For } from "solid-js";
 import ErrorMessage from "~/components/error";
 import { Button } from "~/components/ui/button";
-import { Card } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { getLoggedUser } from "~/lib/auth/user";
 import { listAllProjects } from "~/lib/db";
+import { getRelativeTime } from "~/lib/utils";
 
 const listProjects = query(async () => {
   const user = await getLoggedUser();
@@ -37,21 +43,15 @@ const Projects = () => {
             <div class="flex items-center justify-center">Loading...</div>
           }
         >
-          {(item) => {
-            const targetDate = new Date(item.xata_createdat);
-            const now = new Date();
-            const difference = targetDate.getTime() - now.getTime();
-
-            return (
-              <ProjectListCard
-                baseUrl={item.baseUrl}
-                projectId={item.projectId}
-                projectLabel={item.projectLabel}
-                serviceType={item.serviceType}
-                xata_createdat={difference}
-              />
-            );
-          }}
+          {(item) => (
+            <ProjectCard
+              baseUrl={item.baseUrl}
+              projectId={item.projectId}
+              projectLabel={item.projectLabel}
+              serviceType={item.serviceType}
+              xata_createdat={item.xata_createdat}
+            />
+          )}
         </For>
       </div>
     </ErrorBoundary>
@@ -63,45 +63,39 @@ type Projects = {
   projectId: string;
   serviceType: string;
   projectLabel: string;
-  xata_createdat: number;
+  xata_createdat: Date;
 };
 
-const ProjectListCard = (props: Projects) => {
+function ProjectCard(props: Projects) {
   return (
     <a href={`/projects/${props.projectId}`}>
-      <Card class="flex bg-background font-inter group flex-col sm:flex-row items-start sm:items-center gap-4 p-4  rounded-lg  group">
-        <div class="pl-2 flex-1 min-w-0 space-y-1 sm:space-y-3">
-          <div class="flex items-center sm:items-center gap-2 flex-wrap">
-            <span class="font-medium text-lg leading-3 tracking-tighter">
-              {props.projectLabel}
-            </span>
-            <span class="text-sm hidden text-neutral-600 sm:items-center sm:gap-x-2 sm:flex font-light">
-              {props.baseUrl}
-              <Link class="size-3 mb-px hidden group-hover:block" />
-            </span>
-          </div>
-
-          <div class="flex items-center space-x-2 text-sm">
-            <div class="font-medium text-xs gap-x-1 flex items-center">
-              <img
-                src="https://avatars.githubusercontent.com/u/79226042?s=200&v=4"
-                class="size-[25px] aspect-square"
-              />
-              <span>{props.serviceType}</span>
-            </div>
-            <span class="text-gray-600/75 tracking-tighter">
-              {formatDateRelative(props.xata_createdat)}
-            </span>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 w-full sm:w-auto">
-          <Button variant={"outline"} size={"icon"} class="p-1.5  rounded ">
-            <MoreHorizontal class="size-4" />
+      <Card>
+        <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle class="text-sm font-medium">
+            {props.projectLabel}
+          </CardTitle>
+          <Button variant="ghost" size="icon">
+            <MoreVertical class="w-4 h-4" />
+            <span class="sr-only">More options</span>
           </Button>
-        </div>
+        </CardHeader>
+        <CardContent>
+          <div class="text-sm text-muted-foreground overflow-hidden overflow-ellipsis whitespace-nowrap">
+            <Globe class="inline w-3 h-3 mr-1" />
+            {props.baseUrl}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <div class="flex items-center text-xs text-muted-foreground">
+            <div class="w-2 h-2 mr-2 rounded-full bg-green-500" />
+            {"active"}
+            <span class="mx-2">•</span>
+            Last updated {getRelativeTime(props.xata_createdat)}
+          </div>
+        </CardFooter>
       </Card>
     </a>
   );
-};
+}
 
 export default Projects;
