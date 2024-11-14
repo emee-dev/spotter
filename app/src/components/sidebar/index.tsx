@@ -29,7 +29,7 @@ const Sidebar = (props: {
     <div
       class={`fixed inset-y-0 left-0 z-50 w-64 bg-background  transform ${
         props.sidebarOpen()
-          ? "translate-x-0 bg-background opacity-100"
+          ? "translate-x-0 bg-background opacity-100 shadow-2xl"
           : "-translate-x-full"
       } transition-transform duration-300 ease-in-out shadow-md lg:relative lg:translate-x-0`}
     >

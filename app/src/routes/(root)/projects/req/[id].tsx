@@ -1,4 +1,4 @@
-import { createAsync, query, useParams } from "@solidjs/router";
+import { createAsync, query, revalidate, useParams } from "@solidjs/router";
 import { AlertCircle, Clock, Copy, Server, Share2 } from "lucide-solid";
 import { ErrorBoundary, For, Show, Suspense } from "solid-js";
 import CodeBlock from "~/components/code-block";
@@ -28,6 +28,9 @@ type XataRequestInfo = {
 };
 
 const getRequestInfo = query(async () => {
+  // NOTE: this helps remove any sort of redundant cache error
+  revalidate(getRequestInfo.key);
+
   const params = useParams<{ id: string }>();
 
   const data = await getRequestById({ xata_id: params.id });
