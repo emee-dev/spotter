@@ -24,7 +24,7 @@
     "@solidjs/router": "^0.15.1",
     "@solidjs/start": "^1.0.8",
     "@spotter.dev/solidstart": "workspace:*",
-    "@spotter.dev/types": "workspace:*",
+    "@spotter.dev/spotter_types": "workspace:*",
     "@tailwindcss/typography": "^0.5.15",
     "@unkey/api": "^0.26.2",
     "@upstash/redis": "^1.34.3",
@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
-    "@types/prettier": "^3.0.0",
     "@types/to-json-schema": "^0.2.4",
     "shiki": "^1.22.2"
   },

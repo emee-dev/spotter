@@ -2,7 +2,7 @@ import type { APIEvent } from "@solidjs/start/server";
 import {
   SpotterPayload,
   SpotterPayloadWithRuntimeError,
-} from "@spotter.dev/types";
+} from "@spotter.dev/spotter_types";
 import os from "node:os";
 import { Spotter, SpotterArgs } from "./lib/config";
 import { getBaseUrlByEnvironment, sendPayloadToSpotter } from "./lib/http";

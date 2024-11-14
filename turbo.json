@@ -19,6 +19,23 @@
         ".env"
       ]
     },
+    "dev:build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        ".vercel/**",
+        ".vinxi/**",
+        "dist/**"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env.production.local",
+        ".env.local",
+        ".env.production",
+        ".env"
+      ]
+    },
     "test": {
       "dependsOn": ["build"]
     },

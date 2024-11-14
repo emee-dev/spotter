@@ -79,7 +79,7 @@ function getStatusMessage(status: number): StatusResponse {
 }
 
 export default function Component() {
-  const getIssue = createAsync(() => getRequestInfo());
+  const getIssue = createAsync(() => getRequestInfo(), { deferStream: true });
   const [_, setCopyValue] = createCopy();
 
   return (

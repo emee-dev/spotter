@@ -1,7 +1,7 @@
 import type {
   SpotterPayload,
   SpotterPayloadWithRuntimeError,
-} from "@spotter.dev/types";
+} from "@spotter.dev/spotter_types";
 import axios from "axios";
 import normalizeUrl from "normalize-url";
 import { SpotterArgs } from "./config";
