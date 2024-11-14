@@ -57,7 +57,8 @@
     "pnpm": ">= 9.2.0 "
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2"
+    "@types/bcrypt": "^5.0.2",
+    "shiki": "^1.22.2"
   },
   "license": "MIT"
 }

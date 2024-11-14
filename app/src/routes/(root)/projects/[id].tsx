@@ -2,6 +2,7 @@ import { createAsync, query, useParams, useSubmission } from "@solidjs/router";
 import { Box, Copy, Radio, RotateCw } from "lucide-solid";
 import {
   createEffect,
+  createResource,
   createSignal,
   ErrorBoundary,
   For,
@@ -11,9 +12,11 @@ import {
 import { Dynamic } from "solid-js/web";
 import ErrorMessage from "~/components/error";
 import {
-  EndpointCard,
-  LargeRequestCard,
+  // EndpointCard,
+  EndpointItem,
+  // LargeRequestCard,
   Payload,
+  RequestItem,
 } from "~/components/request-cards";
 import { Button } from "~/components/ui/button";
 import {
@@ -214,6 +217,189 @@ function SettingsTabContent() {
   );
 }
 
+// export default function ProjectsDashboard() {
+//   const params = useParams<{ id: string }>();
+//   const getProjectStats = createAsync(() => projectStats());
+
+//   const [page, setPage] = createSignal(1);
+//   const [endpointPage, setEndpointPage] = createSignal(1);
+
+//   const [requests, setRequests] = createSignal<XataRequests[]>([]);
+//   const [endpoints, setEndpoints] = createSignal<XataEndpoints[]>([]);
+
+//   const [count, setCount] = createSignal<number>(0);
+//   const [endpointCount, setEndpointCount] = createSignal<number>(0);
+//   const pageSize = 6;
+//   const getPaginatedReqs = createAsync(() =>
+//     listAllRequests({ projectId: params.id, page: page(), pageSize })
+//   );
+
+//   const getPaginatedEndpoints = createAsync(() =>
+//     listAllEndpoints({
+//       projectId: params.id,
+//       page: endpointPage(),
+//       pageSize,
+//     })
+//   );
+
+//   const totalRequestPages = () => Math.ceil(count() / pageSize);
+//   const totalEndpointPages = () => Math.ceil(endpointCount() / pageSize);
+
+//   createEffect(
+//     on(getPaginatedReqs, (reqs) => {
+//       if (reqs && reqs.records) {
+//         setCount(reqs.count);
+//         setRequests(reqs.records as XataRequests[]);
+//       }
+//     })
+//   );
+
+//   createEffect(
+//     on(getPaginatedEndpoints, (endpoints) => {
+//       if (endpoints && endpoints.records) {
+//         setEndpointCount(endpoints.count);
+//         setEndpoints(endpoints.records as XataEndpoints[]);
+//       }
+//     })
+//   );
+
+//   return (
+//     <ErrorBoundary fallback={(err, reset) => <ErrorMessage />}>
+//       <div class="flex-1 overflow-auto p-4 space-y-4">
+//         <Tabs defaultValue="overview" class="space-y-4">
+//           <TabsList>
+//             <For each={["Overview", "Requests", "Endpoints", "Settings"]}>
+//               {(item) => (
+//                 <TabsTrigger
+//                   value={item.toLowerCase()}
+//                   class="text-sm"
+//                   onClick={() => {
+//                     if (item === "Requests") {
+//                       console.log("requests", requests());
+//                     }
+
+//                     if (item === "Endpoints") {
+//                       console.log("endpoints", endpoints());
+//                     }
+//                   }}
+//                 >
+//                   {item}
+//                 </TabsTrigger>
+//               )}
+//             </For>
+//           </TabsList>
+//           <TabsContent value="overview" class="space-y-4">
+//             <div class="grid gap-4">
+//               <Card class="w-full max-w-3xl">
+//                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+//                   <CardTitle class="text-lg font-bold">
+//                     Stats Overview
+//                   </CardTitle>
+//                 </CardHeader>
+//                 <CardContent>
+//                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+//                     <For each={getProjectStats()}>
+//                       {(stat, index) => (
+//                         <div class="flex items-center space-x-4 rounded-lg bg-neutral-300/50 p-4 transition-colors border hover:border-blue-400">
+//                           <div
+//                             class={`rounded-full bg-muted p-2 ${stat.color}`}
+//                           >
+//                             <Dynamic
+//                               component={statsIcons[stat.icon]}
+//                               class="h-6 w-6"
+//                             />
+//                           </div>
+//                           <div>
+//                             <p class="text-sm font-medium text-muted-foreground">
+//                               {stat.label}
+//                             </p>
+//                             <p class={`text-2xl font-bold ${stat.color}`}>
+//                               {stat.value}
+//                             </p>
+//                           </div>
+//                         </div>
+//                       )}
+//                     </For>
+//                   </div>
+//                 </CardContent>
+//               </Card>
+//             </div>
+//           </TabsContent>
+
+//           <TabsContent value="requests" class="">
+//             <div class="space-y-2">
+//               <For each={requests()}>
+//                 {(issue) => (
+//                   <LargeRequestCard
+//                     id={issue.xata_id}
+//                     error={issue.error}
+//                     system={issue.system}
+//                     request={issue.request}
+//                     xata_createdat={issue.xata_createdat}
+//                   />
+//                 )}
+//               </For>
+//             </div>
+
+//             <div class="flex mt-auto justify-center">
+//               <Pagination
+//                 count={totalRequestPages()}
+//                 fixedItems
+//                 itemComponent={(props) => (
+//                   <PaginationItem
+//                     page={props.page}
+//                     onClick={() => setPage(props.page)}
+//                   >
+//                     {props.page}
+//                   </PaginationItem>
+//                 )}
+//                 ellipsisComponent={() => <PaginationEllipsis />}
+//               >
+//                 <PaginationItems />
+//               </Pagination>
+//             </div>
+//           </TabsContent>
+
+//           <TabsContent value="endpoints" class="space-y-10">
+//             <div class="space-y-2">
+//               <For each={endpoints()}>
+//                 {(issue) => (
+//                   <EndpointCard
+//                     id={issue.xata_id}
+//                     requestUrl={issue.requestUrl}
+//                     xata_createdat={issue.xata_createdat}
+//                   />
+//                 )}
+//               </For>
+//             </div>
+
+//             <div class="flex mt-auto justify-center">
+//               <Pagination
+//                 count={totalEndpointPages()}
+//                 fixedItems
+//                 itemComponent={(props) => (
+//                   <PaginationItem
+//                     page={props.page}
+//                     onClick={() => setEndpointPage(props.page)}
+//                   >
+//                     {props.page}
+//                   </PaginationItem>
+//                 )}
+//                 ellipsisComponent={() => <PaginationEllipsis />}
+//               >
+//                 <PaginationItems />
+//               </Pagination>
+//             </div>
+//           </TabsContent>
+
+//           <TabsContent value="settings">
+//             <SettingsTabContent />
+//           </TabsContent>
+//         </Tabs>
+//       </div>
+//     </ErrorBoundary>
+//   );
+// }
 export default function ProjectsDashboard() {
   const params = useParams<{ id: string }>();
   const getProjectStats = createAsync(() => projectStats());
@@ -227,17 +413,32 @@ export default function ProjectsDashboard() {
   const [count, setCount] = createSignal<number>(0);
   const [endpointCount, setEndpointCount] = createSignal<number>(0);
   const pageSize = 6;
-  const getPaginatedReqs = createAsync(() =>
-    listAllRequests({ projectId: params.id, page: page(), pageSize })
-  );
 
-  const getPaginatedEndpoints = createAsync(() =>
-    listAllEndpoints({
-      projectId: params.id,
-      page: endpointPage(),
-      pageSize,
-    })
+  const reqArgs = () => ({
+    projectId: params.id,
+    page: page(),
+    pageSize,
+  });
+
+  const endpointArgs = () => ({
+    projectId: params.id,
+    page: endpointPage(),
+    pageSize,
+  });
+
+  const [getPaginatedReqs] = createResource(reqArgs, listAllRequests);
+
+  const [getPaginatedEndpoints] = createResource(
+    endpointArgs,
+    listAllEndpoints
   );
+  // const getPaginatedEndpoints = createAsync(() =>
+  //   listAllEndpoints({
+  //     projectId: params.id,
+  //     page: endpointPage(),
+  //     pageSize,
+  //   })
+  // );
 
   const totalRequestPages = () => Math.ceil(count() / pageSize);
   const totalEndpointPages = () => Math.ceil(endpointCount() / pageSize);
@@ -263,7 +464,7 @@ export default function ProjectsDashboard() {
   return (
     <ErrorBoundary fallback={(err, reset) => <ErrorMessage />}>
       <div class="flex-1 overflow-auto p-4 space-y-4">
-        <Tabs defaultValue="overview" class="space-y-4">
+        <Tabs defaultValue="requests" class="space-y-4">
           <TabsList>
             <For each={["Overview", "Requests", "Endpoints", "Settings"]}>
               {(item) => (
@@ -285,7 +486,7 @@ export default function ProjectsDashboard() {
               )}
             </For>
           </TabsList>
-          <TabsContent value="overview" class="space-y-4">
+          {/* <TabsContent value="overview" class="space-y-4">
             <div class="grid gap-4">
               <Card class="w-full max-w-3xl">
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -321,22 +522,31 @@ export default function ProjectsDashboard() {
                 </CardContent>
               </Card>
             </div>
-          </TabsContent>
+          </TabsContent> */}
 
           <TabsContent value="requests" class="">
-            <div class="space-y-2">
-              <For each={requests()}>
-                {(issue) => (
-                  <LargeRequestCard
-                    id={issue.xata_id}
-                    error={issue.error}
-                    system={issue.system}
-                    request={issue.request}
-                    xata_createdat={issue.xata_createdat}
-                  />
-                )}
-              </For>
-            </div>
+            {/* {getPaginatedReqs.loading ? "Loading req" : "Done"} */}
+
+            {
+              <div class="space-y-2">
+                <Show
+                  when={!getPaginatedReqs.loading}
+                  fallback={<div>Loading requests</div>}
+                >
+                  <For each={requests()}>
+                    {(issue) => (
+                      <RequestItem
+                        id={issue.xata_id}
+                        error={issue.error}
+                        system={issue.system}
+                        request={issue.request}
+                        xata_createdat={issue.xata_createdat}
+                      />
+                    )}
+                  </For>
+                </Show>
+              </div>
+            }
 
             <div class="flex mt-auto justify-center">
               <Pagination
@@ -345,7 +555,10 @@ export default function ProjectsDashboard() {
                 itemComponent={(props) => (
                   <PaginationItem
                     page={props.page}
-                    onClick={() => setPage(props.page)}
+                    onClick={() => {
+                      console.log("Page", props.page);
+                      setPage(props.page);
+                    }}
                   >
                     {props.page}
                   </PaginationItem>
@@ -361,7 +574,12 @@ export default function ProjectsDashboard() {
             <div class="space-y-2">
               <For each={endpoints()}>
                 {(issue) => (
-                  <EndpointCard
+                  // <EndpointCard
+                  //   id={issue.xata_id}
+                  //   requestUrl={issue.requestUrl}
+                  //   xata_createdat={issue.xata_createdat}
+                  // />
+                  <EndpointItem
                     id={issue.xata_id}
                     requestUrl={issue.requestUrl}
                     xata_createdat={issue.xata_createdat}
@@ -389,9 +607,9 @@ export default function ProjectsDashboard() {
             </div>
           </TabsContent>
 
-          <TabsContent value="settings">
+          {/* <TabsContent value="settings">
             <SettingsTabContent />
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </ErrorBoundary>

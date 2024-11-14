@@ -14,8 +14,8 @@ function copyToClipboard(text: string) {
   }
 }
 
-export const createCopy = async () => {
-  const [isCopied, setCopied] = createSignal(false);
+export const createCopy = () => {
+  const [isCopied, setCopied] = createSignal<boolean>(false);
 
   createEffect(
     on(
@@ -37,5 +37,5 @@ export const createCopy = async () => {
     copyToClipboard(str);
   };
 
-  return [isCopied, setCopyValue];
+  return [isCopied, setCopyValue] as const;
 };

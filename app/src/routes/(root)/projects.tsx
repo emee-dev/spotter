@@ -45,7 +45,7 @@ const Header = (props: { setSidebarOpen: (val: boolean) => void }) => {
       </Button>
       <h1 class="text-xl font-semibold">Project</h1>
       <a href="/projects/create">
-        <Button variant="outline" size={"sm"}>
+        <Button size={"sm"}>
           <Plus class="size-4 mr-2" />
           <span>Add API</span>
         </Button>
