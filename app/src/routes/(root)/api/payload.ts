@@ -1,11 +1,13 @@
-// import zodToJsonSchema from "zod-to-json-schema";
-// import jsonSchemaToZod from "json-schema-to-zod";
 import type { APIEvent } from "@solidjs/start/server";
-import type { SpotterPayload } from "@spotter/types";
+import type { SpotterPayload } from "@spotter.dev/spotter_types";
 import { verifyKey } from "@unkey/api";
+import jsonToZod from "json-schema-to-zod";
+import toJsonSchema from "to-json-schema";
 import { env } from "~/env";
-import { createRequest } from "~/lib/db";
 import { formatZodError, SpotterPayloadSchema } from "~/schema";
+// @ts-expect-error ts error
+import { format } from "prettier";
+import { createRequest } from "~/lib/db";
 
 export const POST = async (event: APIEvent) => {
   try {
@@ -55,18 +57,31 @@ export const POST = async (event: APIEvent) => {
     const { error, spotter, request, response, stack, system, timestamp } =
       params.data;
 
-    const findProject = await createRequest({
+    const requestSchema = (await format(jsonToZod(toJsonSchema(request)), {
+      parser: "typescript",
+    })) as string;
+
+    const responseSchema: string | null =
+      response !== null || response !== undefined
+        ? await format(jsonToZod(toJsonSchema(response)), {
+            parser: "typescript",
+          })
+        : null;
+
+    await createRequest({
       error: error,
-      projectId: spotter.projectId,
       request,
       response,
       stack,
       system,
       timestamp,
+      requestSchema,
+      responseSchema,
+      projectId: spotter.projectId,
     });
 
     return Response.json(
-      { message: "Payload recieved", data: params.data },
+      { message: "Payload recieved", data: null },
       { status: 200 }
     );
   } catch (error) {

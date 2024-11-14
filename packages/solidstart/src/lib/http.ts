@@ -6,7 +6,7 @@ import axios from "axios";
 import normalizeUrl from "normalize-url";
 import { SpotterArgs } from "./config";
 
-const BASE_URL = "https://spotter-rust.vercel.app/";
+const BASE_URL = "https://spotter-rust.vercel.app/api";
 const API_ENDPOINT = "/payload";
 
 /**
@@ -48,12 +48,17 @@ export const sendPayloadToSpotter = async (
 
   while (attempt < retries) {
     try {
-      const response = await axios.post(normalizeUrl(apiUrl), payload, {
+      const request = await axios.post(normalizeUrl(apiUrl), payload, {
         headers: { "Content-Type": "application/json" },
       });
 
+      const response = request.data as { message: string; data: null };
+
       if (logLevel === "verbose") {
-        console.log("Response:", response.data);
+        console.log("Message:", response.message);
+        console.log(
+          `Payload Url: ${payload.request.url} sent, status: ${request.status}`
+        );
       }
       break;
     } catch (error) {

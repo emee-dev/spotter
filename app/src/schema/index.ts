@@ -1,8 +1,3 @@
-// import zodToJsonSchema from "zod-to-json-schema";
-// import jsonSchemaToZod from "json-schema-to-zod";
-import type { APIEvent } from "@solidjs/start/server";
-import type { SpotterPayload } from "../../../packages/spotter_types";
-// import prisma, { Prisma } from "~/lib/db/prisma";
 import { z, ZodError } from "zod";
 
 // Type for INVALID_RESPONSE_BODY

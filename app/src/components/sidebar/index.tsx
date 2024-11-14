@@ -64,10 +64,16 @@ const Sidebar = (props: {
                   location.pathname.startsWith(item.path)
                     ? "bg-accent text-accent-foreground" // Active styles
                     : "text-muted-foreground hover:bg-muted" // Inactive styles
-                } rounded flex items-center gap-3 px-4 py-2`}
+                } rounded flex items-center gap-3 px-4 py-2 relative`}
               >
                 <Dynamic component={item.icon} class="size-4" />
                 <span class="text-balance text-base">{item.label}</span>
+
+                <div
+                  class={` ${
+                    location.pathname.startsWith(item.path) ? "block" : "hidden"
+                  } absolute bg-purple-500 h-1 w-3 rounded-full -right-0`}
+                ></div>
               </a>
             )}
           </For>

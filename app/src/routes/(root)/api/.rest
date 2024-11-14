@@ -37,8 +37,49 @@ Content-Type: application/json
     "error": null,
     "stack": null,
     "request": {
-      "method": "POST",
-      "url": "/user",
+      "method": "PUT",
+      "url": "/cars",
+      "params": { "cardId": "504" },
+      "query": { "search": "true" },
+      "headers": {
+        "User-Agent": "Mozilla/5.0",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Authorization": "Bearer some_token_here"
+      }
+    },
+    "response": {
+      "status": 200,
+      "params": { "car-name": "prototype" },
+      "headers": {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache"
+      }
+    },
+    "system": {
+      "ip": "192.168.1.1",
+      "arch": "x64",
+      "platform": "macOS"
+    },
+    "timestamp": "2024-11-04T08:30:00Z"
+  }
+}
+
+
+### Production request
+POST https://spotter-rust.vercel.app/api/payload
+Content-Type: application/json
+
+{
+  "data": {
+    "spotter": {
+      "apiKey": "spotter_3ZizcLTizBKyupQXtdkxjBaW",
+      "projectId": "x4Yr4Au1"
+    },
+    "error": null,
+    "stack": null,
+    "request": {
+      "method": "DELETE",
+      "url": "/products",
       "params": { "projectId": "404" },
       "query": { "search": "true" },
       "headers": {

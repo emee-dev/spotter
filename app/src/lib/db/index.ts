@@ -174,40 +174,6 @@ export const createProject = async (args: Projects) => {
   return new_record;
 };
 
-export const updateProjectDetails = async (
-  args: Pick<Projects, "baseUrl" | "projectLabel" | "projectId"> & {
-    email: string;
-  }
-) => {
-  "use server";
-
-  const doesUserExist = await prisma.users.findFirst({
-    where: {
-      email: args.email,
-    },
-  });
-
-  if (!doesUserExist) {
-    throw new Error("Unable to update project, try again.");
-  }
-
-  const new_record = await prisma.projects.update({
-    where: {
-      projectId: args.projectId,
-    },
-    data: {
-      baseUrl: args.baseUrl,
-      projectLabel: args.projectLabel,
-    },
-  });
-
-  if (!new_record) {
-    throw new Error("Unable to set changes, please retry.");
-  }
-
-  return new_record;
-};
-
 export const getProjectStatsById = async (args: { projectId: string }) => {
   "use server";
 
@@ -250,27 +216,15 @@ export const getProjectStatsById = async (args: { projectId: string }) => {
     },
   ] as const;
 
-  // const statRedis = await getStats(`stats:${args.projectId}`);
-
-  // const stats = [
-  //   {
-  //     label: "Requests",
-  //     value: statRedis?.requestCount || 0,
-  //     icon: "Box",
-  //     color: "text-blue-500",
-  //   },
-  //   {
-  //     label: "Endpoints",
-  //     value: statRedis?.endpointsCount || 0,
-  //     icon: "Radio",
-  //     color: "text-purple-500",
-  //   },
-  // ] as const;
-
   return stats;
 };
 
-export const createRequest = async (args: ProjectRequests) => {
+export const createRequest = async (
+  args: ProjectRequests & {
+    requestSchema: string;
+    responseSchema: string | null;
+  }
+) => {
   "use server";
 
   const endpoint = getEndpoint(args.request.url);
@@ -286,16 +240,6 @@ export const createRequest = async (args: ProjectRequests) => {
       throw new Error(`Could not find project with id: ${args.projectId}.`);
     }
 
-    const requestSchema = await format(jsonToZod(toJsonSchema(args.request)), {
-      parser: "typescript",
-    });
-
-    const responseSchema = args.response
-      ? await format(jsonToZod(toJsonSchema(args.response)), {
-          parser: "typescript",
-        })
-      : null;
-
     const new_request = await tx.project_requests.create({
       data: {
         xata_id: nanoid(),
@@ -306,8 +250,8 @@ export const createRequest = async (args: ProjectRequests) => {
         stack: (args.stack as Prisma.JsonArray) || undefined,
         system: args.system as Prisma.JsonObject,
         timestamp: args.timestamp,
-        requestSchema: requestSchema as Prisma.JsonObject,
-        responseSchema: (responseSchema as Prisma.JsonObject) || undefined,
+        requestSchema: args.requestSchema || undefined,
+        responseSchema: args.responseSchema || undefined,
       },
     });
 
@@ -357,69 +301,6 @@ export const getRequestById = async (args: { xata_id: string }) => {
 
   return record;
 };
-// export const getRequestById = async (args: { xata_id: string }) => {
-//   "use server";
-
-//   const issue = {
-//     xata_id: "h3AJQNFkrx3I5yXQ3_ZfJ",
-//     xata_version: 0,
-//     xata_createdat: "2024-11-13T11:52:36.509Z",
-//     xata_updatedat: "2024-11-13T11:52:36.509Z",
-//     error: {
-//       name: "TypeError",
-//       file: "apply/utils/src/instrumentation",
-//       line: 30,
-//       column: 10,
-//       message: "Failed to fetch resource",
-//       function: "fetchData",
-//     },
-//     stack: [
-//       {
-//         file: "apply/utils/src/instrumentation",
-//         line: 29,
-//         column: 5,
-//         function: "initializeRequest",
-//         method: "GET",
-//       },
-//       {
-//         file: "apply/utils/src/instrumentation",
-//         line: 30,
-//         column: 10,
-//         function: "fetchData",
-//         method: null,
-//       },
-//     ],
-//     request: {
-//       method: "GET",
-//       url: "/projects",
-//       params: { projectId: "404" },
-//       query: { search: "true" },
-//       headers: {
-//         "User-Agent": "Mozilla/5.0",
-//         "Accept-Language": "en-US,en;q=0.9",
-//         Authorization: "Bearer some_token_here",
-//       },
-//     },
-//     response: {
-//       status: 200,
-//       params: { name: "emee" },
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Cache-Control": "no-cache",
-//       },
-//     },
-//     system: { ip: "192.168.1.1", arch: "x64", platform: "macOS" },
-//     projectId: "OGJ6YzU9",
-//     timestamp: "2024-11-04T08:30:00.000Z",
-//   };
-
-//   // @ts-expect-error
-//   issue.requestSchema = await format(jsonToZod(toJsonSchema(null)), {
-//     parser: "typescript",
-//   });
-
-//   return issue as any;
-// };
 
 export const listAllProjects = async (args: { email: string }) => {
   "use server";

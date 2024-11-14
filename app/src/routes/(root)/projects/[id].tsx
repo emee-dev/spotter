@@ -1,4 +1,10 @@
-import { createAsync, query, useParams, useSubmission } from "@solidjs/router";
+import {
+  createAsync,
+  query,
+  revalidate,
+  useParams,
+  useSubmission,
+} from "@solidjs/router";
 import { Box, Copy, Loader, Radio } from "lucide-solid";
 import {
   createEffect,
@@ -71,6 +77,7 @@ const statsIcons = {
 };
 
 const projectStats = query(async () => {
+  revalidate(projectStats.key);
   const params = useParams<{ id: string }>();
 
   const data = await getProjectStatsById({ projectId: params.id });
