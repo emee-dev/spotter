@@ -48,27 +48,45 @@ export const sendPayloadToSpotter = async (
 
   while (attempt < retries) {
     try {
-      const request = await axios.post(normalizeUrl(apiUrl), payload, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const request = await axios.post(
+        normalizeUrl(apiUrl),
+        { data: payload },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       const response = request.data as { message: string; data: null };
 
       if (logLevel === "verbose") {
         console.log("Message:", response.message);
         console.log(
-          `Payload Url: ${payload.request.url} sent, status: ${request.status}`
+          `Payload URL: ${payload.request.url} sent, status: ${request.status}`
         );
       }
-      break;
+      break; // Exit loop if request is successful
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // Handle Axios-specific errors
+        console.error("Axios error:", {
+          message: error.message,
+          url: error.config?.url,
+          method: error.config?.method,
+          status: error.response?.status,
+          data: error.response?.data,
+        });
+      } else {
+        // General error logging
+        console.error("Unexpected error:", error);
+      }
+
       if (attempt < retries - 1) {
         console.warn(
           `Attempt ${attempt + 1} failed. Retrying in ${retryDelay}ms...`
         );
         await delay(retryDelay);
       } else {
-        console.error("All retry attempts failed.", error);
+        console.error("All retry attempts failed.");
       }
     }
     attempt++;

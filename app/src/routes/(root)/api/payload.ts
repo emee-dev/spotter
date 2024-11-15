@@ -16,6 +16,8 @@ export const POST = async (event: APIEvent) => {
     const result = SpotterPayloadSchema.safeParse(params.data);
 
     if (!result.success) {
+      console.log("Schema error:", result.error.errors);
+
       return Response.json(
         {
           message: "Schema error",

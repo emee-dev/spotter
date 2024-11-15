@@ -133,9 +133,9 @@ const captureNoRuntimeErrorRequest = async ({
   responseClone: Response;
   config: SpotterArgs | null;
 }) => {
-  if (!config) {
-    console.log("[Spotter] config missing.");
-    return response;
+  if (!config || !config.apikey || !config.projectId) {
+    console.log("Spotter config missing.");
+    return;
   }
 
   // Construct payload for Spotter
@@ -197,7 +197,7 @@ const captureRuntimeErrorRequest = async ({
   requestClone: Request;
   config: SpotterArgs | null;
 }) => {
-  if (!config) {
+  if (!config || !config.apikey || !config.projectId) {
     console.log("Spotter config missing.");
     return;
   }

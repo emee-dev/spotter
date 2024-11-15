@@ -4,27 +4,23 @@ import { z, ZodError } from "zod";
 export const InvalidResponseBodySchema = z.literal("INVALID_JSON_BODY");
 
 // Zod schema for the SpotterPayload error object
-const ErrorSchema = z
-  .object({
-    name: z.string(),
-    file: z.string(),
-    line: z.number(),
-    column: z.number(),
-    message: z.string(),
-    function: z.string(),
-  })
-  .strict();
+const ErrorSchema = z.object({
+  name: z.string(),
+  file: z.string(),
+  line: z.number(),
+  column: z.number(),
+  message: z.string(),
+  function: z.string(),
+});
 
 // Zod schema for the stack items in SpotterPayload and SpotterPayloadWithRuntimeError
-const StackItemSchema = z
-  .object({
-    file: z.string(),
-    line: z.number(),
-    column: z.number(),
-    function: z.string(),
-    method: z.string().nullable(),
-  })
-  .strict();
+const StackItemSchema = z.object({
+  file: z.string(),
+  line: z.number(),
+  column: z.number(),
+  function: z.string(),
+  method: z.string().nullable(),
+});
 
 // Zod schema for the SpotterPayload request object
 const RequestSchema = z.object({
@@ -42,7 +38,6 @@ const ResponseSchema = z
     params: z.record(z.string()).nullable(),
     headers: z.record(z.string()).nullable(),
   })
-  .strict()
   .nullable();
 
 // Zod schema for the SpotterPayload spotter object
@@ -59,14 +54,14 @@ const SystemSchema = z.object({
 });
 
 // Main SpotterPayload schema
-export const SpotterPayloadSchema = z.strictObject({
+export const SpotterPayloadSchema = z.object({
   error: ErrorSchema.nullable(),
   stack: z.array(StackItemSchema).nullable(),
-  request: RequestSchema.strict(),
+  request: RequestSchema,
   response: ResponseSchema,
   timestamp: z.string(),
-  spotter: SpotterSchema.strict(),
-  system: SystemSchema.strict(),
+  spotter: SpotterSchema,
+  system: SystemSchema,
 });
 
 export const formatZodError = <T>(error: ZodError<T>) => {
