@@ -1,6 +1,6 @@
 import { cn } from "~/lib/utils";
 import { Play, XIcon } from "lucide-solid";
-import ThumbnailImage from "~/assets/yt3.png";
+import ThumbnailImage from "~/assets/home.png";
 import { createSignal } from "solid-js";
 
 type AnimationStyle =
@@ -13,9 +13,9 @@ type AnimationStyle =
   | "top-in-bottom-out"
   | "left-in-right-out";
 
-interface HeroVideoProps {
+interface HeroImageProps {
   animationStyle?: AnimationStyle;
-  videoSrc: string;
+  imageSrc: string;
   thumbnailSrc: string;
   thumbnailAlt?: string;
   className?: string;
@@ -80,20 +80,25 @@ default props
 
 */
 
-export default function HeroVideoDialog(props: HeroVideoProps) {
-  const [isVideoOpen, setIsVideoOpen] = createSignal(false);
-  const selectedAnimation = animationVariants[props?.animationStyle];
+export default function HeroImageDialog({
+  animationStyle = "from-center",
+  imageSrc,
+  thumbnailSrc,
+  thumbnailAlt = "Image thumbnail",
+  className,
+}: HeroImageProps) {
+  const [isImageOpen, setIsImageOpen] = createSignal(false);
+  const selectedAnimation = animationVariants[animationStyle];
 
   return (
-    <div class={cn("relative", props.className)}>
+    <div class={cn("relative", className)}>
       <div
         class="relative cursor-pointer group rounded-md p-2 ring-1 ring-slate-200/50 dark:bg-gray-900/70 dark:ring-white/10 backdrop-blur-md"
-        onClick={() => setIsVideoOpen(true)}
+        onClick={() => setIsImageOpen(true)}
       >
         <img
-          // src="https://img.youtube.com/vi/25IzTkU3En4/maxresdefault.jpg"
           src={ThumbnailImage}
-          alt={props.thumbnailAlt}
+          alt={thumbnailAlt}
           width={1920}
           height={1080}
           class="transition-all duration-200 group-hover:brightness-[0.8] ease-out rounded-md border"
@@ -115,22 +120,24 @@ export default function HeroVideoDialog(props: HeroVideoProps) {
         </div>
       </div>
       <AnimatePresence>
-        {isVideoOpen() && (
+        {isImageOpen() && (
           <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
             <div
               {...selectedAnimation}
               class="relative w-full max-w-4xl aspect-video mx-4 md:mx-0"
             >
-              <button class="absolute -top-16 right-0 text-white text-xl bg-neutral-900/50 ring-1 backdrop-blur-md rounded-full p-2 dark:bg-neutral-100/50 dark:text-black">
+              <button
+                onClick={() => setIsImageOpen(false)}
+                class="absolute -top-16 right-0 text-white text-xl bg-neutral-900/50 ring-1 backdrop-blur-md rounded-full p-2 dark:bg-neutral-100/50 dark:text-black"
+              >
                 <XIcon class="size-5" />
               </button>
               <div class="size-full border-2 border-white rounded-2xl overflow-hidden isolate z-[1] relative">
-                <iframe
-                  src={props.videoSrc}
+                <img
+                  src={imageSrc}
+                  alt="Full-size image"
                   class="size-full rounded-2xl"
-                  allowfullscreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
+                />
               </div>
             </div>
           </div>

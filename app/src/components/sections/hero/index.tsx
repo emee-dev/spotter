@@ -5,6 +5,7 @@ import { NumberTicker } from "~/components/number-ticker";
 import HeroVideoDialog from "~/components/sections/hero/hero-video";
 import { Button, buttonVariants } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
+import HeroImageDialog from "./hero-image";
 
 type GithubData = {
   stargazers_count: number;
@@ -16,7 +17,8 @@ const getGithubStats = query(async () => {
 
   try {
     const req = await fetch(
-      "https://api.github.com/repos/hasanharman/form-builder"
+      // "https://api.github.com/repos/hasanharman/form-builder"
+      "https://api.github.com/emee-dev/spotter"
     );
 
     const response = await req.json();
@@ -132,10 +134,17 @@ function HeroCTA() {
 function HeroImage() {
   return (
     <div class="relative mx-auto flex w-full items-center justify-center">
-      <HeroVideoDialog
+      {/* <HeroVideoDialog
         animationStyle="from-center"
         videoSrc="https://www.youtube.com/embed/25IzTkU3En4"
         thumbnailSrc="/demo.png"
+        thumbnailAlt="Thumbnail"
+        className="border rounded-lg shadow-lg max-w-screen-lg mt-16"
+      /> */}
+      <HeroImageDialog
+        animationStyle="from-center"
+        imageSrc="https://www.youtube.com/embed/25IzTkU3En4"
+        thumbnailSrc="/home.png"
         thumbnailAlt="Thumbnail"
         className="border rounded-lg shadow-lg max-w-screen-lg mt-16"
       />

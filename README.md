@@ -20,12 +20,12 @@
   <h3 align="center">Spotter</h3>
 
   <p align="center">
-    A fullstack observability framework with first-class SolidStart support.
+    A fullstack observability framework with first-class SolidStart support. Byebye to debugging API(s) in the dark.
     <br />
-    <a href="#"><strong>Explore the docs »</strong></a>
+    <!-- <a href="#"><strong>Explore the docs »</strong></a> -->
     <br />
     <br />
-    <a href="#">View Demo</a>
+    <a href="https://github.com/emee-dev/spotter.dev-demo.git">View Demo</a>
     ·
     <a href="#">Report Bug</a>
     ·
@@ -72,7 +72,7 @@ The best part? Spotter is open-source and cost-efficient.
 
 ### Built With
 
-- [SolidStart][solidstart-url]
+- [![Solidstart][solidstart.js]][solidstart-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -91,7 +91,7 @@ npm install pnpm -g
 Clone the repository:
 
 ```sh
-git clone https://github.com/emee-dev/spotter.dev-demo.git
+git clone https://github.com/emee-dev/spotter.git
 ```
 
 ### Installation
@@ -250,3 +250,5 @@ This project was inspired by and made possible thanks to:
 [license-shield]: https://img.shields.io/github/license/emee-dev/spotter.dev-demo.svg?style=for-the-badge
 [license-url]: https://github.com/emee-dev/spotter.dev-demo/blob/main/LICENSE
 [product-screenshot]: app/public/product.png
+[solidstart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
+[solidstart-url]: https://start.solidjs.com/

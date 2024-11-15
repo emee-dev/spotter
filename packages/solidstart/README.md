@@ -99,7 +99,7 @@ Use the `BLANK_README.md` to get started.
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-- [![Solidstart][solidStart.js]][Solidstart-url]
+- [![Solidstart][solidstart.js]][solidstart-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -236,6 +236,6 @@ Special shoutout to the following technologies or tools for their incredible con
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
-[SolidStart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
-[Solidstart-url]: https://start.solidjs.com/
+[product-screenshot]: ../../app/public/product.png
+[solidstart.js]: https://img.shields.io/badge/solidstart-000000?style=for-the-badge&logo=solid&logoColor=white
+[solidstart-url]: https://start.solidjs.com/
