@@ -17,7 +17,7 @@ export default function ProjectLayout(props: RouteSectionProps) {
   const user = createAsync(() => getLoggedUser(), { deferStream: true });
 
   if (!user) {
-    throw redirect("/");
+    return redirect("/");
   }
 
   const [sidebarOpen, setSidebarOpen] = createSignal(false);
