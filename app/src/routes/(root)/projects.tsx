@@ -1,20 +1,25 @@
-import { RouteSectionProps } from "@solidjs/router";
+import { createAsync, redirect, RouteSectionProps } from "@solidjs/router";
 import { Menu, Plus } from "lucide-solid";
-import { createSignal, Suspense } from "solid-js";
+import { createSignal, Show, Suspense } from "solid-js";
 import { SpinnerLoader } from "~/components/loaders";
 import Sidebar from "~/components/sidebar";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-// import { getLoggedUser } from "~/lib/auth/user";
+import { getLoggedUser } from "~/lib/auth/user";
 
-// export const route = {
-//   preload() {
-//     return getLoggedUser();
-//   },
-// };
+export const route = {
+  preload() {
+    return getLoggedUser();
+  },
+};
 
 export default function ProjectLayout(props: RouteSectionProps) {
-  // const user = createAsync(() => getLoggedUser(), { deferStream: true });
+  const user = createAsync(() => getLoggedUser(), { deferStream: true });
+
+  if (!user) {
+    throw redirect("/");
+  }
+
   const [sidebarOpen, setSidebarOpen] = createSignal(false);
 
   return (

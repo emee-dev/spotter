@@ -9,7 +9,6 @@
     "start": "vinxi start",
     "version": "vinxi version",
     "ts:lint": "tsc --noEmit",
-    "xata:migrate": "xata pull main",
     "prisma:migrate": "prisma db pull",
     "prisma:generate": "prisma generate"
   },
