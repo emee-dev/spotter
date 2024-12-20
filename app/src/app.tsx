@@ -44,7 +44,7 @@ export default function App() {
     <Router
       root={(props) => (
         <MetaProvider>
-          <Title>Spotter.dev</Title>
+          {/* <Title>Spotter.dev</Title>
           <Meta
             property="og:title"
             content="Spotter: Gain Deep Visibility and Control Over Your REST APIs"
@@ -53,7 +53,53 @@ export default function App() {
             property="og:description"
             content="Spotter helps engineers quickly debug and troubleshoot microservice issues by providing deep visibility into request parameters, schemas, and errors. Stop wasting time digging through logs."
           />
-          <Meta property="og:image" content="/og.png" />
+          <Meta
+            property="og:image"
+            content="https://spotter-rust.vercel.app/og.png"
+          /> */}
+          <Title>
+            Spotter: Gain Deep Visibility and Control Over Your REST APIs
+          </Title>
+          <Meta
+            name="description"
+            content="Spotter helps engineers quickly debug and troubleshoot microservice issues by providing deep visibility into request parameters, schemas, and errors. Stop wasting time digging through logs."
+          />
+
+          {/* Open Graph / Facebook Meta Tags */}
+          <Meta property="og:url" content="https://spotter-rust.vercel.app/" />
+          <Meta property="og:type" content="website" />
+          <Meta
+            property="og:title"
+            content="Spotter: Gain Deep Visibility and Control Over Your REST APIs"
+          />
+          <Meta
+            property="og:description"
+            content="Spotter helps engineers quickly debug and troubleshoot microservice issues by providing deep visibility into request parameters, schemas, and errors. Stop wasting time digging through logs."
+          />
+          <Meta
+            property="og:image"
+            content="https://opengraph.b-cdn.net/production/images/8d2e20de-d11d-4447-80da-2238b5461814.png?token=tj4OmcGwjOGUNuldbt27dG0UAkUmfVuInKaSLm1GVGY&height=628&width=1200&expires=33270737597"
+          />
+
+          {/* Twitter Meta Tags */}
+          <Meta name="twitter:card" content="summary_large_image" />
+          <Meta property="twitter:domain" content="spotter-rust.vercel.app" />
+          <Meta
+            property="twitter:url"
+            content="https://spotter-rust.vercel.app/"
+          />
+          <Meta
+            name="twitter:title"
+            content="Spotter: Gain Deep Visibility and Control Over Your REST APIs"
+          />
+          <Meta
+            name="twitter:description"
+            content="Spotter helps engineers quickly debug and troubleshoot microservice issues by providing deep visibility into request parameters, schemas, and errors. Stop wasting time digging through logs."
+          />
+          <Meta
+            name="twitter:image"
+            content="https://opengraph.b-cdn.net/production/images/8d2e20de-d11d-4447-80da-2238b5461814.png?token=tj4OmcGwjOGUNuldbt27dG0UAkUmfVuInKaSLm1GVGY&height=628&width=1200&expires=33270737597"
+          />
           <Suspense>{props.children}</Suspense>
         </MetaProvider>
       )}
