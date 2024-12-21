@@ -209,32 +209,14 @@ export default function Component() {
                         </TabsList>
                         <TabsContent value="req:params" class="mt-2">
                           <div class="w-full relative h-full">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              class="absolute top-2 right-2 size-7"
-                              onClick={() => {
-                                setCopyValue(
-                                  JSON.stringify(
-                                    issue().request.params,
-                                    null,
-                                    3
-                                  )
-                                );
-                              }}
-                            >
-                              <Copy class="size-4" />
-                            </Button>
-                            <Suspense fallback={<div>Loading</div>}>
-                              <CodeBlock
-                                code={JSON.stringify(
-                                  issue().request.params,
-                                  null,
-                                  3
-                                )}
-                                lang="json"
-                              />
-                            </Suspense>
+                            <CodeBlock
+                              code={JSON.stringify(
+                                issue().request.params,
+                                null,
+                                3
+                              )}
+                              lang="json"
+                            />
                           </div>
                         </TabsContent>
                         <TabsContent value="req:query" class="mt-2">
@@ -361,62 +343,26 @@ export default function Component() {
                         </TabsList>
                         <TabsContent value="params" class="mt-2">
                           <div class="w-full relative h-full">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              class="absolute top-2 right-2 size-7"
-                              onClick={() => {
-                                setCopyValue(
-                                  JSON.stringify(
-                                    issue().response?.params || {},
-                                    null,
-                                    3
-                                  )
-                                );
-                              }}
-                            >
-                              <Copy class="size-4" />
-                            </Button>
-                            <Suspense fallback={<div>Loading</div>}>
-                              <CodeBlock
-                                code={JSON.stringify(
-                                  issue().response?.params || {},
-                                  null,
-                                  3
-                                )}
-                                lang="json"
-                              />
-                            </Suspense>
+                            <CodeBlock
+                              code={JSON.stringify(
+                                issue().response?.params || {},
+                                null,
+                                3
+                              )}
+                              lang="json"
+                            />
                           </div>
                         </TabsContent>
                         <TabsContent value="headers" class="mt-2">
                           <div class="w-full relative h-full">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              class="absolute top-2 right-2 size-7"
-                              onClick={() => {
-                                setCopyValue(
-                                  JSON.stringify(
-                                    issue().response?.headers || {},
-                                    null,
-                                    3
-                                  )
-                                );
-                              }}
-                            >
-                              <Copy class="size-4" />
-                            </Button>
-                            <Suspense fallback={<div>Loading</div>}>
-                              <CodeBlock
-                                code={JSON.stringify(
-                                  issue().response?.headers || {},
-                                  null,
-                                  3
-                                )}
-                                lang="json"
-                              />
-                            </Suspense>
+                            <CodeBlock
+                              code={JSON.stringify(
+                                issue().response?.headers || {},
+                                null,
+                                3
+                              )}
+                              lang="json"
+                            />
                           </div>
                         </TabsContent>
                       </Tabs>
@@ -451,27 +397,13 @@ export default function Component() {
                           >
                             {(requestSchema) => (
                               <div class="w-full relative h-full">
-                                <Button
-                                  variant="outline"
-                                  size="icon"
-                                  class="absolute top-2 right-2 size-7"
-                                  onClick={() => {
-                                    setCopyValue(
-                                      JSON.stringify(requestSchema(), null, 3)
-                                    );
-                                  }}
-                                >
-                                  <Copy class="size-4" />
-                                </Button>
-                                <Suspense fallback={<div>Loading</div>}>
-                                  <div class="font-mono text-xs">
-                                    <CodeBlock
-                                      code={requestSchema()}
-                                      lang="javascript"
-                                      class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
-                                    />
-                                  </div>
-                                </Suspense>
+                                <div class="font-mono text-xs">
+                                  <CodeBlock
+                                    code={requestSchema()}
+                                    lang="javascript"
+                                    class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
+                                  />
+                                </div>
                               </div>
                             )}
                           </Show>
@@ -485,25 +417,11 @@ export default function Component() {
                           >
                             {(responseSchema) => (
                               <div class="w-full relative h-full">
-                                <Button
-                                  variant="outline"
-                                  size="icon"
-                                  class="absolute top-2 right-2 size-7"
-                                  onClick={() => {
-                                    setCopyValue(
-                                      JSON.stringify(responseSchema(), null, 3)
-                                    );
-                                  }}
-                                >
-                                  <Copy class="size-4" />
-                                </Button>
-                                <Suspense fallback={<div>Loading</div>}>
-                                  <CodeBlock
-                                    code={responseSchema()}
-                                    class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
-                                    lang="javascript"
-                                  />
-                                </Suspense>
+                                <CodeBlock
+                                  code={responseSchema()}
+                                  class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
+                                  lang="javascript"
+                                />
                               </div>
                             )}
                           </Show>

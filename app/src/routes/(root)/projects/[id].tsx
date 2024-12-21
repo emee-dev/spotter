@@ -179,7 +179,9 @@ export const GET = withSpotter(async (event: APIEvent) => {
 
 export default function ProjectsDashboard() {
   const params = useParams<{ id: string }>();
-  const getProjectStats = createAsync(() => projectStats());
+  const getProjectStats = createAsync(() => projectStats(), {
+    deferStream: true,
+  });
 
   const [page, setPage] = createSignal(1);
   const [endpointPage, setEndpointPage] = createSignal(1);
@@ -281,6 +283,17 @@ export default function ProjectsDashboard() {
                   </div>
                 </CardContent>
               </Card>
+              {/* <Card class="w-full  ">
+                <CardHeader class="flex space-y-0 pb-2">
+                  <CardTitle class="text-lg font-semibold">
+                    Credential
+                  </CardTitle>
+                  <CardDescription class="text-base">
+                    Project id.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent></CardContent>
+              </Card> */}
               <Card class="w-full  ">
                 <CardHeader class="flex space-y-0 pb-2">
                   <CardTitle class="text-lg font-semibold">Usage</CardTitle>
@@ -290,19 +303,28 @@ export default function ProjectsDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div class="w-full relative h-full">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      class="absolute top-2 right-2 size-7"
-                      onClick={() => {
-                        setCopyValue(code);
-                      }}
-                    >
-                      <Copy class="size-4" />
-                    </Button>
                     <Suspense fallback={<div>Loading</div>}>
                       <CodeBlock
-                        code={code}
+                        code={`
+// Initialize SDK in src/app.tsx
+import { Spotter } from "@spotter.dev/solidstart";
+
+Spotter.init({
+  apikey: process.env.SPOTTER_API_KEY,
+  projectId: "${params.id}",
+});
+
+
+// Set up API handler in api/index.ts
+import type { APIEvent } from "@solidjs/start/server";
+import { withSpotter } from "@spotter.dev/solidstart";
+
+export const GET = withSpotter(async (event: APIEvent) => {
+  console.log("Server root is good.");
+  return Response.json({ message: "Hello" });
+});
+
+`}
                         lang="javascript"
                         // class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
                       />
