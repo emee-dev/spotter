@@ -68,37 +68,27 @@ const animationVariants = {
   },
 };
 
-/* 
-default props
-{
-  animationStyle = "from-center",
-  videoSrc,
-  thumbnailSrc,
-  thumbnailAlt = "Video thumbnail",
-  className,
-}
-
-*/
-
-export default function HeroImageDialog({
-  animationStyle = "from-center",
-  imageSrc,
-  thumbnailSrc,
-  thumbnailAlt = "Image thumbnail",
-  className,
-}: HeroImageProps) {
+// export default function HeroImageDialog({
+//   animationStyle = "from-center",
+//   imageSrc,
+//   thumbnailSrc,
+//   thumbnailAlt = "Image thumbnail",
+//   className,
+// }: HeroImageProps) {
+export default function HeroImageDialog(props: HeroImageProps) {
   const [isImageOpen, setIsImageOpen] = createSignal(false);
-  const selectedAnimation = animationVariants[animationStyle];
+  const selectedAnimation =
+    animationVariants[props.animationStyle || "from-center"];
 
   return (
-    <div class={cn("relative", className)}>
+    <div class={cn("relative", props.className)}>
       <div
         class="relative cursor-pointer group rounded-md p-2 ring-1 ring-slate-200/50 dark:bg-gray-900/70 dark:ring-white/10 backdrop-blur-md"
         onClick={() => setIsImageOpen(true)}
       >
         <img
           src={ThumbnailImage}
-          alt={thumbnailAlt}
+          alt={props.thumbnailAlt || "Image thumbnail"}
           width={1920}
           height={1080}
           class="transition-all duration-200 group-hover:brightness-[0.8] ease-out rounded-md border"
@@ -133,11 +123,22 @@ export default function HeroImageDialog({
                 <XIcon class="size-5" />
               </button>
               <div class="size-full border-2 border-white rounded-2xl overflow-hidden isolate z-[1] relative">
-                <img
+                {/* <img
                   src={imageSrc}
                   alt="Full-size image"
                   class="size-full rounded-2xl"
-                />
+                /> */}
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/eG0VnvaQTsU?si=RY2zqqkP9V22NtGs"
+                  title="YouTube video player"
+                  // frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  class="size-full rounded-2xl"
+                ></iframe>
               </div>
             </div>
           </div>

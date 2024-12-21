@@ -33,7 +33,7 @@ export const route = {
 };
 
 function HeroPill() {
-  const stars = createAsync(() => getGithubStats(), {deferStream: true});
+  const stars = createAsync(() => getGithubStats(), { deferStream: true });
 
   return (
     <div class="flex items-center">
@@ -74,40 +74,27 @@ function HeroPill() {
 function HeroTitles() {
   return (
     <div class="flex w-full max-w-2xl flex-col space-y-4 overflow-hidden pt-8">
-      <h1 class="text-center text-4xl font-medium leading-tight text-foreground sm:text-5xl md:text-6xl">
-        <For each={["Build", "your", "APIs", "Faster"]}>
+      <h1 class="text-center text-4xl font-medium leading-tight text-foreground sm:text-5xl font-inter">
+        {/* <For each={["Build", "your", "APIs", "Faster"]}> */}
+        <For
+          each={[
+            "Find and fix",
+            "production issues before",
+            "ur customers do.",
+          ]}
+        >
           {(text) => <span class="inline-block px-1 md:px-2">{text}</span>}
         </For>
       </h1>
       <p class="mx-auto max-w-xl text-center leading-7 text-muted-foreground">
-        {/* Create forms with */}
-        Get engineering,{" "}
-        <span
-          /*     href="https://ui.shadcn.com/"
-          target="_blank" */
-          class="hover:underline cursor-pointer"
-        >
-          {/* Shadcn */}
-          product,{" "}
-        </span>
-        <span
-          // href="https://react-hook-form.com/"
-          // target="_blank"
-          class="hover:underline cursor-pointer"
-        >
-          {/* react-hook-form */}
-          QA
+        Helps engineering teams,{" "}
+        <span class="hover:underline cursor-pointer">quickly debug and, </span>
+        <span class="hover:underline cursor-pointer">
+          troubleshoot microservice issues
         </span>{" "}
-        {/* and */}
-        and growth{" "}
-        <span
-          /* href="https://zod.dev/" target="_blank" */ class="hover:underline cursor-pointer"
-        >
-          {/* zod */}
-          insights
-        </span>{" "}
-        {/* within minutes. */}
-        about your API.
+        by providing{" "}
+        <span class="hover:underline cursor-pointer">observability</span> for
+        your API.
       </p>
     </div>
   );
@@ -143,7 +130,8 @@ function HeroImage() {
       /> */}
       <HeroImageDialog
         animationStyle="from-center"
-        imageSrc="https://www.youtube.com/embed/25IzTkU3En4"
+        // imageSrc="https://www.youtube.com/embed/25IzTkU3En4"
+        imageSrc="https://youtu.be/eG0VnvaQTsU?si=uiqsevC2kOPYkdLe"
         thumbnailSrc="/home.png"
         thumbnailAlt="Thumbnail"
         className="border rounded-lg shadow-lg max-w-screen-lg mt-16"
