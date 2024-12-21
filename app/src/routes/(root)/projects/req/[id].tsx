@@ -499,13 +499,9 @@ export default function Component() {
                                 </Button>
                                 <Suspense fallback={<div>Loading</div>}>
                                   <CodeBlock
-                                    code={JSON.stringify(
-                                      responseSchema(),
-                                      null,
-                                      3
-                                    )}
+                                    code={responseSchema()}
                                     class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
-                                    lang="json"
+                                    lang="javascript"
                                   />
                                 </Suspense>
                               </div>

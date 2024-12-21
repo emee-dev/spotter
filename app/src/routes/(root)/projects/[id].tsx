@@ -77,7 +77,7 @@ const statsIcons = {
 };
 
 const projectStats = query(async () => {
-  revalidate(projectStats.key);
+  // revalidate(projectStats.key);
   const params = useParams<{ id: string }>();
 
   const data = await getProjectStatsById({ projectId: params.id });
@@ -233,25 +233,14 @@ export default function ProjectsDashboard() {
   );
 
   return (
-    <ErrorBoundary fallback={(err, reset) => <ErrorMessage />}>
+    // <ErrorBoundary fallback={(err, reset) => <ErrorMessage />}>
+    <ErrorBoundary fallback={(err, reset) => <>{err.message}</>}>
       <div class="flex-1 overflow-auto p-4 space-y-4">
         <Tabs defaultValue="overview" class="space-y-4">
           <TabsList>
             <For each={["Overview", "Requests", "Endpoints", "Settings"]}>
               {(item) => (
-                <TabsTrigger
-                  value={item.toLowerCase()}
-                  class="text-sm"
-                  // onClick={() => {
-                  //   if (item === "Requests") {
-                  //     console.log("requests", requests());
-                  //   }
-
-                  //   if (item === "Endpoints") {
-                  //     console.log("endpoints", endpoints());
-                  //   }
-                  // }}
-                >
+                <TabsTrigger value={item.toLowerCase()} class="text-sm">
                   {item}
                 </TabsTrigger>
               )}

@@ -30,12 +30,12 @@ type Tabs = {
 };
 
 const tabs: Tabs[] = [
-  {
-    name: "Roadmap",
-    href: "/roadmap",
-    variant: "arrow",
-    isNewTab: true,
-  },
+  // {
+  //   name: "Roadmap",
+  //   href: "/roadmap",
+  //   variant: "arrow",
+  //   isNewTab: true,
+  // },
   { name: "Pricing", href: "/pricing", variant: "link" },
   {
     name: "Continue",
