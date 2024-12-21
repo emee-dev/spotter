@@ -27,7 +27,7 @@ export default function UnauthorizedAccess() {
         </CardHeader>
         <CardContent class="text-center">
           <p class="text-muted-foreground">
-            Please log in with an authorized account or return to the homepage.
+            Please log in or return to the homepage.
           </p>
         </CardContent>
         <CardFooter class="flex flex-col space-y-3">

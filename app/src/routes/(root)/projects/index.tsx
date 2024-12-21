@@ -1,6 +1,6 @@
 import { createAsync, query } from "@solidjs/router";
 import { Globe, MoreVertical } from "lucide-solid";
-import { ErrorBoundary, For } from "solid-js";
+import { createResource, ErrorBoundary, For } from "solid-js";
 import ErrorMessage from "~/components/error";
 import { Button } from "~/components/ui/button";
 import {
@@ -21,20 +21,17 @@ const listProjects = query(async () => {
   return response;
 }, "listProjects");
 
-export const route = {
-  preload: () => listProjects(),
-};
+// export const route = {
+//   preload: () => listProjects(),
+// };
 
 const Projects = () => {
-  const projects = createAsync(() => listProjects());
+  // const projects = createAsync(() => listProjects(), { deferStream: true });
+  const [projects] = createResource(async () => await listProjects());
 
   return (
     <ErrorBoundary
-      fallback={(msg, reload) => (
-        <div class="flex items-center justify-center">
-          <ErrorMessage />
-        </div>
-      )}
+      fallback={(err, reset) => <ErrorMessage err={err} reset={reset} />}
     >
       <div class="flex-1 overflow-auto p-4 space-y-4">
         <For
@@ -74,10 +71,10 @@ function ProjectCard(props: Projects) {
           <CardTitle class="text-sm font-medium">
             {props.projectLabel}
           </CardTitle>
-          <Button variant="ghost" size="icon">
+          {/* <Button variant="ghost" size="icon">
             <MoreVertical class="w-4 h-4" />
             <span class="sr-only">More options</span>
-          </Button>
+          </Button> */}
         </CardHeader>
         <CardContent>
           <div class="text-sm text-muted-foreground overflow-hidden overflow-ellipsis whitespace-nowrap">

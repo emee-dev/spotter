@@ -1,10 +1,4 @@
-import {
-  createAsync,
-  query,
-  revalidate,
-  useParams,
-  useSubmission,
-} from "@solidjs/router";
+import { query, useParams, useSubmission } from "@solidjs/router";
 import { Box, Copy, Loader, Radio } from "lucide-solid";
 import {
   createEffect,
@@ -14,7 +8,6 @@ import {
   For,
   on,
   Show,
-  Suspense,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import CodeBlock from "~/components/code-block";
@@ -156,32 +149,12 @@ function SettingsTabContent() {
   );
 }
 
-const code = `
-// Initialize SDK in src/app.tsx
-import { Spotter } from "@spotter.dev/solidstart";
-
-Spotter.init({
-  apikey: process.env.SPOTTER_API_KEY,
-  projectId: process.env.SPOTTER_PROJECT_ID,
-});
-
-
-// Set up API handler in api/index.ts
-import type { APIEvent } from "@solidjs/start/server";
-import { withSpotter } from "@spotter.dev/solidstart";
-
-export const GET = withSpotter(async (event: APIEvent) => {
-  console.log("Server root is good.");
-  return Response.json({ message: "Hello" });
-});
-
-`;
-
 export default function ProjectsDashboard() {
   const params = useParams<{ id: string }>();
-  const getProjectStats = createAsync(() => projectStats(), {
-    deferStream: true,
-  });
+  // const getProjectStats = createAsync(() => projectStats(), {
+  //   // deferStream: true,
+  // });
+  const [getProjectStats] = createResource(() => projectStats());
 
   const [page, setPage] = createSignal(1);
   const [endpointPage, setEndpointPage] = createSignal(1);
@@ -235,8 +208,9 @@ export default function ProjectsDashboard() {
   );
 
   return (
-    // <ErrorBoundary fallback={(err, reset) => <ErrorMessage />}>
-    <ErrorBoundary fallback={(err, reset) => <>{err.message}</>}>
+    <ErrorBoundary
+      fallback={(err, reset) => <ErrorMessage err={err} reset={reset} />}
+    >
       <div class="flex-1 overflow-auto p-4 space-y-4">
         <Tabs defaultValue="overview" class="space-y-4">
           <TabsList>
@@ -283,17 +257,6 @@ export default function ProjectsDashboard() {
                   </div>
                 </CardContent>
               </Card>
-              {/* <Card class="w-full  ">
-                <CardHeader class="flex space-y-0 pb-2">
-                  <CardTitle class="text-lg font-semibold">
-                    Credential
-                  </CardTitle>
-                  <CardDescription class="text-base">
-                    Project id.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent></CardContent>
-              </Card> */}
               <Card class="w-full  ">
                 <CardHeader class="flex space-y-0 pb-2">
                   <CardTitle class="text-lg font-semibold">Usage</CardTitle>
@@ -303,9 +266,8 @@ export default function ProjectsDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div class="w-full relative h-full">
-                    <Suspense fallback={<div>Loading</div>}>
-                      <CodeBlock
-                        code={`
+                    <CodeBlock
+                      code={`
 // Initialize SDK in src/app.tsx
 import { Spotter } from "@spotter.dev/solidstart";
 
@@ -325,10 +287,9 @@ export const GET = withSpotter(async (event: APIEvent) => {
 });
 
 `}
-                        lang="javascript"
-                        // class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
-                      />
-                    </Suspense>
+                      lang="javascript"
+                      // class="[&>*]:overflow-scroll sm:[&>*]:overflow-auto"
+                    />
                   </div>
                 </CardContent>
               </Card>

@@ -15,7 +15,7 @@ const navItems = [
   {
     label: "Other",
     icon: BellDot,
-    path: "/other",
+    path: "#",
   },
 ];
 

@@ -1,6 +1,6 @@
 import { createAsync, redirect, RouteSectionProps } from "@solidjs/router";
 import { Menu, Plus } from "lucide-solid";
-import { createSignal, Show, Suspense } from "solid-js";
+import { createSignal, Suspense } from "solid-js";
 import { SpinnerLoader } from "~/components/loaders";
 import Sidebar from "~/components/sidebar";
 import { Button } from "~/components/ui/button";
@@ -15,12 +15,12 @@ export const route = {
 
 export default function ProjectLayout(props: RouteSectionProps) {
   const user = createAsync(() => getLoggedUser(), { deferStream: true });
+  const [sidebarOpen, setSidebarOpen] = createSignal(false);
+  // const [user] = createResource(() => getLoggedUser());
 
-  if (!user) {
+  if (!user()) {
     return redirect("/");
   }
-
-  const [sidebarOpen, setSidebarOpen] = createSignal(false);
 
   return (
     <div class="flex h-screen bg-muted">
@@ -31,6 +31,7 @@ export default function ProjectLayout(props: RouteSectionProps) {
         <Header setSidebarOpen={setSidebarOpen} />
         <Separator orientation="horizontal" />
         <Suspense fallback={<SpinnerLoader />}>{props.children}</Suspense>
+        {/* {props.children} */}
       </div>
     </div>
   );

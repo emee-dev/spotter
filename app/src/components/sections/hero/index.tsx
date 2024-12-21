@@ -33,7 +33,7 @@ export const route = {
 };
 
 function HeroPill() {
-  const stars = createAsync(() => getGithubStats());
+  const stars = createAsync(() => getGithubStats(), {deferStream: true});
 
   return (
     <div class="flex items-center">

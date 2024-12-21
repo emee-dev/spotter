@@ -1,6 +1,6 @@
-import { createAsync, query, revalidate, useParams } from "@solidjs/router";
-import { AlertCircle, Clock, Copy, Server, Share2 } from "lucide-solid";
-import { ErrorBoundary, For, Show, Suspense } from "solid-js";
+import { query, useParams } from "@solidjs/router";
+import { AlertCircle, Clock, Server, Share2 } from "lucide-solid";
+import { createResource, ErrorBoundary, For, Show, Suspense } from "solid-js";
 import CodeBlock from "~/components/code-block";
 import { SpinnerLoader } from "~/components/loaders";
 import { Payload } from "~/components/request-cards";
@@ -8,7 +8,6 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"; // Choose a style or customize
-import { createCopy } from "~/hooks";
 import { getRequestById } from "~/lib/db";
 
 type XataRequestInfo = {
@@ -29,7 +28,7 @@ type XataRequestInfo = {
 
 const getRequestInfo = query(async () => {
   // NOTE: this helps remove any sort of redundant cache error
-  revalidate(getRequestInfo.key);
+  // revalidate(getRequestInfo.key);
 
   const params = useParams<{ id: string }>();
 
@@ -82,8 +81,10 @@ function getStatusMessage(status: number): StatusResponse {
 }
 
 export default function Component() {
-  const getIssue = createAsync(() => getRequestInfo(), { deferStream: true });
-  const [_, setCopyValue] = createCopy();
+  // const getIssue = createAsync(() => getRequestInfo(), { deferStream: true });
+  const [getIssue] = createResource(() => getRequestInfo(), {
+    deferStream: true,
+  });
 
   return (
     <ErrorBoundary
@@ -221,51 +222,22 @@ export default function Component() {
                         </TabsContent>
                         <TabsContent value="req:query" class="mt-2">
                           <div class="w-full relative h-full text-sm font-geistmono">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              class="absolute top-2 right-2 size-7"
-                              onClick={() => {
-                                setCopyValue(
-                                  JSON.stringify(issue().request.query, null, 3)
-                                );
-                              }}
-                            >
-                              <Copy class="size-4" />
-                            </Button>
-
-                            <Suspense fallback={<div>Loading</div>}>
-                              <CodeBlock
-                                code={JSON.stringify(
-                                  issue().request.query,
-                                  null,
-                                  3
-                                )}
-                                lang="json"
-                              />
-                            </Suspense>
+                            <CodeBlock
+                              code={JSON.stringify(
+                                issue().request.query,
+                                null,
+                                3
+                              )}
+                              lang="json"
+                            />
                           </div>
                         </TabsContent>
                         <TabsContent value="req:error" class="mt-2">
                           <div class="w-full relative h-full">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              class="absolute top-2 right-2 size-7"
-                              onClick={() => {
-                                setCopyValue(
-                                  JSON.stringify(issue().error, null, 3)
-                                );
-                              }}
-                            >
-                              <Copy class="size-4" />
-                            </Button>
-                            <Suspense fallback={<div>Loading</div>}>
-                              <CodeBlock
-                                code={JSON.stringify(issue().error, null, 3)}
-                                lang="json"
-                              />
-                            </Suspense>
+                            <CodeBlock
+                              code={JSON.stringify(issue().error, null, 3)}
+                              lang="json"
+                            />
                           </div>
                         </TabsContent>
                         <TabsContent value="req:stacktrace" class="mt-2">
@@ -465,6 +437,7 @@ function ErrorMessage(props: { err?: Error; reset: () => void }) {
         <p class="mt-4 text-muted-foreground">
           {props.err?.message || "An unexpected error has occurred."}
           {/* {"An unexpected error has occurred."} */}
+          {console.log(props.err)!}
         </p>
         <div class="mt-6">
           <Button
